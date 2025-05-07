@@ -2,4 +2,11 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="light_sea">#ABBCAA</color>
+    <color name="dark_sea">#6F9E95</color>
+    <color name="dark_sea_spe">#6D9C93</color>
+    <color name="dark_cloud">#1D2E4C</color>
+    <color name="mid_cloud">#4E5F7D</color>
+    <color name="light_cloud">#8891A3</color>
+    <color name="warm_light">#F4F5ED</color>
 </resources>
