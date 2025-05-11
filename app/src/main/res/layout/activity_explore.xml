@@ -5,27 +5,25 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/warm_light"
-    tools:context=".activity.home.HomeActivity">
+    tools:context=".activity.explore.ExploreActivity">
 
     <ScrollView
-        android:id="@+id/homeView"
+        android:id="@+id/exploreView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
-        android:contentDescription="@string/homeview_content_description"
+        android:contentDescription="@string/exploreview_content_description"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/homeViewRender"
+            android:id="@+id/exploreViewRender"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
-
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

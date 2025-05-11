@@ -59,4 +59,8 @@
     <string name="create_story">Tạo truyện mới</string>
     <string name="your_story">Truyện của bạn</string>
     <string name="homeview_content_description">Home View Content</string>
+    <string name="libraryview_content_description">Library View Content</string>
+    <string name="exploreview_content_description">Explore View Content</string>
+    <string name="profileview_content_description">Profile View Content</string>
+
 </resources>
