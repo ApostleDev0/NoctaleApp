@@ -5,12 +5,15 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/warm_light"
     tools:context=".activity.home.HomeActivity">
 
     <ScrollView
         android:id="@+id/homeView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:contentDescription="@string/homeview_content_description"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -25,12 +28,14 @@
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/warm_light"
+        app:elevation="8dp"
+        app:itemIconTint="@drawable/icon_select"
+        app:itemPaddingBottom="0dp"
+        app:itemPaddingTop="0dp"
+        app:labelVisibilityMode="unlabeled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:elevation="30dp"
-        app:itemIconSize="30dp"
-        app:itemIconTint="@drawable/icon_select"
-        app:labelVisibilityMode="unlabeled"
-        app:menu="@menu/nav_menu"/>
+        app:menu="@menu/nav_menu" />
 </androidx.constraintlayout.widget.ConstraintLayout>

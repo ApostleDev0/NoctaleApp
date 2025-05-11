@@ -58,5 +58,5 @@
     <string name="share">Chia sẻ</string>
     <string name="create_story">Tạo truyện mới</string>
     <string name="your_story">Truyện của bạn</string>
-
+    <string name="homeview_content_description">Home View Content</string>
 </resources>
