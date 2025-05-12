@@ -13,13 +13,192 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="25dp"
-            android:text="@string/home"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:id="@+id/welcomeUser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="40dp"
+            android:fontFamily="@font/proxima_nova_extrabold"
+            android:text="@string/welcome_home"
+            android:textColor="@color/dark_cloud"
+            android:textSize="25sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:fontFamily="@font/proxima_nova_regular"
+            android:text="@string/welcome_app"
+            android:textColor="@color/winter_green"
+            android:textSize="15sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/welcomeUser" />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="333dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:background="@color/warm_light"
+            app:cardBackgroundColor="@color/warm_light"
+            app:cardCornerRadius="13dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="180dp">
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="15dp"
+                    android:fontFamily="@font/proxima_nova_extrabold"
+                    android:text="@string/on_reading"
+                    android:textColor="@color/dark_cloud"
+                    android:textSize="15sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="10dp"
+                    android:elevation="15dp"
+                    app:cardBackgroundColor="@android:color/transparent"
+                    app:cardCornerRadius="0dp"
+                    app:cardElevation="15dp"
+                    app:cardMaxElevation="15dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView2">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:id="@+id/imageView6"
+                            android:layout_width="85dp"
+                            android:layout_height="122dp"
+                            android:layout_marginStart="2dp"
+                            android:contentDescription="@string/on_reading"
+                            android:src="@drawable/ic_bookcover"
+                            app:layout_constraintDimensionRatio="13:19"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <ImageView
+                            android:id="@+id/bookOnReadImg"
+                            android:layout_width="80dp"
+                            android:layout_height="117dp"
+                            android:layout_marginTop="2dp"
+                            android:layout_marginEnd="1dp"
+                            android:layout_marginBottom="2dp"
+                            android:contentDescription="@string/on_reading"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/bookcover_template"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintDimensionRatio="13:19"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:id="@+id/bookOnReadName"
+                    android:layout_width="210dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="15dp"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/proxima_nova_bold"
+                    android:maxLines="2"
+                    android:text="@string/book_name"
+                    android:textColor="@color/winter_green"
+                    android:textSize="15sp"
+                    app:layout_constraintStart_toEndOf="@+id/cardView2"
+                    app:layout_constraintTop_toBottomOf="@+id/textView2"
+                    app:lineHeight="16sp" />
+
+                <TextView
+                    android:id="@+id/bookOnReadAuthor"
+                    android:layout_width="210dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="4dp"
+                    android:fontFamily="@font/proxima_nova_regular"
+                    android:text="@string/author"
+                    android:textColor="@color/winter_green"
+                    android:textSize="11sp"
+                    app:layout_constraintStart_toEndOf="@+id/cardView2"
+                    app:layout_constraintTop_toBottomOf="@+id/bookOnReadName" />
+
+                <TextView
+                    android:id="@+id/textView5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="4dp"
+                    android:fontFamily="@font/proxima_nova_semibold"
+                    android:text="@string/process"
+                    android:textColor="@color/winter_green"
+                    android:textSize="11sp"
+                    app:layout_constraintStart_toEndOf="@+id/cardView2"
+                    app:layout_constraintTop_toBottomOf="@+id/bookOnReadAuthor" />
+
+                <TextView
+                    android:id="@+id/textView6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="7dp"
+                    android:fontFamily="@font/proxima_nova_semibold"
+                    android:text="@string/process_onread"
+                    android:textColor="@color/winter_green"
+                    android:textSize="11sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/bookOnReadAuthor" />
+
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="210dp"
+                    android:layout_height="6dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="4dp"
+                    android:max="100"
+                    android:progress="50"
+                    android:progressDrawable="@drawable/process_bar"
+                    app:layout_constraintStart_toEndOf="@+id/cardView2"
+                    app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/button"
+                    android:layout_width="210dp"
+                    android:layout_height="35dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/button_primary"
+                    android:backgroundTint="@null"
+                    android:fontFamily="@font/proxima_nova_extrabold"
+                    android:text="@string/continue_read"
+                    android:textColor="@color/dark_cloud"
+                    android:textColorLink="@color/dark_cloud"
+                    android:textSize="11sp"
+                    app:layout_constraintStart_toEndOf="@+id/cardView2"
+                    app:layout_constraintTop_toBottomOf="@+id/progressBar" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

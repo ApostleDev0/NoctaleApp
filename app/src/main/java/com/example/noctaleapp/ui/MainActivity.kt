@@ -29,10 +29,8 @@ class MainActivity : AppCompatActivity() {
                 R.id.nav_profile -> replaceViewFragment(ProfileFragment())
 
                 else -> {
-
                 }
             }
-
             true
         }
 

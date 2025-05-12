@@ -62,7 +62,10 @@
     <string name="libraryview_content_description">Library View Content</string>
     <string name="exploreview_content_description">Explore View Content</string>
     <string name="profileview_content_description">Profile View Content</string>
+    <string name="process">Tiến trình</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-
+    <string name="welcome_home">Hi,</string>
+    <string name="book_name">Demo book name</string>
+    <string name="process_onread">50%</string>
 </resources>
