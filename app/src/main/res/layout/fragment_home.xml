@@ -38,6 +38,7 @@
             app:layout_constraintTop_toBottomOf="@+id/welcomeUser" />
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/cardView3"
             android:layout_width="333dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
@@ -181,12 +182,12 @@
                     app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/button"
+                    android:id="@+id/continueReadingBtn"
                     android:layout_width="210dp"
                     android:layout_height="35dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="8dp"
-                    android:background="@drawable/button_primary"
+                    android:background="@drawable/primary_button"
                     android:backgroundTint="@null"
                     android:fontFamily="@font/proxima_nova_extrabold"
                     android:text="@string/continue_read"
@@ -199,6 +200,76 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="15dp"
+            android:fontFamily="@font/proxima_nova_extrabold"
+            android:text="@string/popular_category"
+            android:textColor="@color/dark_cloud"
+            android:textSize="15sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardView3" />
+
+        <HorizontalScrollView
+            android:id="@+id/horizontalScrollView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView7">
+
+            <LinearLayout
+                android:id="@+id/popularCategoryContent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/button3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="27dp"
+                    android:layout_marginEnd="5dp"
+                    android:background="@drawable/secondary_button"
+                    android:fontFamily="@font/proxima_nova_extrabold"
+                    android:text="@string/category"
+                    android:textAllCaps="false"
+                    android:textColor="@color/frost_white"
+                    android:textSize="11sp" />
+
+                <Button
+                    android:id="@+id/button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="27dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/secondary_button"
+                    android:fontFamily="@font/proxima_nova_extrabold"
+                    android:text="@string/category"
+                    android:textAllCaps="false"
+                    android:textColor="@color/frost_white"
+                    android:textSize="11sp" />
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView">
+
+            <LinearLayout
+                android:id="@+id/popularCategoryBook"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal" />
+        </HorizontalScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>
