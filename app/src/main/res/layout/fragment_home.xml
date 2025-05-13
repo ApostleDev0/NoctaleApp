@@ -45,6 +45,8 @@
             android:background="@color/warm_light"
             app:cardBackgroundColor="@color/warm_light"
             app:cardCornerRadius="13dp"
+            app:cardElevation="5dp"
+            app:cardMaxElevation="5dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView">
@@ -228,35 +230,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
-
-                <Button
-                    android:id="@+id/button3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="27dp"
-                    android:layout_marginEnd="5dp"
-                    android:background="@drawable/secondary_button"
-                    android:fontFamily="@font/proxima_nova_extrabold"
-                    android:text="@string/category"
-                    android:textAllCaps="false"
-                    android:textColor="@color/frost_white"
-                    android:textSize="11sp" />
-
-                <Button
-                    android:id="@+id/button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="27dp"
-                    android:layout_marginEnd="5dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/secondary_button"
-                    android:fontFamily="@font/proxima_nova_extrabold"
-                    android:text="@string/category"
-                    android:textAllCaps="false"
-                    android:textColor="@color/frost_white"
-                    android:textSize="11sp" />
             </LinearLayout>
         </HorizontalScrollView>
 
         <HorizontalScrollView
+            android:id="@+id/horizontalScrollView2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
@@ -267,9 +245,83 @@
             <LinearLayout
                 android:id="@+id/popularCategoryBook"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:orientation="horizontal" />
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:elevation="3dp"
+                    app:cardBackgroundColor="@color/warm_light"
+                    app:cardCornerRadius="6dp"
+                    app:cardElevation="3dp"
+                    app:cardMaxElevation="3dp">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="8dp">
+
+                        <ImageView
+                            android:id="@+id/imageView"
+                            android:layout_width="85dp"
+                            android:layout_height="0dp"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/bookcover_template"
+                            app:layout_constraintDimensionRatio="13:19"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/textView8"
+                            android:layout_width="110dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="3dp"
+                            android:ellipsize="end"
+                            android:fontFamily="@font/proxima_nova_bold"
+                            android:maxLines="2"
+                            android:text="@string/book_name"
+                            android:textColor="@color/dark_cloud"
+                            android:textSize="11sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/imageView"
+                            app:lineHeight="16dp" />
+
+                        <TextView
+                            android:id="@+id/textView9"
+                            android:layout_width="110dp"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:fontFamily="@font/proxima_nova_bold"
+                            android:maxLines="1"
+                            android:text="@string/author"
+                            android:textColor="@color/dark_cloud"
+                            android:textSize="9sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/textView8" />
+
+                        <RatingBar
+                            android:id="@+id/ratingBar"
+                            style="@style/Widget.AppCompat.RatingBar.Small"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:numStars="5"
+                            android:progressBackgroundTint="@color/star_dust"
+                            android:progressTint="@color/dark_sea"
+                            android:rating="3"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/textView9" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
         </HorizontalScrollView>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>
