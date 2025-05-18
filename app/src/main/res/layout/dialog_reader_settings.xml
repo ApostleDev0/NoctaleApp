@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="24dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/settings_title"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="16dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/settings_background_color" />
+    <LinearLayout
+        android:id="@+id/layoutBgColorOptions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="16dp">
+        <Button android:id="@+id/btnBgWhite" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Trắng"/>
+        <Button android:id="@+id/btnBgSepia" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Vàng nhạt"/>
+        <Button android:id="@+id/btnBgDark" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Tối"/>
+    </LinearLayout>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/settings_font_size"
+        android:layout_marginTop="8dp"/>
+    <SeekBar
+        android:id="@+id/seekBarFontSize"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:max="30"
+        android:min="12"
+        android:progress="18"
+        android:layout_marginBottom="16dp"/>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/settings_font_color"
+        android:layout_marginTop="8dp"/>
+    <LinearLayout
+        android:id="@+id/layoutTextColorOptions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="16dp">
+        <Button android:id="@+id/btnTextBlack" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Đen"/>
+        <Button android:id="@+id/btnTextGray" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Xám"/>
+        <Button android:id="@+id/btnTextWhite" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Trắng"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/buttonApplySettings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/settings_apply"
+        android:layout_marginTop="24dp"/>
+
+</LinearLayout>
