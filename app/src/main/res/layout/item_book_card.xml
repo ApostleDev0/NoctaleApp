@@ -17,7 +17,7 @@
         android:padding="8dp">
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/bookImage"
             android:layout_width="85dp"
             android:layout_height="0dp"
             android:contentDescription="@string/book_name"
@@ -29,7 +29,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textView8"
+            android:id="@+id/bookTitle"
             android:layout_width="110dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="3dp"
@@ -41,12 +41,12 @@
             android:textSize="11sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView"
+            app:layout_constraintTop_toBottomOf="@+id/bookImage"
             app:lineHeight="16dp"
             tools:ignore="TextSizeCheck" />
 
         <TextView
-            android:id="@+id/textView9"
+            android:id="@+id/bookAuthor"
             android:layout_width="110dp"
             android:layout_height="wrap_content"
             android:ellipsize="end"
@@ -57,11 +57,11 @@
             android:textSize="9sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView8"
+            app:layout_constraintTop_toBottomOf="@+id/bookTitle"
             tools:ignore="SmallSp" />
 
         <RatingBar
-            android:id="@+id/ratingBar"
+            android:id="@+id/bookRating"
             style="@style/Widget.AppCompat.RatingBar.Small"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -70,7 +70,7 @@
             android:progressTint="@color/dark_sea"
             android:rating="3"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView9" />
+            app:layout_constraintTop_toBottomOf="@+id/bookAuthor" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

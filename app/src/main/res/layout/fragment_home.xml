@@ -40,15 +40,18 @@
                 app:layout_constraintTop_toBottomOf="@+id/welcomeUser" />
 
             <ImageButton
-                android:id="@+id/imageButton2"
-                android:layout_width="47dp"
-                android:layout_height="30dp"
+                android:id="@+id/notificationButton"
+                android:layout_width="37dp"
+                android:layout_height="25dp"
                 android:layout_marginTop="40dp"
                 android:layout_marginEnd="32dp"
-                android:scaleType="centerCrop"
+                android:contentDescription="@string/notification"
+                android:padding="0dp"
+                android:scaleType="fitCenter"
                 android:src="@drawable/ic_notification"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="TouchTargetSizeCheck" />
 
             <ImageView
                 android:id="@+id/imageView2"
@@ -244,7 +247,7 @@
                 android:id="@+id/recyclerView2"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
+                android:layout_marginStart="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView7" />
@@ -253,7 +256,7 @@
                 android:id="@+id/recyclerView3"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
+                android:layout_marginStart="20dp"
                 android:layout_marginTop="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -273,9 +276,11 @@
                 app:layout_constraintTop_toBottomOf="@+id/recyclerView3" />
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/suggetsBook"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="5dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/textView4" />
