@@ -13,7 +13,9 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:fillViewport="true"
-        android:clipToPadding="false" android:paddingBottom="80dp"  app:layout_constraintTop_toTopOf="parent"
+        android:clipToPadding="false"
+        android:paddingBottom="80dp"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout_divider_social_login"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
@@ -36,7 +38,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="24dp"
                 android:adjustViewBounds="true"
-                android:contentDescription="logo fake"
+                android:contentDescription=""
                 app:srcCompat="@drawable/ic_user" />
 
             <TextView
@@ -44,17 +46,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
+                android:fontFamily="@font/proxima_nova_extrabold"
                 android:text="@string/welcome"
-                android:textAllCaps="true"
                 android:textColor="#333333"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/txtView_login"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
+                android:fontFamily="@font/proxima_nova_semibold"
                 android:text="@string/log_in"
                 android:textColor="#555555"
                 android:textSize="16sp" />
@@ -64,6 +66,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
+                android:fontFamily="@font/proxima_nova_extrabold"
                 android:text="@string/user_name"
                 android:textColor="#333333"
                 android:textSize="14sp"
@@ -85,7 +88,8 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/txtInput_username_login"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="48dp"
+                    android:fontFamily="@font/proxima_nova_bold"
                     android:hint="@string/user_name"
                     android:inputType="text"
                     android:padding="14dp"
@@ -97,6 +101,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
+                android:fontFamily="@font/proxima_nova_extrabold"
                 android:text="@string/password"
                 android:textColor="#333333"
                 android:textSize="14sp"
@@ -119,7 +124,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/txtInput_password_login"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="48dp"
                     android:hint="@string/password"
                     android:inputType="textPassword"
                     android:padding="14dp"
@@ -132,6 +137,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
                 android:layout_marginBottom="10dp"
+                android:fontFamily="@font/proxima_nova_extrabold"
                 android:padding="8dp"
                 android:text="@string/forget_password"
                 android:textColor="#007AFF"
@@ -163,6 +169,7 @@
                     android:id="@+id/txtView_no_account_login"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/proxima_nova_bold"
                     android:text="@string/no_account"
                     android:textColor="#555555"
                     android:textSize="14sp" />
@@ -225,6 +232,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="32dp"
+        android:fontFamily="@font/proxima_nova_extrabold"
         android:paddingTop="12dp"
         android:paddingBottom="12dp"
         android:text="@string/continue_google"
