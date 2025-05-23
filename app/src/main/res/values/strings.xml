@@ -7,7 +7,8 @@
     <string name="password">Mật khẩu</string>
     <string name="forget_password">Quên mật khẩu?</string>
     <string name="login">ĐĂNG NHẬP</string>
-    <string name="no_account">Chưa có tài khoản? Đăng ký ngay!</string>
+    <string name="no_account">Chưa có tài khoản?</string>
+    <string name="sign_up">Đăng ký ngay!</string>
     <string name="th_continue">Tiếp tục với</string>
     <string name="continue_google">Continue with Google</string>
     <string name="sign_in">ĐĂNG KÝ</string>
