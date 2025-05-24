@@ -32,14 +32,14 @@
 
             <ImageView
                 android:id="@+id/imgView_LogoD_login"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="289dp"
+                android:layout_height="281dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="24dp"
                 android:adjustViewBounds="true"
-                android:contentDescription=""
-                app:srcCompat="@drawable/ic_user" />
+                android:contentDescription="@string/logo_app"
+                app:srcCompat="@drawable/ic_noctale" />
 
             <TextView
                 android:id="@+id/txtView_greeting"

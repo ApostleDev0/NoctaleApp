@@ -10,13 +10,13 @@
 
     <ImageButton
         android:id="@+id/imgButton_back_signup"
-        android:layout_width="wrap_content"
-        android:layout_height="48dp"
+        android:layout_width="50dp"
+        android:layout_height="53dp"
         android:layout_marginTop="8dp"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:contentDescription="@string/sign_up"
         android:padding="16dp"
-        android:src=""
+        android:src="@drawable/ic_return"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:tint="#333333" />
