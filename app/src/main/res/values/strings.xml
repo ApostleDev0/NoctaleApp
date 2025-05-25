@@ -51,7 +51,7 @@
     <string name="chapter">Chương</string>
     <string name="language">Ngôn ngữ</string>
     <string name="rating">Đánh giá</string>
-    <string name="description">Mô tả</string>
+    <string name="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla eu diam at lectus suscipit pretium. Fusce tempor tristique libero, quis venenatis sem vehicula a. Vivamus ullamcorper lobortis purus, vel blandit dolor mollis nec. Nullam efficitur, est vel iaculis viverra, nunc nisi volutpat nisi, ac rhoncus neque justo vitae nunc. </string>
     <string name="comment">Bình luận</string>
     <string name="book_deatil">Chi tiết sách</string>
     <string name="delete">Xóa</string>
@@ -70,4 +70,5 @@
     <string name="welcome_home">Hi,</string>
     <string name="book_name">Demo book name</string>
     <string name="process_onread">50%</string>
+    <string name="x_of_book">x trong 25 truyện</string>
 </resources>
