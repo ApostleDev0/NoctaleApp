@@ -1,4 +1,4 @@
-package com.example.noctaleapp.ui.signup
+package com.example.noctaleapp.ui
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
