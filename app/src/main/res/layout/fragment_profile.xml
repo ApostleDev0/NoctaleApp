@@ -6,20 +6,144 @@
     android:layout_height="match_parent"
     android:background="@color/white">
 
-    <!-- TODO: Update blank fragment layout -->
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="25dp"
-            android:text="@string/profile"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_height="wrap_content">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/welcomeUser"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="40dp"
+                android:fontFamily="@font/proxima_nova_extrabold"
+                android:text="@string/profile"
+                android:textColor="@color/dark_cloud"
+                android:textSize="25sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
+            <ImageView
+                android:id="@+id/profileImage"
+                android:layout_width="86dp"
+                android:layout_height="86dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/welcomeUser"
+                tools:src="@tools:sample/avatars" />
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="6dp"
+                android:layout_height="25dp"
+                android:layout_marginTop="40dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_title_bar"
+                android:translationX="-2dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/profileName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:fontFamily="@font/proxima_nova_extrabold"
+                android:text="@string/author"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/profileImage"
+                app:layout_constraintTop_toBottomOf="@+id/welcomeUser" />
+
+            <TextView
+                android:id="@+id/userName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:fontFamily="@font/proxima_nova_regular"
+                android:text="@string/user_name"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/profileImage"
+                app:layout_constraintTop_toBottomOf="@+id/profileName" />
+
+            <TextView
+                android:id="@+id/profileDescription"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:ellipsize="end"
+                android:fontFamily="@font/proxima_nova_regular"
+                android:maxLines="3"
+                android:text="@string/description"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/profileImage"
+                app:layout_constraintTop_toBottomOf="@+id/userName" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/button"
+                android:layout_width="97dp"
+                android:layout_height="27dp"
+                android:layout_marginStart="26dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/border_button"
+                android:fontFamily="@font/proxima_nova_bold"
+                android:padding="5dp"
+                android:text="@string/edit"
+                android:textColor="@color/dark_cloud"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/profileImage"
+                tools:ignore="TouchTargetSizeCheck" />
+
+<!--            <androidx.recyclerview.widget.RecyclerView-->
+<!--                android:id="@+id/recyclerView2"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="20dp"-->
+<!--                android:layout_marginEnd="20dp"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintHorizontal_bias="0.0"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                tools:layout_editor_absoluteY="359dp" />-->
+
+            <com.google.android.material.tabs.TabLayout
+                android:layout_width="409dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="1dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="1dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/button">
+
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/product" />
+
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/fans" />
+
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/follower" />
+            </com.google.android.material.tabs.TabLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 </FrameLayout>
