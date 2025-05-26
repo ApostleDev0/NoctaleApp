@@ -8,7 +8,8 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        tools:ignore="UselessParent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -37,6 +38,7 @@
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/welcomeUser"
+                tools:ignore="ContentDescription,ImageContrastCheck"
                 tools:src="@tools:sample/avatars" />
 
             <ImageView
@@ -48,7 +50,8 @@
                 android:src="@drawable/ic_title_bar"
                 android:translationX="-2dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ContentDescription" />
 
             <TextView
                 android:id="@+id/profileName"
@@ -90,7 +93,8 @@
                 android:text="@string/description"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/profileImage"
-                app:layout_constraintTop_toBottomOf="@+id/userName" />
+                app:layout_constraintTop_toBottomOf="@+id/userName"
+                tools:ignore="VisualLintLongText" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/button"
