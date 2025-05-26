@@ -70,4 +70,5 @@
     <string name="process_onread">50%</string>
     <string name="x_of_book">x trong 25 truyện</string>
     <string name="delete_all">Xóa tất cả</string>
+    <string name="local_save">Lưu offline</string>
 </resources>
