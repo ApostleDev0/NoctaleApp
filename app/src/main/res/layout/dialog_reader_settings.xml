@@ -8,7 +8,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/book_deatil"
+        android:text="@string/ReaderSetting"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="16dp"/>
@@ -16,7 +16,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/book_deatil" />
+        android:text="@string/TextColorSetting" />
     <LinearLayout
         android:id="@+id/layoutBgColorOptions"
         android:layout_width="match_parent"
@@ -27,24 +27,24 @@
             android:id="@+id/btnBgWhite"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/book_deatil"/>
+            android:text="@string/TextColorA"/>
         <Button
             android:id="@+id/btnBgSepia"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/book_deatil"/>
+            android:text="@string/TextColorB"/>
         <Button
             android:id="@+id/btnBgDark"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/book_deatil"/>
+            android:text="@string/TextColorC"/>
     </LinearLayout>
 
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/book_deatil"
+        android:text="@string/TextSize"
         android:layout_marginTop="8dp"/>
     <SeekBar
         android:id="@+id/seekBarFontSize"
@@ -58,7 +58,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/book_deatil"
+        android:text="@string/BackgroundColorSetting"
         android:layout_marginTop="8dp"/>
     <LinearLayout
         android:id="@+id/layoutTextColorOptions"
@@ -70,17 +70,17 @@
             android:id="@+id/btnTextBlack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/book_deatil"/>
+            android:text="@string/BackgroundColorA"/>
         <Button
             android:id="@+id/btnTextGray"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/book_deatil"/>
+            android:text="@string/BackgroundColorB"/>
         <Button
             android:id="@+id/btnTextWhite"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/book_deatil"/>
+            android:text="@string/BackgroundColorC"/>
     </LinearLayout>
 
     <Button
@@ -88,7 +88,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="@string/book_deatil"
+        android:text="@string/ApplySetting"
         android:layout_marginTop="24dp"/>
 
 </LinearLayout>

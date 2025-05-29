@@ -68,4 +68,15 @@
     <string name="welcome_home">Hi,</string>
     <string name="book_name">Demo book name</string>
     <string name="process_onread">50%</string>
+    <string name="TextColorSetting">Màu chữ</string>
+    <string name="TextColorA">Đen</string>
+    <string name="TextColorB">Trắng</string>
+    <string name="TextColorC">Vàng</string>
+    <string name="TextSize">Cỡ chữ</string>
+    <string name="BackgroundColorSetting">Màu nền</string>
+    <string name="BackgroundColorA">Đen</string>
+    <string name="BackgroundColorB">Trắng</string>
+    <string name="BackgroundColorC">Vàng</string>
+    <string name="ReaderSetting">Cài đặt</string>
+    <string name="ApplySetting">Luu thay đổi</string>
 </resources>
