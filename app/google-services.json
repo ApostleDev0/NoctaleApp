@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "149818510192",
+    "project_id": "noctale-3bdce",
+    "storage_bucket": "noctale-3bdce.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:149818510192:android:0102cf77e5d78ed9959db5",
+        "android_client_info": {
+          "package_name": "com.example.noctaleapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAidMOx1cNCU-GJ8SeiK7cmz3niYIFypG4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
