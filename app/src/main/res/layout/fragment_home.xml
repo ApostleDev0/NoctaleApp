@@ -224,7 +224,8 @@
                         android:textColorLink="@color/dark_cloud"
                         android:textSize="11sp"
                         app:layout_constraintStart_toEndOf="@+id/cardView2"
-                        app:layout_constraintTop_toBottomOf="@+id/progressBar" />
+                        app:layout_constraintTop_toBottomOf="@+id/progressBar"
+                        tools:ignore="TouchTargetSizeCheck" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

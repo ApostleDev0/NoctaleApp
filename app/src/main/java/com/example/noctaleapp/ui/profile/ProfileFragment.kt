@@ -10,10 +10,18 @@ import com.example.noctaleapp.R
 
 class ProfileFragment : Fragment() {
 
+    TabLayout profileTabLayout;
+    ViewPager profileViewPager;
+    ProfileAdapter profileAdapter;
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.fragment_profile);
 
-    }
+//        Tablayout = findViewById(R.id.profileTabLayout);
+//        ViewPager = findViewById(R.id.profileViewPager);
+//        profileAdapter = new MyViewPagerAdapter(fragmentActivity;this);
+   }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
