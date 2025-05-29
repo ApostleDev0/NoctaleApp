@@ -7,7 +7,8 @@
     <string name="password">Mật khẩu</string>
     <string name="forget_password">Quên mật khẩu?</string>
     <string name="login">ĐĂNG NHẬP</string>
-    <string name="no_account">Chưa có tài khoản? Đăng ký ngay!</string>
+    <string name="no_account">Chưa có tài khoản?</string>
+    <string name="sign_up">Đăng ký ngay!</string>
     <string name="th_continue">Tiếp tục với</string>
     <string name="continue_google">Continue with Google</string>
     <string name="sign_in">ĐĂNG KÝ</string>
@@ -63,13 +64,11 @@
     <string name="exploreview_content_description">Explore View Content</string>
     <string name="profileview_content_description">Profile View Content</string>
     <string name="process">Tiến trình</string>
+    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="welcome_home">Hi,</string>
     <string name="book_name">Demo book name</string>
     <string name="process_onread">50%</string>
     <string name="x_of_book">x trong 25 truyện</string>
     <string name="delete_all">Xóa tất cả</string>
-    <string name="not_found_result">Không tìm thấy nội dung</string>
-    <string name="try_search_again">Hãy thử tìm kiếm với từ khoá khác trong lần tìm kiếm tiếp theo</string>
-    <string name="follower">Người theo dõi</string>
 </resources>
