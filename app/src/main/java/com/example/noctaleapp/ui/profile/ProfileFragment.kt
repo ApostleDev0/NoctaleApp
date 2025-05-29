@@ -35,6 +35,7 @@ class ProfileFragment : Fragment() {
 
         val adapter = ProfileTabAdapter(this)
         binding.profileViewPage.adapter = adapter
+        binding.profileViewPage.isUserInputEnabled = true
 
         TabLayoutMediator(binding.profileTabLayout, binding.profileViewPage) { tab, position ->
             tab.text = tabTitles[position]
