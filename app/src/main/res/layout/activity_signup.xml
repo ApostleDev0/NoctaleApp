@@ -14,7 +14,7 @@
         android:layout_height="53dp"
         android:layout_marginTop="8dp"
         android:background="?attr/selectableItemBackgroundBorderless"
-        android:contentDescription="@string/sign_up"
+        android:contentDescription="@string/back"
         android:padding="16dp"
         android:src="@drawable/ic_return"
         app:layout_constraintStart_toStartOf="parent"
