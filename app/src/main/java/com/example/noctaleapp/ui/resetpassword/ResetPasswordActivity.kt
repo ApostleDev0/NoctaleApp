@@ -1,4 +1,4 @@
-package com.example.noctaleapp.ui
+package com.example.noctaleapp.ui.resetpassword
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge

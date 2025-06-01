@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FAF8F5"
-    tools:context=".ui.signup.SignupActivity">
+    tools:context=".ui.SignupActivity">
 
     <ImageButton
         android:id="@+id/imgButton_back_signup"
