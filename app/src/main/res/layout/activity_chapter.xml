@@ -7,4 +7,79 @@
     android:layout_height="match_parent"
     tools:context=".ui.ChapterActivity">
 
+    <ScrollView
+        android:id="@+id/scrollViewReaderContent"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@android:color/white"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/bottomMenuReader"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <TextView
+            android:id="@+id/textViewReaderContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:text="@string/chapter"
+            android:textColor="@android:color/black"
+            android:textSize="18sp" />
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/bottomMenuReader"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/dark_cloud"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <ImageButton
+            android:id="@+id/ReaderHomeBtn"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:contentDescription="@string/book_deatil"
+            android:padding="8dp"
+            app:srcCompat="@drawable/baseline_book_24"
+            app:tint="?attr/colorOnPrimary" />
+
+        <ImageButton
+            android:id="@+id/ReaderSettingsBtn"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:contentDescription=""
+            android:padding="8dp"
+            app:srcCompat="@drawable/baseline_display_settings_24"
+            app:tint="?attr/colorOnPrimary" />
+
+        <ImageButton
+            android:id="@+id/ReaderCommentsBtn"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:contentDescription=""
+            android:padding="8dp"
+            app:srcCompat="@drawable/baseline_chat_24"
+            app:tint="?attr/colorOnPrimary" />
+
+        <ImageButton
+            android:id="@+id/ReaderChaptersBtn"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:contentDescription="@string/chapter_list"
+            android:padding="8dp"
+            app:srcCompat="@drawable/baseline_article_24"
+            app:tint="?attr/colorOnPrimary" />
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
