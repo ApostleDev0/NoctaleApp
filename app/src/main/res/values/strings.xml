@@ -7,7 +7,8 @@
     <string name="password">Mật khẩu</string>
     <string name="forget_password">Quên mật khẩu?</string>
     <string name="login">ĐĂNG NHẬP</string>
-    <string name="no_account">Chưa có tài khoản? Đăng ký ngay!</string>
+    <string name="no_account">Chưa có tài khoản?</string>
+    <string name="sign_up">Đăng ký ngay!</string>
     <string name="th_continue">Tiếp tục với</string>
     <string name="continue_google">Continue with Google</string>
     <string name="sign_in">ĐĂNG KÝ</string>
@@ -49,7 +50,7 @@
     <string name="chapter">Chương</string>
     <string name="language">Ngôn ngữ</string>
     <string name="rating">Đánh giá</string>
-    <string name="description">Mô tả</string>
+    <string name="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla eu diam at lectus suscipit pretium. Fusce tempor tristique libero, quis venenatis sem vehicula a. Vivamus ullamcorper lobortis purus, vel blandit dolor mollis nec. Nullam efficitur, est vel iaculis viverra, nunc nisi volutpat nisi, ac rhoncus neque justo vitae nunc. </string>
     <string name="comment">Bình luận</string>
     <string name="book_deatil">Chi tiết sách</string>
     <string name="delete">Xóa</string>
@@ -63,9 +64,34 @@
     <string name="exploreview_content_description">Explore View Content</string>
     <string name="profileview_content_description">Profile View Content</string>
     <string name="process">Tiến trình</string>
+    <!-- TODO: String name for reset password -->
+    <string name="back">Return</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="enter_email">Enter the email associated with your account to reset your password</string>
+    <string name="your_email">Email Address</string>
+    <string name="send_email">Send</string>
+    <string name="icon_email">Email Icon</string>
+    <string name="email_checking">Check your mail</string>
+    <string name="email_sending">We have sent a password recover instructions to your email</string>
+    <string name="open_email">Open email app</string>
+    <string name="skip_check_email">Or skip this step</string>
+    <string name="email_failed">Did not receive the email? Check your spam filter, or try another email address</string>
+    <string name="new_password_created">Creat new password</string>
+    <string name="different_password">Your new password must be different from previous used passwords.</string>
+    <string name="new_password">Password</string>
+    <string name="valid_password">Must be at leaste 8 characters</string>
+    <string name="confirm_new_password">Confirm Password</string>
+    <string name="final_valid_password">Both passwords must match</string>
+    <string name="reset_password">Reset password</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="welcome_home">Hi,</string>
     <string name="book_name">Demo book name</string>
     <string name="process_onread">50%</string>
+    <string name="x_of_book">x trong 25 truyện</string>
+    <string name="delete_all">Xóa tất cả</string>
+    <string name="follower">Người theo dõi</string>
+    <string name="local_save">Tải sách</string>
+    <string name="not_found_result">Không tìm thấy kết quả</string>
+    <string name="try_search_again">Hãy thử với từ khoá khác tại lần tìm kiếm tiếp theo</string>
 </resources>

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/warm_light"
-    tools:context=".ui.MainActivity">
+    tools:context=" ">
 
     <FrameLayout
         android:id="@+id/frame_layout"
@@ -24,7 +24,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/warm_light"
-        app:elevation="8dp"
+        app:elevation="15dp"
         app:itemIconTint="@drawable/icon_select"
         app:itemPaddingBottom="0dp"
         app:itemPaddingTop="0dp"
