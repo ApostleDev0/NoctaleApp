@@ -31,7 +31,7 @@
             android:name=".ui.NotificationActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.ResetPasswordActivity"
+            android:name=".ui.resetpassword.ResetPasswordActivity"
             android:exported="false" />
         <activity
             android:name=".ui.SignupActivity"
