@@ -8,7 +8,8 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        tools:ignore="UselessParent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -37,7 +38,8 @@
                 android:textColor="@color/winter_green"
                 android:textSize="15sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/welcomeUser" />
+                app:layout_constraintTop_toBottomOf="@+id/welcomeUser"
+                tools:ignore="TextContrastCheck" />
 
             <ImageButton
                 android:id="@+id/notificationButton"
@@ -46,12 +48,13 @@
                 android:layout_marginTop="40dp"
                 android:layout_marginEnd="32dp"
                 android:contentDescription="@string/notification"
+                android:importantForAccessibility="no"
                 android:padding="0dp"
                 android:scaleType="fitCenter"
                 android:src="@drawable/ic_notification"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="TouchTargetSizeCheck" />
+                tools:ignore="TouchTargetSizeCheck,ImageContrastCheck" />
 
             <ImageView
                 android:id="@+id/imageView2"
@@ -62,7 +65,8 @@
                 android:src="@drawable/ic_title_bar"
                 android:translationX="-2dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ContentDescription" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView3"
@@ -169,7 +173,8 @@
                         android:textColor="@color/winter_green"
                         android:textSize="11sp"
                         app:layout_constraintStart_toEndOf="@+id/cardView2"
-                        app:layout_constraintTop_toBottomOf="@+id/bookOnReadName" />
+                        app:layout_constraintTop_toBottomOf="@+id/bookOnReadName"
+                        tools:ignore="TextContrastCheck" />
 
                     <TextView
                         android:id="@+id/textView5"
@@ -182,7 +187,8 @@
                         android:textColor="@color/winter_green"
                         android:textSize="11sp"
                         app:layout_constraintStart_toEndOf="@+id/cardView2"
-                        app:layout_constraintTop_toBottomOf="@+id/bookOnReadAuthor" />
+                        app:layout_constraintTop_toBottomOf="@+id/bookOnReadAuthor"
+                        tools:ignore="TextContrastCheck" />
 
                     <TextView
                         android:id="@+id/textView6"
@@ -195,7 +201,8 @@
                         android:textColor="@color/winter_green"
                         android:textSize="11sp"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/bookOnReadAuthor" />
+                        app:layout_constraintTop_toBottomOf="@+id/bookOnReadAuthor"
+                        tools:ignore="TextContrastCheck" />
 
                     <ProgressBar
                         android:id="@+id/progressBar"
@@ -224,7 +231,8 @@
                         android:textColorLink="@color/dark_cloud"
                         android:textSize="11sp"
                         app:layout_constraintStart_toEndOf="@+id/cardView2"
-                        app:layout_constraintTop_toBottomOf="@+id/progressBar" />
+                        app:layout_constraintTop_toBottomOf="@+id/progressBar"
+                        tools:ignore="TouchTargetSizeCheck" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -13,34 +13,31 @@
         android:theme="@style/Theme.NoctaleApp"
         tools:targetApi="31">
         <activity
-            android:name=".ui.book.ChapterActivity"
+            android:name=".ui.ChapterActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.book.BookActivity"
+            android:name=".ui.BookActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.write.EditChapterActivity"
+            android:name=".ui.EditChapterActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.write.EditStoryActivity"
+            android:name=".ui.EditStoryActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.write.WriteActivity"
+            android:name=".ui.WriteActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.notification.NotificationActivity"
+            android:name=".ui.NotificationActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.resetpassword.ResetPasswordActivity"
+            android:name=".ui.ResetPasswordActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.signup.SignupActivity"
+            android:name=".ui.SignupActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.login.LoginActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.splash.SplashActivity"
+            android:name=".ui.LoginActivity"
             android:exported="false" />
         <activity
             android:name=".ui.MainActivity"
