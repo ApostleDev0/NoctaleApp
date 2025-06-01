@@ -12,7 +12,7 @@
         android:padding="24dp"
         tools:context=".CheckMailFragment">
         <ImageView
-        android:id="@+id/imageview_email_icon"
+        android:id="@+id/img_email_icon"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_marginTop="64dp"
@@ -32,7 +32,7 @@
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageview_email_icon" />
+            app:layout_constraintTop_toBottomOf="@+id/img_email_icon" />
 
         <TextView
             android:id="@+id/textview_mail_sent_message"
@@ -47,7 +47,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textview_check_mail_title" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/button_send_instructions"
+            android:id="@+id/btn_reset_password"
             android:layout_width="244dp"
             android:layout_height="61dp"
             android:paddingTop="12dp"
@@ -67,7 +67,7 @@
             app:layout_constraintVertical_bias="0.066" />
 
         <TextView
-            android:id="@+id/textview_skip_confirmation"
+            android:id="@+id/txtview_skip_confirmation"
             android:layout_width="wrap_content"
             android:layout_height="48dp"
             android:background="?attr/selectableItemBackground"
@@ -80,7 +80,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button_send_instructions"
+            app:layout_constraintTop_toBottomOf="@+id/btn_reset_password"
             app:layout_constraintVertical_bias="0.5" />
 
         <TextView
