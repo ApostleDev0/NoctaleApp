@@ -64,6 +64,25 @@
     <string name="exploreview_content_description">Explore View Content</string>
     <string name="profileview_content_description">Profile View Content</string>
     <string name="process">Tiến trình</string>
+    <!-- TODO: String name for reset password -->
+    <string name="back">Return</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="enter_email">Enter the email associated with your account to reset your password</string>
+    <string name="your_email">Email Address</string>
+    <string name="send_email">Send</string>
+    <string name="icon_email">Email Icon</string>
+    <string name="email_checking">Check your mail</string>
+    <string name="email_sending">We have sent a password recover instructions to your email</string>
+    <string name="open_email">Open email app</string>
+    <string name="skip_check_email">Or skip this step</string>
+    <string name="email_failed">Did not receive the email? Check your spam filter, or try another email address</string>
+    <string name="new_password_created">Creat new password</string>
+    <string name="different_password">Your new password must be different from previous used passwords.</string>
+    <string name="new_password">Password</string>
+    <string name="valid_password">Must be at leaste 8 characters</string>
+    <string name="confirm_new_password">Confirm Password</string>
+    <string name="final_valid_password">Both passwords must match</string>
+    <string name="reset_password">Reset password</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="welcome_home">Hi,</string>
