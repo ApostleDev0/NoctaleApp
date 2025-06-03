@@ -35,12 +35,15 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         bookOnReadName = binding.bookOnReadName
         bookOnReadAuthor = binding.bookOnReadAuthor
+        bookOnReadImg = binding.bookOnReadImg
         viewModel.fetchRecentBookByUser(userId)
 
         viewModel.books.observe(viewLifecycleOwner) { bookData ->
             bookOnReadName.text = bookData.title
             bookOnReadAuthor.text = "Tác giả: ${bookData.author}"
-
+            Glide.with(this)
+                .load(bookData.coverUrl)
+                .into(bookOnReadImg)
         }
 //        viewModel.bookList.observe(viewLifecycleOwner) { books ->
 //            binding.suggetsBook.apply {
