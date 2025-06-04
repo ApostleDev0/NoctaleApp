@@ -138,7 +138,7 @@
                                 android:layout_marginBottom="2dp"
                                 android:contentDescription="@string/on_reading"
                                 android:scaleType="fitXY"
-                                android:src="@drawable/bookcover_template"
+
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintDimensionRatio="13:19"
                                 app:layout_constraintEnd_toEndOf="parent"
