@@ -1,61 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fillViewport="true"
     tools:context=".ui.BookActivity">
-    <ImageView
-        android:id="@+id/imageViewBookCover"
-        android:layout_width="187dp"
-        android:layout_height="190dp"
-        android:layout_marginStart="112dp"
-        android:layout_marginTop="36dp"
-        android:contentDescription="@string/book_deatil"
-        android:scaleType="centerCrop"
-        app:layout_constraintDimensionRatio="W,1:1"
-        app:layout_constraintHeight_percent="0.33"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintWidth_percent="0.33"
-        tools:srcCompat="@tools:sample/avatars" />
 
-    <TextView
-        android:id="@+id/textViewBookTitle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="8dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textStyle="bold"
-        android:gravity="center_horizontal"
-        app:layout_constraintTop_toBottomOf="@id/imageViewBookCover"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:text="Tên Sách" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <!-- Đặt chiều cao là wrap_content để ScrollView có thể xác định chiều cao thực tế -->
 
-    <HorizontalScrollView
-        android:id="@+id/horizontalScrollViewChapters"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="36dp"
-        android:layout_marginEnd="36dp"
-        android:layout_marginBottom="24dp"
-        android:clipToPadding="false"
-        app:layout_constraintTop_toBottomOf="@id/textViewBookTitle"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        <ImageView
+            android:id="@+id/imageViewBookCover"
+            android:layout_width="120dp"
+            android:layout_height="160dp"
+            android:layout_marginTop="16dp"
+            android:contentDescription="@string/book_deatil"
+            android:scaleType="centerCrop"
+            app:layout_constraintDimensionRatio="3:4"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="0.30"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.4"
+            tools:srcCompat="@tools:sample/avatars" />
 
-        <LinearLayout
-            android:id="@+id/linearLayoutChaptersContainer"
+        <TextView
+            android:id="@+id/textViewBookTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="16dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textStyle="bold"
+            android:gravity="center_horizontal"
+            app:layout_constraintTop_toBottomOf="@id/imageViewBookCover"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="Tên Sách Rất Dài Để Kiểm Tra Xuống Dòng" />
+
+        <TextView
+            android:id="@+id/textViewBookGenre"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="8dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:gravity="center_horizontal"
+            app:layout_constraintTop_toBottomOf="@id/textViewBookTitle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="Thể loại: Phiêu lưu, Hành động" />
+
+        <TextView
+            android:id="@+id/textViewBookDescription"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginTop="16dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            app:layout_constraintTop_toBottomOf="@id/textViewBookGenre"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="Đây là phần mô tả chi tiết của cuốn sách. Nội dung này có thể khá dài và sẽ cho phép người dùng đọc thêm thông tin về cuốn sách trước khi quyết định đọc các chương. Chúng ta cần đảm bảo rằng nó hiển thị đúng và có thể cuộn được cùng với phần còn lại của nội dung." />
+
+        <TextView
+            android:id="@+id/textViewChaptersLabel"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:gravity="center_vertical" />
-    </HorizontalScrollView>
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="20dp"
+            android:text="@string/book_deatil"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textViewBookDescription" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <HorizontalScrollView
+            android:id="@+id/horizontalScrollViewChapters"
+            android:layout_width="360dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="24dp"
+            android:clipToPadding="false"
+            app:layout_constraintTop_toBottomOf="@id/textViewChaptersLabel"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <LinearLayout
+                android:id="@+id/linearLayoutChaptersContainer"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"/>
+        </HorizontalScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
