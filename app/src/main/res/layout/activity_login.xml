@@ -90,7 +90,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:fontFamily="@font/proxima_nova_bold"
-                    android:hint="@string/user_name"
+                    android:hint="@string/hidden_user_name"
                     android:inputType="text"
                     android:padding="14dp"
                     android:textSize="14sp" />
@@ -125,7 +125,7 @@
                     android:id="@+id/txtInput_password_login"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
-                    android:hint="@string/password"
+                    android:hint="@string/hidden_password"
                     android:inputType="textPassword"
                     android:padding="14dp"
                     android:textSize="14sp" />

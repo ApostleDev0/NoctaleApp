@@ -3,8 +3,11 @@
     <string name="welcome">XIN CHÀO,</string>
     <string name="log_in">Đăng nhập vào tài khoản</string>
     <string name="user_name">Tên người dùng</string>
+    <string name="hidden_user_name">Tên người dùng</string>
     <string name="phone_number">Số điện thoại</string>
+    <string name="hidden_phone_number">Số điện thoại</string>
     <string name="password">Mật khẩu</string>
+    <string name="hidden_password">Mật khẩu</string>
     <string name="forget_password">Quên mật khẩu?</string>
     <string name="login">ĐĂNG NHẬP</string>
     <string name="no_account">Chưa có tài khoản?</string>
@@ -13,6 +16,7 @@
     <string name="continue_google">Continue with Google</string>
     <string name="sign_in">ĐĂNG KÝ</string>
     <string name="email">Email</string>
+    <string name="hidden_email">Email</string>
     <string name="confirm_password">Xác nhận mật khẩu</string>
     <string name="email_reset">Nhập email để nhận mã đặt lại mật khẩu</string>
     <string name="reset_code">Mã đặt lại mật khẩu</string>
@@ -105,4 +109,5 @@
     <string name="local_save">Tải sách</string>
     <string name="not_found_result">Không tìm thấy kết quả</string>
     <string name="try_search_again">Hãy thử với từ khoá khác tại lần tìm kiếm tiếp theo</string>
+    <string name="books_name">Tên sách</string>
 </resources>
