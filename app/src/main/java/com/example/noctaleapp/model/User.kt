@@ -9,5 +9,6 @@ data class User(
     val phone: String = "",
     val followers: List<String> = listOf(),
     val following: List<String> = listOf(),
-    val libraryBook: List<String> = listOf()
+    val libraryBook: List<String> = listOf(),
+    val description: String = "",
 )

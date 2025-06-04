@@ -3,7 +3,6 @@ package com.example.noctaleapp.repository
 import com.example.noctaleapp.model.Book
 import com.example.noctaleapp.model.User
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.rpc.QuotaFailure
 
 class HomeRepository {
     private val firestore = FirebaseFirestore.getInstance()

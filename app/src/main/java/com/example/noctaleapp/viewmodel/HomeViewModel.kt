@@ -4,11 +4,9 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.noctaleapp.R
 import com.example.noctaleapp.model.Book
 import com.example.noctaleapp.model.User
 import com.example.noctaleapp.repository.HomeRepository
-import com.google.firebase.firestore.FirebaseFirestore
 
 class HomeViewModel : ViewModel() {
     private val repository = HomeRepository()
