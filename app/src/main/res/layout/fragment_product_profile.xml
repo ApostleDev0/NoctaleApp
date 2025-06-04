@@ -11,5 +11,5 @@
         android:text="Tác phẩm"
         android:layout_centerInParent="true"
         android:textSize="20sp"/>
-
+<!--scroll view-->
 </RelativeLayout>
