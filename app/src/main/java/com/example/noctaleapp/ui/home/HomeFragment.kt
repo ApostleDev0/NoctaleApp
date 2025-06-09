@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
@@ -20,7 +21,7 @@ class HomeFragment : Fragment() {
     private val binding get() = _binding!!
     private var userId = "user20250601"
 
-    private val viewModel: HomeViewModel by viewModels()
+    private val viewModel: HomeViewModel by activityViewModels()
 
     private lateinit var bookOnReadName: TextView
     private lateinit var bookOnReadAuthor: TextView
@@ -36,7 +37,9 @@ class HomeFragment : Fragment() {
         bookOnReadName = binding.bookOnReadName
         bookOnReadAuthor = binding.bookOnReadAuthor
         bookOnReadImg = binding.bookOnReadImg
-        viewModel.fetchRecentBookByUser(userId)
+        if (viewModel.books.value == null) {
+            viewModel.fetchRecentBookByUser(userId)
+        }
 
         viewModel.books.observe(viewLifecycleOwner) { bookData ->
             bookOnReadName.text = bookData.title
@@ -45,12 +48,7 @@ class HomeFragment : Fragment() {
                 .load(bookData.coverUrl)
                 .into(bookOnReadImg)
         }
-//        viewModel.bookList.observe(viewLifecycleOwner) { books ->
-//            binding.suggetsBook.apply {
-//                layoutManager = LinearLayoutManager(requireContext())
-//                adapter = HomeAdapter(books)
-//            }
-//        }
+
     }
 
     override fun onDestroyView() {

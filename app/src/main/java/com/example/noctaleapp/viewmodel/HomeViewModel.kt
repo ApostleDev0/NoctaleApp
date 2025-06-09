@@ -1,17 +1,23 @@
 package com.example.noctaleapp.viewmodel
 
 import android.util.Log
+import androidx.constraintlayout.widget.ConstraintSet
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.map
+import com.bumptech.glide.load.Transformation
 import com.example.noctaleapp.R
 import com.example.noctaleapp.model.Book
+import com.example.noctaleapp.model.RecentBook
 import com.example.noctaleapp.model.User
-import com.example.noctaleapp.repository.HomeRepository
+import com.example.noctaleapp.repository.BookRepository
+import com.example.noctaleapp.repository.UserRepository
 import com.google.firebase.firestore.FirebaseFirestore
 
 class HomeViewModel : ViewModel() {
-    private val repository = HomeRepository()
+    private val userRepository = UserRepository()
+    private val bookRepository = BookRepository()
 
     private val _user = MutableLiveData<User>()
     val users: LiveData<User> = _user
@@ -27,7 +33,7 @@ class HomeViewModel : ViewModel() {
     }
 
     fun fetchUserById(userId: String) {
-        repository.getUserById(userId,
+        userRepository.getUserById(userId,
             onSuccess = {
                 user ->
                 _user.value = user
@@ -42,10 +48,10 @@ class HomeViewModel : ViewModel() {
     }
 
     fun fetchRecentBookByUser(userId: String) {
-        repository.getRecentBookIdFromUser(userId,
+        userRepository.getRecentBookIdFromUser(userId,
             onSuccess = {
                 bookId ->
-                repository.getBookById(
+                bookRepository.getBookById(
                     bookId,
                     onSuccess = {
                         bookData ->
@@ -60,7 +66,18 @@ class HomeViewModel : ViewModel() {
             onFailure = {
                 exception ->
                 _error.value = exception.message
-            },)
+            }
+        )
+    }
 
+    val recentBookData: LiveData<RecentBook> = _book.map {
+        book ->
+        RecentBook(
+            id = book.id,
+            title = book.title,
+            author = book.author,
+            imageUrl = book.coverUrl,
+            progressRead = 0
+        )
     }
 }

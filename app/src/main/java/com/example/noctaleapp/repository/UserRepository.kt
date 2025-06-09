@@ -1,13 +1,10 @@
 package com.example.noctaleapp.repository
 
-import com.example.noctaleapp.model.Book
 import com.example.noctaleapp.model.User
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.rpc.QuotaFailure
 
-class HomeRepository {
+class UserRepository {
     private val firestore = FirebaseFirestore.getInstance()
-    private val booksCollection = firestore.collection("books")
     private val usersCollection = firestore.collection("users")
 
     fun getUserById(userId: String,
@@ -16,7 +13,7 @@ class HomeRepository {
         usersCollection.document(userId)
             .get()
             .addOnSuccessListener {
-                result ->
+                    result ->
                 val user = result.toObject(User::class.java)
                 if (user != null) {
                     onSuccess(user.copy(id = result.id))
@@ -25,27 +22,7 @@ class HomeRepository {
                 }
             }
             .addOnFailureListener {
-                exception ->
-                onFailure(exception)
-            }
-    }
-
-    fun getBookById(bookId: String,
-                    onSuccess: (Book) -> Unit,
-                    onFailure: (Exception) -> Unit) {
-        booksCollection.document(bookId)
-            .get()
-            .addOnSuccessListener {
-                result ->
-                val book = result.toObject(Book::class.java)
-                if (book != null) {
-                    onSuccess(book.copy(id = result.id))
-                } else {
-                    onFailure(Exception("Book not found"))
-                }
-            }
-            .addOnFailureListener {
-                exception ->
+                    exception ->
                 onFailure(exception)
             }
     }
