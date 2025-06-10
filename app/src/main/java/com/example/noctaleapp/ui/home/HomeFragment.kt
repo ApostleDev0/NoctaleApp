@@ -59,3 +59,5 @@ class HomeFragment : Fragment() {
     }
 
 }
+
+//i'm here. ahhh shiet
