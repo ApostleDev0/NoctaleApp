@@ -26,4 +26,22 @@ class BookRepository {
                 onFailure(exception)
             }
     }
+
+    fun getBookByGenre(genre: String,
+                       onSuccess: (List<Book>) -> Unit,
+                       onFailure: (Exception) -> Unit) {
+        booksCollection.whereArrayContains("genres", genre)
+            .get()
+            .addOnSuccessListener {
+                result ->
+                val books = result.documents.mapNotNull {
+                    it.toObject(Book::class.java)?.copy(id = it.id)
+                }
+                onSuccess(books)
+            }
+            .addOnFailureListener {
+                exception ->
+                onFailure(exception)
+            }
+    }
 }

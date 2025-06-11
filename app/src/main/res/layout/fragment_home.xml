@@ -253,7 +253,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/cardView3" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerView2"
+                android:id="@+id/genreList"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
@@ -262,14 +262,14 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerView3"
+                android:id="@+id/booksByGenres"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/recyclerView2" />
+                app:layout_constraintTop_toBottomOf="@+id/genreList" />
 
             <TextView
                 android:id="@+id/textView4"
@@ -282,7 +282,7 @@
                 android:textColor="@color/dark_cloud"
                 android:textSize="15sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/recyclerView3" />
+                app:layout_constraintTop_toBottomOf="@+id/booksByGenres" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/suggetsBook"

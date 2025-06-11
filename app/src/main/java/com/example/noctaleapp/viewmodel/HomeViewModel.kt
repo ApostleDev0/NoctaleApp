@@ -1,23 +1,22 @@
 package com.example.noctaleapp.viewmodel
 
 import android.util.Log
-import androidx.constraintlayout.widget.ConstraintSet
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.map
-import com.bumptech.glide.load.Transformation
-import com.example.noctaleapp.R
 import com.example.noctaleapp.model.Book
+import com.example.noctaleapp.model.Genre
 import com.example.noctaleapp.model.RecentBook
 import com.example.noctaleapp.model.User
 import com.example.noctaleapp.repository.BookRepository
+import com.example.noctaleapp.repository.GenreRepository
 import com.example.noctaleapp.repository.UserRepository
-import com.google.firebase.firestore.FirebaseFirestore
 
 class HomeViewModel : ViewModel() {
     private val userRepository = UserRepository()
     private val bookRepository = BookRepository()
+    private val genreRepository = GenreRepository()
 
     private val _user = MutableLiveData<User>()
     val users: LiveData<User> = _user
@@ -28,9 +27,8 @@ class HomeViewModel : ViewModel() {
     private val _book = MutableLiveData<Book>()
     val books: LiveData<Book> = _book
 
-    init {
-
-    }
+    private val _genres = MutableLiveData<List<Genre>>()
+    val genres: LiveData<List<Genre>> = _genres
 
     fun fetchUserById(userId: String) {
         userRepository.getUserById(userId,
@@ -78,6 +76,19 @@ class HomeViewModel : ViewModel() {
             author = book.author,
             imageUrl = book.coverUrl,
             progressRead = 0
+        )
+    }
+
+    fun fetchGenres() {
+        genreRepository.getAllGenres(
+            onSuccess = {
+                genresData ->
+                _genres.value = genresData
+            },
+            onFailure = {
+                exception ->
+                _error.value = exception.message
+            }
         )
     }
 }
