@@ -1,19 +1,18 @@
 package com.example.noctaleapp.ui.profile
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.example.noctaleapp.R
+import com.bumptech.glide.Glide
 import com.example.noctaleapp.adapter.ProfileTabAdapter
 import com.example.noctaleapp.databinding.FragmentProfileBinding
 import com.example.noctaleapp.viewmodel.HomeViewModel
 import com.google.android.material.tabs.TabLayoutMediator
-import kotlin.getValue
-import android.widget.*
-import com.bumptech.glide.Glide
 
 
 class ProfileFragment : Fragment() {
@@ -66,6 +65,7 @@ class ProfileFragment : Fragment() {
 
         // what now ???
         // chưa biết nên thêm j cả @@
+        //aloooooo
 
         TabLayoutMediator(binding.profileTabLayout, binding.profileViewPage) { tab, position ->
             tab.text = tabTitles[position]
