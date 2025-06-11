@@ -30,6 +30,10 @@ class HomeViewModel : ViewModel() {
     private val _genres = MutableLiveData<List<Genre>>()
     val genres: LiveData<List<Genre>> = _genres
 
+    init {
+        fetchGenres()
+    }
+
     fun fetchUserById(userId: String) {
         userRepository.getUserById(userId,
             onSuccess = {

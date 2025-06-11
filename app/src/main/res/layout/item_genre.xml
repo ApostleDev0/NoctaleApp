@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.appcompat.widget.AppCompatButton xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/genreName"
     android:layout_width="wrap_content"
     android:layout_height="27dp"
     android:layout_marginEnd="5dp"
     android:background="@drawable/secondary_button"
     android:backgroundTint="@null"
     android:fontFamily="@font/proxima_nova_extrabold"
+    android:padding="5dp"
     android:text="@string/category"
     android:textAllCaps="false"
     android:textColor="@color/frost_white"
-    android:textSize="11sp" />
+    android:textSize="11sp"
+    tools:ignore="TouchTargetSizeCheck,TextContrastCheck" />

@@ -11,7 +11,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
-import com.example.noctaleapp.adapter.HomeAdapter
+import com.example.noctaleapp.adapter.GenreAdapter
 import com.example.noctaleapp.databinding.FragmentHomeBinding
 import com.example.noctaleapp.viewmodel.HomeViewModel
 
@@ -49,6 +49,13 @@ class HomeFragment : Fragment() {
                 .into(bookOnReadImg)
         }
 
+        viewModel.genres.observe(viewLifecycleOwner) {
+            genres ->
+            binding.genreList.apply {
+                layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+                adapter = GenreAdapter(genres)
+            }
+        }
     }
 
     override fun onDestroyView() {
