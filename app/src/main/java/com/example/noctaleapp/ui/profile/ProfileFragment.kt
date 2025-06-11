@@ -65,6 +65,7 @@ class ProfileFragment : Fragment() {
         binding.profileViewPage.isUserInputEnabled = true
 
         // what now ???
+        // chưa biết nên thêm j cả @@
 
         TabLayoutMediator(binding.profileTabLayout, binding.profileViewPage) { tab, position ->
             tab.text = tabTitles[position]

@@ -1,16 +1,15 @@
 package com.example.noctaleapp.ui.home
 
+import android.annotation.SuppressLint
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
-import com.example.noctaleapp.adapter.HomeAdapter
 import com.example.noctaleapp.databinding.FragmentHomeBinding
 import com.example.noctaleapp.viewmodel.HomeViewModel
 
@@ -31,6 +30,7 @@ class HomeFragment : Fragment() {
         return binding.root
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         bookOnReadName = binding.bookOnReadName
@@ -61,3 +61,4 @@ class HomeFragment : Fragment() {
 }
 
 //i'm here. ahhh shiet
+// cái này chắc phải thêm vào database nữa thì mới ược
