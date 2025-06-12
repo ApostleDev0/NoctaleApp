@@ -18,8 +18,7 @@ class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding // khai báo biến binding cho login
 
-    // quản lý riêng của login
-    private val loginViewModel: LoginViewModel by viewModels()
+    private val loginViewModel: LoginViewModel by viewModels() // quản lý riêng của login
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,7 +27,7 @@ class LoginActivity : AppCompatActivity() {
         // Khởi tạo binding
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        setupWindowInsets()
 
         ViewCompat.setOnApplyWindowInsetsListener(binding.loginRootLayout) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -49,6 +48,23 @@ class LoginActivity : AppCompatActivity() {
         }
 
         // Xử lý sự kiện click cho "Đăng nhập"
+        // Lắng nghe các sự kiện click từ người dùng
+        setupClickListeners()
+
+        // Quan sát sự thay đổi trạng thái từ ViewModel
+        observeLoginStatus()
+
+
+    }
+    private fun setupClickListeners() {
+        binding.txtViewForgetPasswordLogin.setOnClickListener {
+            startActivity(Intent(this, ResetPasswordActivity::class.java))
+        }
+
+        binding.txtViewSignupNow.setOnClickListener {
+            startActivity(Intent(this, SignupActivity::class.java))
+        }
+
         binding.btnLogin.setOnClickListener {
             val email = binding.txtInputUsernameLogin.text.toString().trim()
             val password = binding.txtInputPasswordLogin.text.toString().trim()
@@ -57,34 +73,37 @@ class LoginActivity : AppCompatActivity() {
             }
         }
 
+    }
+
+    private fun observeLoginStatus() {
         loginViewModel.loginStatus.observe(this) { status ->
-            // Khi có thông báo mới, kiểm tra xem nó là gì
+            // Khi có thông báo mới, kiểm tra xem nó là gì bằng cách so sánh với các hằng số
             when {
-                status == "LOADING" -> {
-                    // Quản lý báo "Đang xử lý", thì vô hiệu hóa nút bấm
-                    binding.btnLogin.isEnabled = false
+                // Nếu trạng thái là LOADING
+                status == LoginViewModel.STATUS_LOADING -> {
+                    binding.btnLogin.isEnabled = false // Khóa nút đăng nhập lại
                     Toast.makeText(this, "Đang kiểm tra...", Toast.LENGTH_SHORT).show()
                 }
-                status == "SUCCESS" -> {
-                    // Quản lý báo "Thành công", thì chuyển màn hình
-                    binding.btnLogin.isEnabled = true
+                // Nếu trạng thái là SUCCESS
+                status == LoginViewModel.STATUS_SUCCESS -> {
+                    binding.btnLogin.isEnabled = true // Mở lại nút
                     Toast.makeText(this, "Đăng nhập thành công!", Toast.LENGTH_SHORT).show()
                     startActivity(Intent(this, MainActivity::class.java))
-                    finish()
+                    finish() // Đóng màn hình này lại
                 }
-                status.startsWith("ERROR:") -> {
-                    // Quản lý báo "Lỗi", thì hiển thị lỗi
-                    binding.btnLogin.isEnabled = true
-                    val errorMessage = status.substringAfter("ERROR: ")
+                // Nếu trạng thái bắt đầu bằng chuỗi ERROR
+                status.startsWith(LoginViewModel.STATUS_ERROR_PREFIX) -> {
+                    binding.btnLogin.isEnabled = true // Mở lại nút
+                    // Lấy tin nhắn lỗi ra khỏi chuỗi trạng thái
+                    val errorMessage = status.substringAfter(LoginViewModel.STATUS_ERROR_PREFIX)
                     Toast.makeText(this, "Lỗi: $errorMessage", Toast.LENGTH_LONG).show()
                 }
             }
         }
     }
-    private fun validateInput(email: String, password: String): Boolean {
-        // kiểm tra trường nhập trống hay không
+    private fun LoginActivity.validateInput(email: String, password: String): Boolean {
         if (email.isEmpty()) {
-            binding.txtInputUsernameLogin.error = "Vui lòng nhập email"
+            binding.txtInputUsernameLogin.error = "Vui lòng nhập email!"
             binding.txtInputUsernameLogin.requestFocus()
             return false
         }
@@ -94,10 +113,18 @@ class LoginActivity : AppCompatActivity() {
             return false
         }
         if (password.isEmpty()) {
-            binding.txtInputPasswordLogin.error = "Vui lòng nhập mật khẩu"
+            binding.txtInputPasswordLogin.error = "Vui lòng nhập password!"
             binding.txtInputPasswordLogin.requestFocus()
             return false
         }
         return true
     }
+    private fun setupWindowInsets() {
+        ViewCompat.setOnApplyWindowInsetsListener(binding.loginRootLayout) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
+    }
 }
+

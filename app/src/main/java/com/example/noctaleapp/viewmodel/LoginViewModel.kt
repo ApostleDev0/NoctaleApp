@@ -14,19 +14,24 @@ class LoginViewModel : ViewModel() {
     val loginStatus: LiveData<String> = _loginStatus
 
     fun login(email: String, password: String) {
-        // thông báo bắt đầu đăng nhập
-        _loginStatus.value = "LOADING"
+        // thông báo trạng thái "đang xử lý" bằng hằng số
+        _loginStatus.value = STATUS_LOADING
 
-        // firebase sẽ kiểm tra đăng nhập
+        // yêu cầu repository đăng nhập
         repository.loginUser(email, password) { isSuccess, message ->
-            // thông báo thành công: "THÀNH CÔNG"
-            // thông báo thất bại: "Lỗi: [lý do]"
             if (isSuccess) {
-                _loginStatus.value = "Thành công!"
-            } else {
-                _loginStatus.value = "ERROR: ${message ?: "Lỗi không xác định"}"
+                _loginStatus.value = STATUS_SUCCESS // nếu thành công, thông báo thành công
+            } else { // nếu thất bại, thông báo lỗi với tin nhắn từ firebase
+                _loginStatus.value = "$STATUS_ERROR_PREFIX${message ?: "Lỗi không xác định"}"
             }
         }
+    }
+
+    // hàm chứa các hằng số trạng thái
+    companion object {
+        const val STATUS_LOADING = "LOADING"
+        const val STATUS_SUCCESS = "SUCCESS"
+        const val STATUS_ERROR_PREFIX = "ERROR: "
     }
 
 }

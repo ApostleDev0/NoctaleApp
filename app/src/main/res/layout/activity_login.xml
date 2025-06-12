@@ -100,7 +100,7 @@
                 android:id="@+id/txtView_password_label_login"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
+                android:layout_marginBottom="16dp"
                 android:fontFamily="@font/proxima_nova_extrabold"
                 android:text="@string/password"
                 android:textColor="#333333"
