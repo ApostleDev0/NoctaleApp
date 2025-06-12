@@ -103,18 +103,18 @@ class LoginActivity : AppCompatActivity() {
     }
     private fun LoginActivity.validateInput(email: String, password: String): Boolean {
         if (email.isEmpty()) {
-            binding.txtInputUsernameLogin.error = "Vui lòng nhập email!"
-            binding.txtInputUsernameLogin.requestFocus()
+            binding.textInputLayoutUsernameLogin.error = "Vui lòng nhập email!"
+            binding.textInputLayoutUsernameLogin.requestFocus()
             return false
         }
         if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            binding.txtInputUsernameLogin.error = "Email không hợp lệ"
-            binding.txtInputUsernameLogin.requestFocus()
+            binding.textInputLayoutUsernameLogin.error = "Email không hợp lệ"
+            binding.textInputLayoutUsernameLogin.requestFocus()
             return false
         }
         if (password.isEmpty()) {
-            binding.txtInputPasswordLogin.error = "Vui lòng nhập password!"
-            binding.txtInputPasswordLogin.requestFocus()
+            binding.textInputLayoutPasswordLogin.error = "Vui lòng nhập password!"
+            binding.textInputLayoutPasswordLogin.requestFocus()
             return false
         }
         return true
