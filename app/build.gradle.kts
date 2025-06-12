@@ -10,7 +10,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.noctaleapp"
-        minSdk = 21
+        minSdk = 23
         targetSdk = 35
         versionCode = 1
         versionName = "1.0"
@@ -57,4 +57,8 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     implementation("com.github.bumptech.glide:glide:4.16.0")
+    implementation(platform("com.google.firebase:firebase-bom:33.15.0"))
+    // Thêm thư viện Firebase Authentication (cho chức năng Đăng nhập, Đăng ký)
+    implementation("com.google.firebase:firebase-auth-ktx") // Dùng bản ktx cho Kotlin
+
 }
