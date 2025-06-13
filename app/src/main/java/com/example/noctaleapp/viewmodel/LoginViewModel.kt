@@ -20,7 +20,8 @@ class LoginViewModel : ViewModel() {
         // yêu cầu repository đăng nhập
         repository.loginUser(email, password) { isSuccess, message ->
             if (isSuccess) {
-                _loginStatus.value = STATUS_SUCCESS // nếu thành công, thông báo thành công
+                // nếu thành công, thông báo thành công
+                _loginStatus.value = STATUS_SUCCESS
             } else { // nếu thất bại, thông báo lỗi với tin nhắn từ firebase
                 _loginStatus.value = "$STATUS_ERROR_PREFIX${message ?: "Lỗi không xác định"}"
             }
