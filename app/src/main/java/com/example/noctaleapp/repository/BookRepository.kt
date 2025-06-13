@@ -27,10 +27,10 @@ class BookRepository {
             }
     }
 
-    fun getBookByGenre(genre: String,
+    fun getBookByGenreId(genreId: String,
                        onSuccess: (List<Book>) -> Unit,
                        onFailure: (Exception) -> Unit) {
-        booksCollection.whereArrayContains("genres", genre)
+        booksCollection.whereArrayContains("genres", genreId)
             .get()
             .addOnSuccessListener {
                 result ->

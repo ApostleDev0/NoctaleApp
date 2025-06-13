@@ -27,6 +27,9 @@ class HomeViewModel : ViewModel() {
     private val _book = MutableLiveData<Book>()
     val books: LiveData<Book> = _book
 
+    private val _bookGenre = MutableLiveData<List<Book>>()
+    val bookGenres: LiveData<List<Book>> = _bookGenre
+
     private val _genres = MutableLiveData<List<Genre>>()
     val genres: LiveData<List<Genre>> = _genres
 
@@ -88,6 +91,27 @@ class HomeViewModel : ViewModel() {
             onSuccess = {
                 genresData ->
                 _genres.value = genresData
+            },
+            onFailure = {
+                exception ->
+                _error.value = exception.message
+            }
+        )
+    }
+
+    fun fetchBooksByGenre(genreName: String) {
+        genreRepository.getIdByGenreName(genreName,
+            onSuccess = {
+                genreData ->
+                Log.d("GenreViewModel", "Genre loaded: ${genreData.name}")
+                bookRepository.getBookByGenreId(genreData.id,
+                    onSuccess = {
+                        booksData ->
+                        _bookGenre.value = booksData
+                    },
+                    onFailure = {
+                        exception ->
+                    })
             },
             onFailure = {
                 exception ->
