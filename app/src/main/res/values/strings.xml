@@ -105,4 +105,5 @@
     <string name="local_save">Tải sách</string>
     <string name="not_found_result">Không tìm thấy kết quả</string>
     <string name="try_search_again">Hãy thử với từ khoá khác tại lần tìm kiếm tiếp theo</string>
+    <string name="no_book_genres">Hiện chưa có sách cho thể loại này, hãy thử thể loại khác</string>
 </resources>

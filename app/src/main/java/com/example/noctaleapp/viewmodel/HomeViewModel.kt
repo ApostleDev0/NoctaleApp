@@ -4,14 +4,19 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.noctaleapp.R
+import androidx.lifecycle.map
 import com.example.noctaleapp.model.Book
+import com.example.noctaleapp.model.Genre
+import com.example.noctaleapp.model.RecentBook
 import com.example.noctaleapp.model.User
-import com.example.noctaleapp.repository.HomeRepository
-import com.google.firebase.firestore.FirebaseFirestore
+import com.example.noctaleapp.repository.BookRepository
+import com.example.noctaleapp.repository.GenreRepository
+import com.example.noctaleapp.repository.UserRepository
 
 class HomeViewModel : ViewModel() {
-    private val repository = HomeRepository()
+    private val userRepository = UserRepository()
+    private val bookRepository = BookRepository()
+    private val genreRepository = GenreRepository()
 
     private val _user = MutableLiveData<User>()
     val users: LiveData<User> = _user
@@ -22,12 +27,18 @@ class HomeViewModel : ViewModel() {
     private val _book = MutableLiveData<Book>()
     val books: LiveData<Book> = _book
 
-    init {
+    private val _bookGenre = MutableLiveData<List<Book>>()
+    val bookGenres: LiveData<List<Book>> = _bookGenre
 
+    private val _genres = MutableLiveData<List<Genre>>()
+    val genres: LiveData<List<Genre>> = _genres
+
+    init {
+        fetchGenres()
     }
 
     fun fetchUserById(userId: String) {
-        repository.getUserById(userId,
+        userRepository.getUserById(userId,
             onSuccess = {
                 user ->
                 _user.value = user
@@ -42,10 +53,10 @@ class HomeViewModel : ViewModel() {
     }
 
     fun fetchRecentBookByUser(userId: String) {
-        repository.getRecentBookIdFromUser(userId,
+        userRepository.getRecentBookIdFromUser(userId,
             onSuccess = {
                 bookId ->
-                repository.getBookById(
+                bookRepository.getBookById(
                     bookId,
                     onSuccess = {
                         bookData ->
@@ -60,7 +71,52 @@ class HomeViewModel : ViewModel() {
             onFailure = {
                 exception ->
                 _error.value = exception.message
-            },)
+            }
+        )
+    }
 
+    val recentBookData: LiveData<RecentBook> = _book.map {
+        book ->
+        RecentBook(
+            id = book.id,
+            title = book.title,
+            author = book.author,
+            imageUrl = book.coverUrl,
+            progressRead = 0
+        )
+    }
+
+    fun fetchGenres() {
+        genreRepository.getAllGenres(
+            onSuccess = {
+                genresData ->
+                _genres.value = genresData
+            },
+            onFailure = {
+                exception ->
+                _error.value = exception.message
+            }
+        )
+    }
+
+    fun fetchBooksByGenre(genreName: String) {
+        genreRepository.getIdByGenreName(genreName,
+            onSuccess = {
+                genreData ->
+                Log.d("GenreViewModel", "Genre loaded: ${genreData.name}")
+                bookRepository.getBookByGenreId(genreData.id,
+                    onSuccess = {
+                        booksData ->
+                        _bookGenre.value = booksData
+                    },
+                    onFailure = {
+                        exception ->
+                    })
+            },
+            onFailure = {
+                exception ->
+                _error.value = exception.message
+            }
+        )
     }
 }
