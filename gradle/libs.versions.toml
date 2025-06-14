@@ -14,9 +14,6 @@ lifecycleLivedataKtx = "2.9.1"
 lifecycleViewmodelKtx = "2.9.1"
 fragmentKtx = "1.8.8"
 firebaseFirestoreKtx = "25.1.4"
-lifecycleLivedataKtx = "2.6.1"
-lifecycleViewmodelKtx = "2.6.1"
-fragmentKtx = "1.5.6"
 uiTestAndroid = "1.8.2"
 
 [libraries]

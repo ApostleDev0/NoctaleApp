@@ -9,7 +9,6 @@ import com.example.noctaleapp.model.Book
 import com.example.noctaleapp.model.Genre
 import com.example.noctaleapp.model.RecentBook
 import com.example.noctaleapp.model.User
-import com.example.noctaleapp.repository.HomeRepository
 import com.example.noctaleapp.repository.BookRepository
 import com.example.noctaleapp.repository.GenreRepository
 import com.example.noctaleapp.repository.UserRepository

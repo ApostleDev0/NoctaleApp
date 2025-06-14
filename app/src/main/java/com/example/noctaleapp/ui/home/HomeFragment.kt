@@ -11,8 +11,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.view.marginTop
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.*
 import com.bumptech.glide.Glide
 import com.example.noctaleapp.adapter.BookByGenreAdapter
 import com.example.noctaleapp.adapter.GenreAdapter
