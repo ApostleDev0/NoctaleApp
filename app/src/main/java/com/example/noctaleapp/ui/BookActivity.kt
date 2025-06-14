@@ -101,7 +101,7 @@ class BookActivity : AppCompatActivity() {
         Glide.with(this)
             .load(book.coverUrl)
             .placeholder(R.drawable.ic_bookcover)
-            .error(R.drawable.ic_broken_image)
+            .error(R.drawable.ic_bookcover)
             .into(imageViewBookCover)
     }
 
