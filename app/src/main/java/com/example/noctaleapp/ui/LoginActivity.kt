@@ -1,18 +1,11 @@
 package com.example.noctaleapp.ui
 
-import android.content.Intent
 import android.os.Bundle
-import android.util.Patterns
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
-import androidx.activity.viewModels
 import androidx.core.view.WindowInsetsCompat
-import com.example.noctaleapp.databinding.ActivityLoginBinding
-import com.example.noctaleapp.ui.resetpassword.ResetPasswordActivity
-import com.example.noctaleapp.viewmodel.LoginViewModel
-
+import com.example.noctaleapp.R
 
 class LoginActivity : AppCompatActivity() {
 
@@ -23,6 +16,8 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        setContentView(R.layout.activity_login)
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.login_root_layout)) { v, insets ->
 
         // Khởi tạo binding
         binding = ActivityLoginBinding.inflate(layoutInflater)
