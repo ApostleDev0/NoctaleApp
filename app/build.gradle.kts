@@ -57,8 +57,8 @@ dependencies {
     implementation(libs.androidx.ui.test.android)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.0")
-    implementation("com.github.bumptech.glide:glide:4.16.0")
-    implementation("com.google.firebase:firebase-firestore-ktx:24.10.3")
-    kapt("com.github.bumptech.glide:compiler:4.16.0")
+    androidTestImplementation(libs.androidx.espresso.core)
+    implementation(libs.glide)
+    implementation(libs.firebase.firestore.ktx)
+    kapt(libs.compiler)
 }
