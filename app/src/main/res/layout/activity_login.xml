@@ -11,10 +11,11 @@
     <ScrollView
         android:id="@+id/scrollView_login_form_container"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:fillViewport="true"
         android:clipToPadding="false"
         android:paddingBottom="80dp"
+        app:layout_constrainedHeight="true"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout_divider_social_login"
         app:layout_constraintStart_toStartOf="parent"
@@ -78,11 +79,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                app:boxCornerRadiusTopStart="8dp"
-                app:boxCornerRadiusTopEnd="8dp"
-                app:boxCornerRadiusBottomStart="8dp"
-                app:boxCornerRadiusBottomEnd="8dp"
                 app:boxBackgroundColor="#FFFFFF"
+                app:boxCornerRadiusBottomEnd="8dp"
+                app:boxCornerRadiusBottomStart="8dp"
+                app:boxCornerRadiusTopEnd="8dp"
+                app:boxCornerRadiusTopStart="8dp"
+                app:errorEnabled="true"
                 app:hintEnabled="false">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -90,7 +92,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:fontFamily="@font/proxima_nova_bold"
-                    android:hint="@string/user_name"
+                    android:hint="@string/hidden_user_name"
                     android:inputType="text"
                     android:padding="14dp"
                     android:textSize="14sp" />
@@ -100,7 +102,7 @@
                 android:id="@+id/txtView_password_label_login"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
+                android:layout_marginBottom="16dp"
                 android:fontFamily="@font/proxima_nova_extrabold"
                 android:text="@string/password"
                 android:textColor="#333333"
@@ -113,11 +115,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                app:boxCornerRadiusTopStart="8dp"
-                app:boxCornerRadiusTopEnd="8dp"
-                app:boxCornerRadiusBottomStart="8dp"
-                app:boxCornerRadiusBottomEnd="8dp"
                 app:boxBackgroundColor="#FFFFFF"
+                app:boxCornerRadiusBottomEnd="8dp"
+                app:boxCornerRadiusBottomStart="8dp"
+                app:boxCornerRadiusTopEnd="8dp"
+                app:boxCornerRadiusTopStart="8dp"
+                app:errorEnabled="true"
                 app:hintEnabled="false"
                 app:passwordToggleEnabled="true">
 
@@ -125,7 +128,7 @@
                     android:id="@+id/txtInput_password_login"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
-                    android:hint="@string/password"
+                    android:hint="@string/hidden_password"
                     android:inputType="textPassword"
                     android:padding="14dp"
                     android:textSize="14sp" />

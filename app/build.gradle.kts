@@ -2,7 +2,6 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     id("com.google.gms.google-services")
-    id("org.jetbrains.kotlin.kapt")
 }
 
 android {
@@ -11,7 +10,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.noctaleapp"
-        minSdk = 21
+        minSdk = 23
         targetSdk = 35
         versionCode = 1
         versionName = "1.0"
@@ -54,11 +53,13 @@ dependencies {
     implementation(libs.androidx.lifecycle.livedata.ktx)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.fragment.ktx)
-    implementation(libs.androidx.ui.test.android)
+    implementation(libs.firebase.firestore.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.0")
+    androidTestImplementation(libs.androidx.espresso.core)
     implementation("com.github.bumptech.glide:glide:4.16.0")
-    implementation("com.google.firebase:firebase-firestore-ktx:24.10.3")
-    kapt("com.github.bumptech.glide:compiler:4.16.0")
+    implementation(platform("com.google.firebase:firebase-bom:33.15.0"))
+    // Thêm thư viện Firebase Authentication (cho chức năng Đăng nhập, Đăng ký)
+    implementation("com.google.firebase:firebase-auth-ktx") // Dùng bản ktx cho Kotlin
+
 }
