@@ -4,7 +4,7 @@ import android.util.Patterns
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.noctaleapp.model.AuthRepository
+import com.example.noctaleapp.repository.AuthRepository
 
 class SignupViewModel: ViewModel() {
     private val repository = AuthRepository()
