@@ -111,4 +111,5 @@
     <string name="not_found_result">Không tìm thấy kết quả</string>
     <string name="try_search_again">Hãy thử với từ khoá khác tại lần tìm kiếm tiếp theo</string>
     <string name="books_name">Tên sách</string>
+    <string name="books_description">Mô tả sách</string>
 </resources>
