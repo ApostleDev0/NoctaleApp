@@ -9,6 +9,7 @@
                 android:angle="0" />
             <corners android:radius="38dp" />
         </shape>
+        <color android:color="@color/frost_white" />
     </item>
 
     <!-- Lớp nền bên trong -->
@@ -17,6 +18,7 @@
             <solid android:color="@color/white"/>
             <corners android:radius="38dp" />
         </shape>
+        <color android:color="@color/dark_cloud" />
     </item>
 
 </layer-list>
