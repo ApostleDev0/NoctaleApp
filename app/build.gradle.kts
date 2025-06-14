@@ -63,7 +63,6 @@ dependencies {
     implementation(platform("com.google.firebase:firebase-bom:33.15.0"))
     // Thêm thư viện Firebase Authentication (cho chức năng Đăng nhập, Đăng ký)
     implementation("com.google.firebase:firebase-auth-ktx") // Dùng bản ktx cho Kotlin
-
     implementation("com.google.firebase:firebase-firestore-ktx:24.10.3")
     kapt("com.github.bumptech.glide:compiler:4.16.0")
 }

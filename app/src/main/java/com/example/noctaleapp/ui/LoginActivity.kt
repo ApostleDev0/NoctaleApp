@@ -1,23 +1,28 @@
 package com.example.noctaleapp.ui
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Patterns
+import android.widget.*
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.example.noctaleapp.R
+import com.example.noctaleapp.databinding.ActivityLoginBinding
+import com.example.noctaleapp.ui.resetpassword.ResetPasswordActivity
+import com.example.noctaleapp.viewmodel.LoginViewModel
 
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding // khai báo biến binding cho login
 
-    private val loginViewModel: LoginViewModel by viewModels() // quản lý riêng của login
+    // quản lý riêng của login
+    private val loginViewModel: LoginViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_login)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.login_root_layout)) { v, insets ->
 
         // Khởi tạo binding
         binding = ActivityLoginBinding.inflate(layoutInflater)
