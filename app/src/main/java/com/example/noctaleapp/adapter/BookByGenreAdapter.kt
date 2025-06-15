@@ -29,6 +29,7 @@ class BookByGenreAdapter (
 
     override fun getItemCount(): Int = books.size
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: BookViewHolder, position: Int) {
         val book = books[position]
         holder.binding.bookTitle.text = book.title

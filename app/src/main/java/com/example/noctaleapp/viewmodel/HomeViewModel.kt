@@ -12,6 +12,7 @@ import com.example.noctaleapp.model.User
 import com.example.noctaleapp.repository.BookRepository
 import com.example.noctaleapp.repository.GenreRepository
 import com.example.noctaleapp.repository.UserRepository
+import com.google.firebase.firestore.DocumentSnapshot
 
 class HomeViewModel : ViewModel() {
     private val userRepository = UserRepository()
@@ -32,6 +33,10 @@ class HomeViewModel : ViewModel() {
 
     private val _genres = MutableLiveData<List<Genre>>()
     val genres: LiveData<List<Genre>> = _genres
+
+    private var isLoading = false
+    private var isLastPage = false
+    private var lastVisibleSnapshot: DocumentSnapshot? = null
 
     init {
         fetchGenres()
@@ -118,5 +123,10 @@ class HomeViewModel : ViewModel() {
                 _error.value = exception.message
             }
         )
+    }
+
+    fun fetchSuggestBooks() {
+        if (isLoading || isLastPage) return
+        isLoading = true
     }
 }

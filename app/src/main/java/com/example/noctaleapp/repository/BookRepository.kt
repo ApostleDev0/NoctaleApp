@@ -1,6 +1,7 @@
 package com.example.noctaleapp.repository
 
 import com.example.noctaleapp.model.Book
+import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 
 class BookRepository {
@@ -39,6 +40,32 @@ class BookRepository {
                 }
                 onSuccess(books)
             }
+            .addOnFailureListener {
+                exception ->
+                onFailure(exception)
+            }
+    }
+
+    fun getSuggestBook(limited: Long,
+                       lastVisible: DocumentSnapshot?,
+                       onSuccess: (List<Book>, DocumentSnapshot?) -> Unit,
+                       onFailure: (Exception) -> Unit) {
+        var query = booksCollection.orderBy("title")
+            .limit(limited)
+
+        if (lastVisible != null) {
+            query = query.startAfter(lastVisible)
+        }
+
+        query.get().addOnSuccessListener {
+            result ->
+            val books = result.documents.mapNotNull {
+                it.toObject(Book::class.java)?.copy(id = it.id)
+            }
+
+            val newLastVisible = result.documents.lastOrNull()
+            onSuccess(books, newLastVisible)
+        }
             .addOnFailureListener {
                 exception ->
                 onFailure(exception)
