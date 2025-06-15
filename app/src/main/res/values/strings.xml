@@ -112,4 +112,6 @@
     <string name="try_search_again">Hãy thử với từ khoá khác tại lần tìm kiếm tiếp theo</string>
     <string name="books_name">Tên sách</string>
     <string name="books_description">Mô tả sách</string>
+    <string name="reader_setting">Tùy Chỉnh</string>
+    <string name="ChapterComment">Bình Luận</string>
 </resources>

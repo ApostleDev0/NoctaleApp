@@ -1,21 +1,217 @@
-package com.example.noctaleapp.ui
+package com.example.noctaleapp.ui // Hoặc package của bạn
 
+import android.content.Intent
 import android.os.Bundle
+import android.text.Html
+import android.text.Spanned
+import android.view.View
+import android.widget.ImageButton
+import android.widget.ScrollView
+import android.widget.TextView
+import android.widget.Toast
+// import android.widget.ProgressBar // Bỏ comment nếu bạn thêm ProgressBar vào XML
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.ViewModelProvider
 import com.example.noctaleapp.R
+import com.example.noctaleapp.model.Chapter // Đảm bảo model này có id, title, content, chapterNumber
+import com.example.noctaleapp.repository.ChapterRepository // Import ChapterRepository
+import com.example.noctaleapp.viewmodel.ChapterViewModel
+import com.example.noctaleapp.viewmodel.ChapterViewModelFactory
 
 class ChapterActivity : AppCompatActivity() {
+
+    // Views từ activity_chapter.xml
+    private lateinit var scrollViewReaderContent: ScrollView
+    private lateinit var textViewReaderContent: TextView
+    private lateinit var readerHomeBtn: ImageButton
+    private lateinit var readerSettingsBtn: ImageButton
+    private lateinit var readerCommentsBtn: ImageButton
+    private lateinit var readerChaptersBtn: ImageButton
+    // private lateinit var progressBarChapterLoading: ProgressBar // Bỏ comment nếu bạn thêm ProgressBar
+
+    private lateinit var chapterViewModel: ChapterViewModel
+
+    private var currentBookId: String? = null
+    private var currentChapterId: String? = null
+    // Bạn có thể không cần lưu trữ trực tiếp next/previous ID ở đây nữa
+    // vì ViewModel đã quản lý và Activity sẽ phản ứng với thay đổi từ ViewModel
+
+    companion object {
+        const val EXTRA_BOOK_ID = "com.example.noctaleapp.ui.BOOK_ID"
+        const val EXTRA_CHAPTER_ID = "com.example.noctaleapp.ui.CHAPTER_ID"
+        // Có thể thêm một extra để điều hướng đến chương cụ thể từ danh sách
+        // const val EXTRA_TARGET_CHAPTER_ID = "com.example.noctaleapp.ui.TARGET_CHAPTER_ID"
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_chapter)
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+        initViews()
+
+        // Khởi tạo ViewModel
+        val chapterRepository = ChapterRepository() // Khởi tạo ChapterRepository
+        val viewModelFactory = ChapterViewModelFactory(chapterRepository)
+        chapterViewModel = ViewModelProvider(this, viewModelFactory)[ChapterViewModel::class.java]
+
+        currentBookId = intent.getStringExtra(EXTRA_BOOK_ID)
+        currentChapterId = intent.getStringExtra(EXTRA_CHAPTER_ID)
+
+        if (currentBookId != null && currentChapterId != null) {
+            chapterViewModel.loadChapter(currentBookId!!, currentChapterId!!)
+        } else {
+            Toast.makeText(this, "Không có thông tin sách hoặc chương để tải.", Toast.LENGTH_LONG).show()
+            finish() // Đóng activity nếu không có ID
+        }
+
+        observeViewModel()
+        setupBottomMenuListeners()
+    }
+
+    private fun initViews() {
+        scrollViewReaderContent = findViewById(R.id.scrollViewReaderContent)
+        textViewReaderContent = findViewById(R.id.textViewReaderContent)
+        readerHomeBtn = findViewById(R.id.ReaderHomeBtn)
+        readerSettingsBtn = findViewById(R.id.ReaderSettingsBtn)
+        readerCommentsBtn = findViewById(R.id.ReaderCommentsBtn)
+        readerChaptersBtn = findViewById(R.id.ReaderChaptersBtn)
+        // progressBarChapterLoading = findViewById(R.id.progressBarChapterLoading) // Bỏ comment nếu bạn thêm ProgressBar
+    }
+
+    private fun observeViewModel() {
+        chapterViewModel.isLoading.observe(this) { isLoading ->
+            // progressBarChapterLoading.visibility = if (isLoading) View.VISIBLE else View.GONE // Nếu có ProgressBar
+            // Ẩn/hiện nội dung để người dùng biết đang tải
+            scrollViewReaderContent.visibility = if (isLoading) View.INVISIBLE else View.VISIBLE
+            // Có thể muốn vô hiệu hóa các nút menu khi đang tải
+            readerHomeBtn.isEnabled = !isLoading
+            readerSettingsBtn.isEnabled = !isLoading
+            readerCommentsBtn.isEnabled = !isLoading
+            readerChaptersBtn.isEnabled = !isLoading
+        }
+
+        chapterViewModel.chapterDetails.observe(this) { chapter ->
+            if (chapter != null) {
+                displayChapterContent(chapter)
+                // Cập nhật currentChapterId để phản ánh chương đang hiển thị thực sự
+                currentChapterId = chapter.id
+            } else {
+                // Xử lý khi không tải được chương (ngoài thông báo lỗi từ LiveData error)
+                // textViewReaderContent.text = getString(R.string.error_loading_chapter_content)
+                // Thông báo lỗi đã được xử lý qua chapterViewModel.error
+            }
+        }
+
+        chapterViewModel.error.observe(this) { errorMessage ->
+            errorMessage?.let {
+                Toast.makeText(this, it, Toast.LENGTH_LONG).show()
+                chapterViewModel.clearErrorMessage() // Xóa lỗi sau khi hiển thị
+            }
+        }
+
+        // Không cần observe trực tiếp previousChapterId và nextChapterId ở đây
+        // nếu bạn không cập nhật UI đặc biệt cho chúng (ví dụ: bật/tắt nút chương trước/sau)
+        // Logic điều hướng sẽ gọi loadChapter với ID mới.
+    }
+
+    private fun displayChapterContent(chapter: Chapter) {
+        // Ví dụ: hiển thị tiêu đề chương ở đầu nội dung
+        val titleHtml = "<h1>${chapter.mainTitle}</h1><hr>"
+        val contentWithTitle = titleHtml + chapter.content // Giả sử chapter.content là HTML
+
+        val formattedContent: Spanned = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            Html.fromHtml(contentWithTitle, Html.FROM_HTML_MODE_LEGACY)
+        } else {
+            @Suppress("DEPRECATION") // Html.fromHtml(String) is deprecated in API 24
+            Html.fromHtml(contentWithTitle)
+        }
+        textViewReaderContent.text = formattedContent
+
+        // Cuộn lên đầu khi tải chương mới
+        scrollViewReaderContent.post {
+            scrollViewReaderContent.smoothScrollTo(0, 0)
+        }
+    }
+
+    private fun setupBottomMenuListeners() {
+        readerHomeBtn.setOnClickListener {
+            // Quay về BookActivity với bookId hiện tại
+            currentBookId?.let { bookId ->
+                // Giả sử BookActivity là màn hình chi tiết sách và có thể nhận EXTRA_BOOK_ID
+                val intent = Intent(this, BookActivity::class.java).apply {
+                    putExtra(BookActivity.EXTRA_BOOK_ID, bookId) // Thay BookActivity.EXTRA_BOOK_ID bằng const thực tế
+                    addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
+                }
+                startActivity(intent)
+                finish() // Đóng ChapterActivity
+            } ?: Toast.makeText(this, "Không tìm thấy thông tin sách.", Toast.LENGTH_SHORT).show()
+        }
+
+        readerSettingsBtn.setOnClickListener {
+            Toast.makeText(this, "Mở cài đặt hiển thị (chưa triển khai)", Toast.LENGTH_SHORT).show()
+            // TODO: Mở màn hình/dialog cài đặt hiển thị (font, size, background...)
+            // Ví dụ:
+            // val settingsDialog = DisplaySettingsDialogFragment()
+            // settingsDialog.show(supportFragmentManager, "DisplaySettingsDialog")
+        }
+
+        readerCommentsBtn.setOnClickListener {
+            Toast.makeText(this, "Mở bình luận (chưa triển khai)", Toast.LENGTH_SHORT).show()
+            // TODO: Mở màn hình/dialog bình luận cho currentChapterId (hoặc currentBookId)
+            // Ví dụ:
+            // currentChapterId?.let { chapId ->
+            //     val commentsIntent = Intent(this, CommentsActivity::class.java) // Giả sử có CommentsActivity
+            //     commentsIntent.putExtra("CHAPTER_ID", chapId) // Hoặc BOOK_ID tùy theo cách bạn quản lý bình luận
+            //     startActivity(commentsIntent)
+            // }
+        }
+
+        readerChaptersBtn.setOnClickListener {
+            Toast.makeText(this, "Mở danh sách chương (chưa triển khai)", Toast.LENGTH_SHORT).show()
+            // TODO: Mở danh sách các chương
+            // Ví dụ: Hiển thị BottomSheetDialog với danh sách chương
+            // currentBookId?.let { bookId ->
+            //     val chapterListDialog = ChapterListBottomSheet.newInstance(bookId)
+            //     // ChapterListBottomSheet sẽ cần một listener để gọi lại navigateToChapter(newChapterId)
+            //     chapterListDialog.show(supportFragmentManager, ChapterListBottomSheet.TAG)
+            // }
+            // Hoặc, nếu BookActivity hiển thị danh sách chương, có thể quay lại BookActivity
+            currentBookId?.let { bookId ->
+                val intent = Intent(this, BookActivity::class.java).apply {
+                    putExtra(BookActivity.EXTRA_BOOK_ID, bookId) // Thay bằng const thực tế
+                    // Có thể thêm một extra để BookActivity biết cần focus/mở phần danh sách chương
+                    putExtra(BookActivity.EXTRA_FOCUS_CHAPTERS, true) // Thay bằng const thực tế
+                    addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
+                }
+                startActivity(intent)
+            }
+        }
+    }
+
+    /**
+     * Hàm này được gọi khi người dùng chọn một chương mới từ danh sách chương
+     * (ví dụ: từ một ChapterListBottomSheetDialogFragment).
+     * Nó sẽ yêu cầu ViewModel tải chương mới.
+     * @param newChapterId ID của chương mới cần hiển thị.
+     */
+    fun navigateToChapter(newChapterId: String) {
+        if (newChapterId == currentChapterId) {
+            Toast.makeText(this, "Bạn đang ở chương này.", Toast.LENGTH_SHORT).show()
+            return
+        }
+        currentBookId?.let { bookId ->
+            // currentChapterId sẽ được cập nhật trong observeViewModel khi chapterDetails thay đổi
+            chapterViewModel.loadChapter(bookId, newChapterId)
+        } ?: Toast.makeText(this, "Lỗi: Không tìm thấy Book ID để tải chương mới.", Toast.LENGTH_SHORT).show()
     }
 }
