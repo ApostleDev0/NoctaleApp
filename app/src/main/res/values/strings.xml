@@ -112,4 +112,5 @@
     <string name="try_search_again">Hãy thử với từ khoá khác tại lần tìm kiếm tiếp theo</string>
     <string name="books_name">Tên sách</string>
     <string name="no_book_genres">Hiện chưa có sách cho thể loại này, hãy thử thể loại khác</string>
+    <string name="button_logout">Đăng xuất</string>
 </resources>

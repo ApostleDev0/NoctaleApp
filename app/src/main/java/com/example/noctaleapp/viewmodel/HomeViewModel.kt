@@ -9,6 +9,7 @@ import com.example.noctaleapp.model.Book
 import com.example.noctaleapp.model.Genre
 import com.example.noctaleapp.model.RecentBook
 import com.example.noctaleapp.model.User
+import com.example.noctaleapp.repository.AuthRepository
 import com.example.noctaleapp.repository.BookRepository
 import com.example.noctaleapp.repository.GenreRepository
 import com.example.noctaleapp.repository.UserRepository
@@ -17,6 +18,7 @@ class HomeViewModel : ViewModel() {
     private val userRepository = UserRepository()
     private val bookRepository = BookRepository()
     private val genreRepository = GenreRepository()
+    private val authRepository = AuthRepository()
 
     private val _user = MutableLiveData<User>()
     val users: LiveData<User> = _user
@@ -32,6 +34,11 @@ class HomeViewModel : ViewModel() {
 
     private val _genres = MutableLiveData<List<Genre>>()
     val genres: LiveData<List<Genre>> = _genres
+
+    // thêm live data cho trạng thái đăng xuất
+    // giá trị ban đầu là false
+    private val _logoutComplete = MutableLiveData<Boolean>(false)
+    val logoutComplete: LiveData<Boolean> = _logoutComplete
 
     init {
         fetchGenres()
@@ -118,5 +125,11 @@ class HomeViewModel : ViewModel() {
                 _error.value = exception.message
             }
         )
+    }
+
+    // hàm logout, gọi repository để đăng xuất và cập nhật LiveData
+    fun logout() {
+        authRepository.logout()
+        _logoutComplete.value = true
     }
 }

@@ -66,4 +66,9 @@ class AuthRepository {
                 }
             }
     }
+
+    // Hàm đăng xuất
+    fun logout() {
+        auth.signOut()
+    }
 }
