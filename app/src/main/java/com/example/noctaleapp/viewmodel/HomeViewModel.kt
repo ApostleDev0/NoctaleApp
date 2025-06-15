@@ -42,6 +42,23 @@ class HomeViewModel : ViewModel() {
 
     init {
         fetchGenres()
+        // Tự động tải thông tin người dùng đang đăng nhập
+        loadCurrentUserProfile()
+    }
+
+    // Hàm lấy ID người dùng đang đăng nhập và gọi hàm fetchUserId.
+    private fun loadCurrentUserProfile() {
+        // Lấy ID người dùng từ AuthRepository
+        val currentUserId = authRepository.getCurrentUser()?.uid
+
+        // Nếu có ID, dùng nó để gọi hàm fetchUserById đã có sẵn
+        if (currentUserId != null) {
+            fetchUserById(currentUserId)
+        } else {
+            // Có thể xử lý lỗi nếu không tìm thấy người dùng
+            _error.value = "Không tìm thấy người dùng đang đăng nhập."
+            Log.e("HomeViewModel", "Current user is null, cannot fetch profile.")
+        }
     }
 
     fun fetchUserById(userId: String) {

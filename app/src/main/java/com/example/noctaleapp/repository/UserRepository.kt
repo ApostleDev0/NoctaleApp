@@ -16,7 +16,7 @@ class UserRepository {
                     result ->
                 val user = result.toObject(User::class.java)
                 if (user != null) {
-                    onSuccess(user.copy(id = result.id))
+                    onSuccess(user.copy(uid = result.id))
                 } else {
                     onFailure(Exception("User not found"))
                 }

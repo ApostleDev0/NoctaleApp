@@ -2,6 +2,7 @@ package com.example.noctaleapp.repository
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.auth.FirebaseUser
 
 // đây là tầng duy nhất tiếp xúc với nguồn dữ liệu Firebase
 // xử lý đăng nhập và đăng ký tại đây
@@ -70,5 +71,10 @@ class AuthRepository {
     // Hàm đăng xuất
     fun logout() {
         auth.signOut()
+    }
+
+    //Hàm lấy thông tin người dùng hiện tại đang đăng nhập
+    fun getCurrentUser(): FirebaseUser? {
+        return auth.currentUser
     }
 }

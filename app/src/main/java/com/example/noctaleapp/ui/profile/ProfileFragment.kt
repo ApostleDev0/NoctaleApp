@@ -7,25 +7,24 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import com.example.noctaleapp.R
+import com.bumptech.glide.Glide
 import com.example.noctaleapp.ui.LoginActivity
 import com.example.noctaleapp.viewmodel.HomeViewModel
 import com.example.noctaleapp.adapter.ProfileTabAdapter
 import com.example.noctaleapp.databinding.FragmentProfileBinding
 import com.google.android.material.tabs.TabLayoutMediator
 
-
 class ProfileFragment : Fragment() {
 
     private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
-
     private val viewModel: HomeViewModel by activityViewModels()
-
     private val tabTitles = listOf("Product", "Fan", "Follower")
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-   }
+//    override fun onCreate(savedInstanceState: Bundle?) {
+//        super.onCreate(savedInstanceState)
+//   }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,6 +45,8 @@ class ProfileFragment : Fragment() {
             tab.text = tabTitles[position]
         }.attach()
 
+        setupTabsAndViewPager()
+
         // Lắng nghe sự kiện click từ nút Đăng xuất
         binding.btnLogout.setOnClickListener {
             viewModel.logout() // Gọi hàm logout trong ViewModel
@@ -53,6 +54,49 @@ class ProfileFragment : Fragment() {
 
         // Bắt đầu quan sát trạng thái đăng xuất từ ViewModel
         observeLogoutStatus()
+        // Bắt đầu quan sát các trạng thái từ ViewModel
+        observeViewModel()
+    }
+
+    private fun observeViewModel() {
+        // 1. Quan sát trạng thái đăng xuất
+        viewModel.logoutComplete.observe(viewLifecycleOwner) { hasLoggedOut ->
+            // isAdded là một check an toàn, đảm bảo Fragment vẫn đang được gắn vào Activity
+            if (hasLoggedOut && isAdded) {
+                goToLoginActivity()
+            }
+        }
+
+        // 2. Quan sát và hiển thị dữ liệu người dùng
+        viewModel.users.observe(viewLifecycleOwner) { user ->
+            // Kiểm tra để đảm bảo user không null
+            user?.let {
+                // Gán dữ liệu vào các View bằng ID từ file XML của bạn
+                // *** ĐÃ CẬP NHẬT: it.username -> it.displayName ***
+                binding.profileName.text = it.displayName
+                binding.userName.text = it.email
+
+                // Nếu model User của bạn có trường description, gán nó vào đây
+                // binding.profileDescription.text = it.description
+
+                // Dùng Glide để tải ảnh đại diện
+                Glide.with(this)
+                    .load(it.avatarUrl)
+                    .placeholder(R.drawable.ic_title_bar) // Ảnh hiển thị tạm thời
+                    .error(R.drawable.ic_title_bar)       // Ảnh hiển thị khi lỗi
+                    .into(binding.profileImage)
+            }
+        }
+    }
+
+    private fun setupTabsAndViewPager() {
+        val adapter = ProfileTabAdapter(this)
+        binding.profileViewPage.adapter = adapter
+        binding.profileViewPage.isUserInputEnabled = true
+
+        TabLayoutMediator(binding.profileTabLayout, binding.profileViewPage) { tab, position ->
+            tab.text = tabTitles[position]
+        }.attach()
     }
 
     private fun observeLogoutStatus() {
