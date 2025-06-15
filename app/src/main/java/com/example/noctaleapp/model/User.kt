@@ -11,4 +11,5 @@ data class User(
     val following: List<String> = listOf(),
     val libraryBook: List<String> = listOf(),
     val description: String = "",
+    val uid: String = ""
 )

@@ -3,16 +3,14 @@ package com.example.noctaleapp.ui.home
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.view.marginTop
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.*
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.noctaleapp.adapter.BookByGenreAdapter
 import com.example.noctaleapp.adapter.GenreAdapter
@@ -23,7 +21,7 @@ class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
-    private var userId = "user20250601"
+    private var userId = "HYr8ZD3ycnRBKJIshiK2yuZi99w1"
 
     private val viewModel: HomeViewModel by activityViewModels()
 

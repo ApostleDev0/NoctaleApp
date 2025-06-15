@@ -2,15 +2,17 @@ package com.example.noctaleapp.ui.profile
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import com.example.noctaleapp.ui.LoginActivity
-import com.example.noctaleapp.viewmodel.HomeViewModel
 import com.example.noctaleapp.adapter.ProfileTabAdapter
 import com.example.noctaleapp.databinding.FragmentProfileBinding
+import com.example.noctaleapp.ui.LoginActivity
+import com.example.noctaleapp.viewmodel.HomeViewModel
 import com.google.android.material.tabs.TabLayoutMediator
 
 
@@ -22,6 +24,11 @@ class ProfileFragment : Fragment() {
     private val viewModel: HomeViewModel by activityViewModels()
 
     private val tabTitles = listOf("Product", "Fan", "Follower")
+
+    private lateinit var profileImage: ImageView
+    private lateinit var profileName: TextView
+    private lateinit var userName: TextView
+    private lateinit var profileDescription: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +44,22 @@ class ProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        viewModel.fetchUserById("HYr8ZD3ycnRBKJIshiK2yuZi99w1")
+
+//        profileImage = binding.profileImage
+//        profileName = binding.profileName
+//        userName = binding.userName
+//        profileDescription = binding.profileDescription
+//
+//        viewModel.users.observe(viewLifecycleOwner) { user ->
+//            profileName.text = user.displayName
+////            userName.text = user.uid
+//            profileDescription.text = user.description
+//            Glide.with(this)
+//                .load(user.avatarUrl)
+//                .into(profileImage)
+//        }
 
         val adapter = ProfileTabAdapter(this)
         binding.profileViewPage.adapter = adapter
