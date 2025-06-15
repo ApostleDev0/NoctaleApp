@@ -1,5 +1,6 @@
 package com.example.noctaleapp.repository
 
+import android.util.Log
 import com.example.noctaleapp.model.Book
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
@@ -25,6 +26,7 @@ class BookRepository {
             .addOnFailureListener {
                     exception ->
                 onFailure(exception)
+                Log.d("BookRepository", "Error: ${exception.message}")
             }
     }
 

@@ -42,8 +42,8 @@ class HomeViewModel : ViewModel() {
         fetchGenres()
     }
 
-    fun fetchUserById(userId: String) {
-        userRepository.getUserById(userId,
+    fun fetchUserById(uid: String) {
+        userRepository.getUserById(uid,
             onSuccess = {
                 user ->
                 _user.value = user
@@ -57,8 +57,8 @@ class HomeViewModel : ViewModel() {
         )
     }
 
-    fun fetchRecentBookByUser(userId: String) {
-        userRepository.getRecentBookIdFromUser(userId,
+    fun fetchRecentBookByUser(uid: String) {
+        userRepository.getRecentBookIdFromUser(uid,
             onSuccess = {
                 bookId ->
                 bookRepository.getBookById(
@@ -70,6 +70,7 @@ class HomeViewModel : ViewModel() {
                     },
                     onFailure = {
                         exception -> _error.value = exception.message
+                        Log.d("BookViewModel", "Error: ${exception.message}")
                     }
                 )
             },

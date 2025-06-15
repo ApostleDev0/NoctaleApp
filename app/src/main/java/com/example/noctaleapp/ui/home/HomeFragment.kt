@@ -21,7 +21,7 @@ class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
-    private var userId = "user20250601"
+    private var userId = "HYr8ZD3ycnRBKJIshiK2yuZi99w1"
 
     private val viewModel: HomeViewModel by activityViewModels()
 
