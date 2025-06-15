@@ -1,6 +1,7 @@
 package com.example.noctaleapp.adapter
 
 import android.annotation.SuppressLint
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.compose.ui.test.isSelected
@@ -14,8 +15,14 @@ class GenreAdapter (
     ):
     RecyclerView.Adapter<GenreAdapter.GenreViewHolder>() {
 
-        private var selectedPosition: Int? = null
+        private var selectedPosition: Int? = 0
         inner class GenreViewHolder(val binding: ItemGenreBinding): RecyclerView.ViewHolder(binding.root)
+
+        init {
+            if (genres.isNotEmpty()) {
+                onGenreClick(genres[0])
+            }
+        }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GenreViewHolder {
             val binding = ItemGenreBinding.inflate(
@@ -34,11 +41,12 @@ class GenreAdapter (
             holder.binding.genreName.text = genre.name
             val isSelected = selectedPosition == position
             holder.binding.genreName.isSelected = isSelected
+            Log.d("GenreAdapter", "Selected position: $selectedPosition")
             holder.binding.genreName.setOnClickListener {
-//                val isSelected = !it.isSelected
-//                it.isSelected = isSelected
+                val isSelected = !it.isSelected
+                it.isSelected = isSelected
                 if (selectedPosition == position) {
-                    selectedPosition = null
+                    selectedPosition = position
                 } else {
                     val previousSelectedPosition = selectedPosition
                     selectedPosition = position
