@@ -267,7 +267,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="35dp"
                 android:layout_marginEnd="10dp"
                 android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -301,14 +301,14 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/genreList" />
 
             <TextView
-                android:id="@+id/suggetsBookLabel"
+                android:id="@+id/suggestBookLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
@@ -321,14 +321,14 @@
                 app:layout_constraintTop_toBottomOf="@+id/booksByGenres" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/suggetsBook"
+                android:id="@+id/suggestBook"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="5dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/suggetsBookLabel" />
+                app:layout_constraintTop_toBottomOf="@id/suggestBookLabel" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

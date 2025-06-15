@@ -8,14 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.view.marginTop
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.noctaleapp.adapter.BookByGenreAdapter
 import com.example.noctaleapp.adapter.GenreAdapter
 import com.example.noctaleapp.databinding.FragmentHomeBinding
+import com.example.noctaleapp.extension.dpToPx
 import com.example.noctaleapp.viewmodel.HomeViewModel
 
 class HomeFragment : Fragment() {
@@ -29,6 +28,7 @@ class HomeFragment : Fragment() {
     private lateinit var bookOnReadName: TextView
     private lateinit var bookOnReadAuthor: TextView
     private lateinit var bookOnReadImg: ImageView
+    private lateinit var suggestBookLabel: TextView
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
@@ -40,6 +40,9 @@ class HomeFragment : Fragment() {
         bookOnReadName = binding.bookOnReadName
         bookOnReadAuthor = binding.bookOnReadAuthor
         bookOnReadImg = binding.bookOnReadImg
+
+        val suggestBookLabel = (binding.suggestBookLabel.layoutParams as ViewGroup.MarginLayoutParams)
+
         if (viewModel.books.value == null) {
             viewModel.fetchRecentBookByUser(userId)
         }
@@ -68,9 +71,11 @@ class HomeFragment : Fragment() {
             if (books.isNullOrEmpty()) {
                 binding.booksByGenres.visibility = View.GONE
                 binding.emptyViewBookGenres.visibility = View.VISIBLE
+                suggestBookLabel.topMargin = requireContext().dpToPx(180f)
             } else {
                 binding.booksByGenres.visibility = View.VISIBLE
                 binding.emptyViewBookGenres.visibility = View.GONE
+                suggestBookLabel.topMargin = requireContext().dpToPx(15f)
                 binding.booksByGenres.apply {
                     layoutManager = LinearLayoutManager(
                         requireContext(),
