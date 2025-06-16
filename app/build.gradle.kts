@@ -58,11 +58,10 @@ dependencies {
     implementation(libs.androidx.ui.test.android)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.0")
-    implementation("com.github.bumptech.glide:glide:4.16.0")
-    implementation(platform("com.google.firebase:firebase-bom:33.15.0"))
-    // Thêm thư viện Firebase Authentication (cho chức năng Đăng nhập, Đăng ký)
-    implementation("com.google.firebase:firebase-auth-ktx") // Dùng bản ktx cho Kotlin
-    implementation("com.google.firebase:firebase-firestore-ktx:24.10.3")
-    kapt("com.github.bumptech.glide:compiler:4.16.0")
+    androidTestImplementation(libs.androidx.espresso.core)
+    implementation(libs.glide)
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.auth.ktx)
+    implementation(libs.firebase.firestore.ktx)
+    kapt(libs.compiler)
 }
