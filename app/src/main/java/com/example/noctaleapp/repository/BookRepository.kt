@@ -66,6 +66,8 @@ class BookRepository {
             }
 
             val newLastVisible = result.documents.lastOrNull()
+
+            Log.d("BookRepository", "Suggest books: $books")
             onSuccess(books, newLastVisible)
         }
             .addOnFailureListener {

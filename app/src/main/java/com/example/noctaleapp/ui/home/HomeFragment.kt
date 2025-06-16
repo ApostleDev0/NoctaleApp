@@ -10,9 +10,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.noctaleapp.adapter.BookByGenreAdapter
 import com.example.noctaleapp.adapter.GenreAdapter
+import com.example.noctaleapp.adapter.SuggestBooksAdapter
 import com.example.noctaleapp.databinding.FragmentHomeBinding
 import com.example.noctaleapp.extension.dpToPx
 import com.example.noctaleapp.viewmodel.HomeViewModel
@@ -30,6 +32,8 @@ class HomeFragment : Fragment() {
     private lateinit var bookOnReadImg: ImageView
     private lateinit var suggestBookLabel: TextView
 
+    private lateinit var suggestBooksAdapter: SuggestBooksAdapter
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
@@ -40,6 +44,7 @@ class HomeFragment : Fragment() {
         bookOnReadName = binding.bookOnReadName
         bookOnReadAuthor = binding.bookOnReadAuthor
         bookOnReadImg = binding.bookOnReadImg
+        viewModel.fetchSuggestBooks()
 
         val suggestBookLabel = (binding.suggestBookLabel.layoutParams as ViewGroup.MarginLayoutParams)
 
@@ -92,6 +97,37 @@ class HomeFragment : Fragment() {
         viewModel.books.observe(viewLifecycleOwner) {
 
         }
+
+        suggestBooksAdapter = SuggestBooksAdapter(
+            onBookClick = {},
+            onReadNowClick = {},
+            onAddToLibraryClick = {},
+            books = mutableListOf(),
+        )
+
+        viewModel.suggestBooks.observe(viewLifecycleOwner) {
+            books ->
+            binding.suggestBook.apply {
+                layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+                adapter = suggestBooksAdapter
+            }
+            suggestBooksAdapter.updateData(books)
+            binding.txtEndSuggestBooks.visibility = if (viewModel.isLastSuggestPage()) View.VISIBLE else View.GONE
+        }
+
+        binding.suggestBook.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+
+                val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+                val lastVisibleItem = layoutManager.findLastVisibleItemPosition()
+                val totalItemCount = layoutManager.itemCount
+
+                if (lastVisibleItem == totalItemCount - 1) {
+                    viewModel.fetchSuggestBooks()
+                }
+            }
+        })
     }
 
     override fun onDestroyView() {

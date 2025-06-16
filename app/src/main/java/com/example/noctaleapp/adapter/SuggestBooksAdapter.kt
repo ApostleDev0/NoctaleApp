@@ -10,7 +10,7 @@ import com.example.noctaleapp.databinding.ItemBookBinding
 import com.example.noctaleapp.model.Book
 
 class SuggestBooksAdapter(
-    private val books: List<Book>,
+    private var books: MutableList<Book> = mutableListOf(),
     private val onBookClick: (Book) -> Unit,
     private val onReadNowClick: (Book) -> Unit,
     private val onAddToLibraryClick: (Book) -> Unit
@@ -52,8 +52,17 @@ class SuggestBooksAdapter(
         holder.binding.addToLibrary.setOnClickListener{
             onAddToLibraryClick(book)
         }
+        holder.itemView.setOnClickListener {
+            onBookClick(book)
+        }
     }
 
     override fun getItemCount(): Int = books.size
+
+    fun updateData(newBooks: List<Book>) {
+        books.clear()
+        books.addAll(newBooks)
+        notifyDataSetChanged()
+    }
 
 }

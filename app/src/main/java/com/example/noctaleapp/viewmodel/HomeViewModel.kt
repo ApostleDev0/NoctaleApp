@@ -34,9 +34,12 @@ class HomeViewModel : ViewModel() {
     private val _genres = MutableLiveData<List<Genre>>()
     val genres: LiveData<List<Genre>> = _genres
 
-    private var isLoading = false
-    private var isLastPage = false
-    private var lastVisibleSnapshot: DocumentSnapshot? = null
+    private var isLoadingSuggest = false
+    private var isLastSuggestPage = false
+    private var lastSuggestSnapshot: DocumentSnapshot? = null
+    private val _suggestBook = MutableLiveData<List<Book>>(emptyList())
+    val suggestBooks: LiveData<List<Book>> = _suggestBook
+    private val pageSize = 10L
 
     init {
         fetchGenres()
@@ -127,7 +130,31 @@ class HomeViewModel : ViewModel() {
     }
 
     fun fetchSuggestBooks() {
-        if (isLoading || isLastPage) return
-        isLoading = true
+        if (isLoadingSuggest || isLastSuggestPage) return
+        isLoadingSuggest = true
+
+        bookRepository.getSuggestBook(
+            limited = pageSize,
+            lastVisible = lastSuggestSnapshot,
+            onSuccess = {newBooks, lastVisible ->
+                val current = _suggestBook.value ?: emptyList()
+                _suggestBook.value = current + newBooks
+                Log.d("SuggestViewModel", "Suggest books loaded: ${newBooks.size}")
+                isLastSuggestPage = newBooks.size < 10
+                lastSuggestSnapshot = lastVisible
+                isLoadingSuggest = false
+            },
+            onFailure = {
+                isLoadingSuggest = false
+            })
+    }
+
+    fun isLastSuggestPage(): Boolean = isLastSuggestPage
+
+    fun resetPaging() {
+        _suggestBook.value = emptyList()
+        lastSuggestSnapshot = null
+        isLastSuggestPage = false
+        fetchSuggestBooks()
     }
 }
