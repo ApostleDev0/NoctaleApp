@@ -9,6 +9,7 @@ import com.example.noctaleapp.model.Book
 import com.example.noctaleapp.model.Genre
 import com.example.noctaleapp.model.RecentBook
 import com.example.noctaleapp.model.User
+import com.example.noctaleapp.repository.AuthRepository
 import com.example.noctaleapp.repository.BookRepository
 import com.example.noctaleapp.repository.GenreRepository
 import com.example.noctaleapp.repository.UserRepository
@@ -18,6 +19,7 @@ class HomeViewModel : ViewModel() {
     private val userRepository = UserRepository()
     private val bookRepository = BookRepository()
     private val genreRepository = GenreRepository()
+    private val authRepository = AuthRepository()
 
     private val _user = MutableLiveData<User>()
     val users: LiveData<User> = _user
@@ -41,8 +43,30 @@ class HomeViewModel : ViewModel() {
     val suggestBooks: LiveData<List<Book>> = _suggestBook
     private val pageSize = 10L
 
+    // thêm live data cho trạng thái đăng xuất
+    // giá trị ban đầu là false
+    private val _logoutComplete = MutableLiveData<Boolean>(false)
+    val logoutComplete: LiveData<Boolean> = _logoutComplete
+
     init {
         fetchGenres()
+        // Tự động tải thông tin người dùng đang đăng nhập
+        loadCurrentUserProfile()
+    }
+
+    // Hàm lấy ID người dùng đang đăng nhập và gọi hàm fetchUserId.
+    private fun loadCurrentUserProfile() {
+        // Lấy ID người dùng từ AuthRepository
+        val currentUserId = authRepository.getCurrentUser()?.uid
+
+        // Nếu có ID, dùng nó để gọi hàm fetchUserById đã có sẵn
+        if (currentUserId != null) {
+            fetchUserById(currentUserId)
+        } else {
+            // Có thể xử lý lỗi nếu không tìm thấy người dùng
+            _error.value = "Không tìm thấy người dùng đang đăng nhập."
+            Log.e("HomeViewModel", "Current user is null, cannot fetch profile.")
+        }
     }
 
     fun fetchUserById(uid: String) {
@@ -156,5 +180,11 @@ class HomeViewModel : ViewModel() {
         lastSuggestSnapshot = null
         isLastSuggestPage = false
         fetchSuggestBooks()
+    }
+
+    // hàm logout, gọi repository để đăng xuất và cập nhật LiveData
+    fun logout() {
+        authRepository.logout()
+        _logoutComplete.value = true
     }
 }
