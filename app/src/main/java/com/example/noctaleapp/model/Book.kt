@@ -11,5 +11,6 @@ data class Book(
     val coverUrl: String = "",
     val uploadedAt: Timestamp? = null,
     val updatedAt: Timestamp? = null,
-    val rating: Double = 0.0
+    val rating: Double = 0.0,
+    val chapterQuantity: Int = 0
 )

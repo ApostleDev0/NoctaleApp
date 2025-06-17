@@ -9,14 +9,17 @@ import com.example.noctaleapp.model.Book
 import com.example.noctaleapp.model.Genre
 import com.example.noctaleapp.model.RecentBook
 import com.example.noctaleapp.model.User
+import com.example.noctaleapp.repository.AuthRepository
 import com.example.noctaleapp.repository.BookRepository
 import com.example.noctaleapp.repository.GenreRepository
 import com.example.noctaleapp.repository.UserRepository
+import com.google.firebase.firestore.DocumentSnapshot
 
 class HomeViewModel : ViewModel() {
     private val userRepository = UserRepository()
     private val bookRepository = BookRepository()
     private val genreRepository = GenreRepository()
+    private val authRepository = AuthRepository()
 
     private val _user = MutableLiveData<User>()
     val users: LiveData<User> = _user
@@ -33,12 +36,29 @@ class HomeViewModel : ViewModel() {
     private val _genres = MutableLiveData<List<Genre>>()
     val genres: LiveData<List<Genre>> = _genres
 
+    private var isLoadingSuggest = false
+    private var isLastSuggestPage = false
+    private var lastSuggestSnapshot: DocumentSnapshot? = null
+    private val _suggestBook = MutableLiveData<List<Book>>(emptyList())
+    val suggestBooks: LiveData<List<Book>> = _suggestBook
+    private val pageSize = 10L
+
+    private val _logoutComplete = MutableLiveData<Boolean>(false)
+    val logoutComplete: LiveData<Boolean> = _logoutComplete
+
+    private val _uid = MutableLiveData<String>()
+    val uid: LiveData<String> get() = _uid
+
     init {
         fetchGenres()
     }
 
-    fun fetchUserById(userId: String) {
-        userRepository.getUserById(userId,
+    fun setUID (uid: String) {
+        _uid.value = uid
+    }
+
+    fun fetchUserById(uid: String) {
+        userRepository.getUserById(uid,
             onSuccess = {
                 user ->
                 _user.value = user
@@ -52,8 +72,8 @@ class HomeViewModel : ViewModel() {
         )
     }
 
-    fun fetchRecentBookByUser(userId: String) {
-        userRepository.getRecentBookIdFromUser(userId,
+    fun fetchRecentBookByUser(uid: String) {
+        userRepository.getRecentBookIdFromUser(uid,
             onSuccess = {
                 bookId ->
                 bookRepository.getBookById(
@@ -65,6 +85,7 @@ class HomeViewModel : ViewModel() {
                     },
                     onFailure = {
                         exception -> _error.value = exception.message
+                        Log.d("BookViewModel", "Error: ${exception.message}")
                     }
                 )
             },
@@ -118,5 +139,32 @@ class HomeViewModel : ViewModel() {
                 _error.value = exception.message
             }
         )
+    }
+
+    fun fetchSuggestBooks() {
+        if (isLoadingSuggest || isLastSuggestPage) return
+        isLoadingSuggest = true
+
+        bookRepository.getSuggestBook(
+            limited = pageSize,
+            lastVisible = lastSuggestSnapshot,
+            onSuccess = {newBooks, lastVisible ->
+                val current = _suggestBook.value ?: emptyList()
+                _suggestBook.value = current + newBooks
+                Log.d("SuggestViewModel", "Suggest books loaded: ${newBooks.size}")
+                isLastSuggestPage = newBooks.size < 10
+                lastSuggestSnapshot = lastVisible
+                isLoadingSuggest = false
+            },
+            onFailure = {
+                isLoadingSuggest = false
+            })
+    }
+
+    fun isLastSuggestPage(): Boolean = isLastSuggestPage
+
+    fun logout() {
+        authRepository.signOut()
+        _logoutComplete.value = true
     }
 }

@@ -1,7 +1,9 @@
 package com.example.noctaleapp.repository
 
+import android.util.Log
 import com.example.noctaleapp.model.Book
 import com.example.noctaleapp.model.Chapter
+import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.tasks.await
 
@@ -10,47 +12,70 @@ class BookRepository {
     private val booksCollection = firestore.collection("books")
     private val chaptersCollection = firestore.collection("chapters")
 
-
-
-    fun getBookById(
-        bookId: String,
-        onSuccess: (Book) -> Unit,
-        onFailure: (Exception) -> Unit
-    ) {
+    fun getBookById(bookId: String,
+                    onSuccess: (Book) -> Unit,
+                    onFailure: (Exception) -> Unit) {
         booksCollection.document(bookId)
             .get()
-            .addOnSuccessListener { result ->
+            .addOnSuccessListener {
+                    result ->
                 val book = result.toObject(Book::class.java)
                 if (book != null) {
                     onSuccess(book.copy(id = result.id))
                 } else {
-                    onFailure(Exception("Book not found or could not be deserialized."))
+                    onFailure(Exception("Book not found"))
                 }
             }
-            .addOnFailureListener { exception ->
+            .addOnFailureListener {
+                    exception ->
                 onFailure(exception)
+                Log.d("BookRepository", "Error: ${exception.message}")
             }
     }
 
-    fun getBookByGenreId(
-        genreId: String,
-        onSuccess: (List<Book>) -> Unit,
-        onFailure: (Exception) -> Unit
-    ) {
+    fun getBookByGenreId(genreId: String,
+                       onSuccess: (List<Book>) -> Unit,
+                       onFailure: (Exception) -> Unit) {
         booksCollection.whereArrayContains("genres", genreId)
             .get()
-            .addOnSuccessListener { result ->
-                val books = result.documents.mapNotNull { documentSnapshot ->
-                    documentSnapshot.toObject(Book::class.java)?.copy(id = documentSnapshot.id)
+            .addOnSuccessListener {
+                result ->
+                val books = result.documents.mapNotNull {
+                    it.toObject(Book::class.java)?.copy(id = it.id)
                 }
                 onSuccess(books)
             }
-            .addOnFailureListener { exception ->
+            .addOnFailureListener {
+                exception ->
                 onFailure(exception)
             }
     }
 
+    fun getSuggestBook(limited: Long,
+                       lastVisible: DocumentSnapshot?,
+                       onSuccess: (List<Book>, DocumentSnapshot?) -> Unit,
+                       onFailure: (Exception) -> Unit) {
+        var query = booksCollection.orderBy("title")
+            .limit(limited)
 
+        if (lastVisible != null) {
+            query = query.startAfter(lastVisible)
+        }
+
+        query.get().addOnSuccessListener {
+            result ->
+            val books = result.documents.mapNotNull {
+                it.toObject(Book::class.java)?.copy(id = it.id)
+            }
+
+            val newLastVisible = result.documents.lastOrNull()
+            onSuccess(books, newLastVisible)
+        }
+            .addOnFailureListener {
+                exception ->
+                onFailure(exception)
+            }
+    }
 
     suspend fun getBookByIdSuspend(bookId: String): Book {
         try {

@@ -42,7 +42,7 @@
             android:maxLines="2"
             android:text="@string/book_name"
             android:textColor="@color/dark_cloud"
-            android:textSize="14sp"
+            android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/bookImage"
             app:layout_constraintTop_toTopOf="parent" />
@@ -70,7 +70,7 @@
             android:layout_marginTop="4dp"
             android:ellipsize="end"
             android:fontFamily="@font/proxima_nova_regular"
-            android:maxLines="3"
+            android:maxLines="2"
             android:text="@string/description"
             android:textColor="@color/dark_cloud"
             android:textSize="12sp"
@@ -85,7 +85,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="4dp"
-            android:fontFamily="@font/proxima_nova_regular"
+            android:fontFamily="@font/proxima_nova_semibold"
             android:text="@string/chapter"
             android:textColor="@color/dark_cloud"
             android:textSize="12sp"
@@ -98,7 +98,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="4dp"
-            android:fontFamily="@font/proxima_nova_regular"
+            android:fontFamily="@font/proxima_nova_semibold"
             android:text="@string/rating"
             android:textColor="@color/dark_cloud"
             android:textSize="12sp"
@@ -135,22 +135,6 @@
             app:layout_constraintTop_toBottomOf="@+id/chaptersBook"
             tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
 
-        <ImageButton
-            android:id="@+id/addToLibrary"
-            android:layout_width="36dp"
-            android:layout_height="24dp"
-            android:layout_marginStart="132dp"
-            android:layout_marginTop="16dp"
-            android:backgroundTint="@android:color/transparent"
-            android:contentDescription="@string/library"
-            android:padding="0dp"
-            android:scaleType="fitCenter"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.888"
-            app:layout_constraintStart_toEndOf="@+id/readingButton"
-            app:layout_constraintTop_toBottomOf="@+id/ratingBook"
-            app:srcCompat="@drawable/ic_bookmark"
-            tools:ignore="ImageContrastCheck,TouchTargetSizeCheck" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>

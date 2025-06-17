@@ -9,7 +9,7 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         tools:ignore="UselessParent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -84,8 +84,10 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/recentBookLayout"
                     android:layout_width="match_parent"
-                    android:layout_height="180dp">
+                    android:layout_height="180dp"
+                    android:visibility="gone">
 
                     <TextView
                         android:id="@+id/textView2"
@@ -267,7 +269,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="35dp"
                 android:layout_marginEnd="10dp"
                 android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -301,14 +303,14 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/genreList" />
 
             <TextView
-                android:id="@+id/suggetsBookLabel"
+                android:id="@+id/suggestBookLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
@@ -321,14 +323,27 @@
                 app:layout_constraintTop_toBottomOf="@+id/booksByGenres" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/suggetsBook"
+                android:id="@+id/suggestBook"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="5dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/suggetsBookLabel" />
+                app:layout_constraintTop_toBottomOf="@id/suggestBookLabel" />
+
+            <TextView
+                android:id="@+id/txtEndSuggestBooks"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/proxima_nova_black"
+                android:text="."
+                android:textSize="25sp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/suggestBook"
+                tools:ignore="HardcodedText" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

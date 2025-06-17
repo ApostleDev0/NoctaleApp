@@ -3,26 +3,33 @@ package com.example.noctaleapp.ui
 import android.content.Intent
 import android.os.Bundle
 import android.util.Patterns
-import android.widget.Toast
+import android.widget.*
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
-import androidx.activity.viewModels
 import androidx.core.view.WindowInsetsCompat
 import com.example.noctaleapp.databinding.ActivityLoginBinding
 import com.example.noctaleapp.ui.resetpassword.ResetPasswordActivity
 import com.example.noctaleapp.viewmodel.LoginViewModel
-
+import com.google.firebase.auth.FirebaseAuth
 
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding // khai báo biến binding cho login
 
-    private val loginViewModel: LoginViewModel by viewModels() // quản lý riêng của login
+    // quản lý riêng của login
+    private val loginViewModel: LoginViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
+        // Kiểm tra trạng thái đăng nhập
+        if (FirebaseAuth.getInstance().currentUser != null) {
+            goToMainActivity()
+            return
+        }
 
         // Khởi tạo binding
         binding = ActivityLoginBinding.inflate(layoutInflater)
@@ -56,6 +63,19 @@ class LoginActivity : AppCompatActivity() {
 
 
     }
+
+    // Hàm trợ giúp chuyển đến MainActivity và xóa các màn hình cũ
+    private fun goToMainActivity() {
+        val intent = Intent(this, MainActivity::class.java)
+        // Cờ này rất quan trọng:
+        // FLAG_ACTIVITY_NEW_TASK: Bắt đầu một task mới cho MainActivity.
+        // FLAG_ACTIVITY_CLEAR_TASK: Xóa tất cả các activity trong task cũ (bao gồm LoginActivity).
+        // Kết quả: người dùng không thể nhấn nút "Back" từ MainActivity để quay lại LoginActivity.
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
+        finish() // Đảm bảo LoginActivity hiện tại bị hủy hoàn to
+    }
+
     private fun setupClickListeners() {
         binding.txtViewForgetPasswordLogin.setOnClickListener {
             startActivity(Intent(this, ResetPasswordActivity::class.java))
