@@ -8,6 +8,10 @@ import androidx.core.view.WindowInsetsCompat
 import com.example.noctaleapp.R
 
 class ChapterActivity : AppCompatActivity() {
+    companion object {
+        const val EXTRA_BOOK_ID = "extra_book_id"
+        const val EXTRA_CHAPTER_ID = "extra_chapter_id"
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()

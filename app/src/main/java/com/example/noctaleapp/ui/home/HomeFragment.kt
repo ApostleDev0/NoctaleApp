@@ -1,6 +1,7 @@
 package com.example.noctaleapp.ui.home
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -18,6 +19,8 @@ import com.example.noctaleapp.adapter.GenreAdapter
 import com.example.noctaleapp.adapter.SuggestBooksAdapter
 import com.example.noctaleapp.databinding.FragmentHomeBinding
 import com.example.noctaleapp.extension.dpToPx
+import com.example.noctaleapp.ui.BookActivity
+import com.example.noctaleapp.ui.ChapterActivity
 import com.example.noctaleapp.viewmodel.HomeViewModel
 
 class HomeFragment : Fragment() {
@@ -69,8 +72,19 @@ class HomeFragment : Fragment() {
 
     private fun renderSuggestBooks() {
         suggestBooksAdapter = SuggestBooksAdapter(
-            onBookClick = {},
-            onReadNowClick = {},
+            onBookClick = {
+                book ->
+                val intent = Intent(requireContext(), BookActivity::class.java)
+                intent.putExtra(BookActivity.EXTRA_BOOK_ID, book.id)
+                startActivity(intent)
+            },
+            onReadNowClick = {
+                book ->
+                val intent = Intent(requireContext(), ChapterActivity::class.java)
+                intent.putExtra(ChapterActivity.EXTRA_BOOK_ID, book.id)
+                intent.putExtra(ChapterActivity.EXTRA_CHAPTER_ID, "1_${book.id}")
+                startActivity(intent)
+            },
             books = mutableListOf(),
         )
 
