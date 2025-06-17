@@ -2,12 +2,15 @@ package com.example.noctaleapp.repository
 
 import android.util.Log
 import com.example.noctaleapp.model.Book
+import com.example.noctaleapp.model.Chapter
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.coroutines.tasks.await
 
 class BookRepository {
     private val firestore = FirebaseFirestore.getInstance()
     private val booksCollection = firestore.collection("books")
+    private val chaptersCollection = firestore.collection("chapters")
 
     fun getBookById(bookId: String,
                     onSuccess: (Book) -> Unit,
@@ -66,8 +69,6 @@ class BookRepository {
             }
 
             val newLastVisible = result.documents.lastOrNull()
-
-            Log.d("BookRepository", "Suggest books: $books")
             onSuccess(books, newLastVisible)
         }
             .addOnFailureListener {
@@ -75,4 +76,35 @@ class BookRepository {
                 onFailure(exception)
             }
     }
+
+    suspend fun getBookByIdSuspend(bookId: String): Book {
+        try {
+            val documentSnapshot = booksCollection.document(bookId).get().await()
+            val book = documentSnapshot.toObject(Book::class.java)
+            if (book != null) {
+                return book.copy(id = documentSnapshot.id)
+            } else {
+                throw BookNotFoundException("Book with ID '$bookId' not found or could not be deserialized.")
+            }
+        } catch (e: Exception) {
+            if (e is BookNotFoundException) throw e
+            throw Exception("Failed to fetch book with ID '$bookId'. Cause: ${e.message}", e)
+        }
+    }
+
+
+    suspend fun getChaptersForBookSuspend(bookId: String): List<Chapter> {
+        try {
+            val querySnapshot = chaptersCollection.whereEqualTo("bookId", bookId)
+                .get()
+                .await()
+            return querySnapshot.documents.mapNotNull { documentSnapshot ->
+                documentSnapshot.toObject(Chapter::class.java)?.copy(id = documentSnapshot.id)
+            }
+        } catch (e: Exception) {
+            return emptyList()
+        }
+    }
+
+    class BookNotFoundException(message: String) : Exception(message)
 }

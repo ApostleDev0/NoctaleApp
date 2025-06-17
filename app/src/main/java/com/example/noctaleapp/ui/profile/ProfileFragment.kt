@@ -22,9 +22,9 @@ class ProfileFragment : Fragment() {
     private val viewModel: HomeViewModel by activityViewModels()
     private val tabTitles = listOf("Product", "Fan", "Follower")
 
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//   }
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+   }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,47 +47,11 @@ class ProfileFragment : Fragment() {
 
         setupTabsAndViewPager()
 
-        // Lắng nghe sự kiện click từ nút Đăng xuất
         binding.btnLogout.setOnClickListener {
-            viewModel.logout() // Gọi hàm logout trong ViewModel
-        }
-
-        // Bắt đầu quan sát trạng thái đăng xuất từ ViewModel
-        observeLogoutStatus()
-        // Bắt đầu quan sát các trạng thái từ ViewModel
-        observeViewModel()
-    }
-
-    private fun observeViewModel() {
-        // 1. Quan sát trạng thái đăng xuất
-        viewModel.logoutComplete.observe(viewLifecycleOwner) { hasLoggedOut ->
-            // isAdded là một check an toàn, đảm bảo Fragment vẫn đang được gắn vào Activity
-            if (hasLoggedOut && isAdded) {
-                goToLoginActivity()
-            }
-        }
-
-        // 2. Quan sát và hiển thị dữ liệu người dùng
-        viewModel.users.observe(viewLifecycleOwner) { user ->
-            // Kiểm tra để đảm bảo user không null
-            user?.let {
-                // Gán dữ liệu vào các View bằng ID từ file XML của bạn
-                // *** ĐÃ CẬP NHẬT: it.username -> it.displayName ***
-                binding.profileName.text = it.displayName
-                binding.userName.text = it.email
-
-                // Nếu model User của bạn có trường description, gán nó vào đây
-                // binding.profileDescription.text = it.description
-
-                // Dùng Glide để tải ảnh đại diện
-                Glide.with(this)
-                    .load(it.avatarUrl)
-                    .placeholder(R.drawable.ic_title_bar) // Ảnh hiển thị tạm thời
-                    .error(R.drawable.ic_title_bar)       // Ảnh hiển thị khi lỗi
-                    .into(binding.profileImage)
-            }
+            viewModel.logout()
         }
     }
+
 
     private fun setupTabsAndViewPager() {
         val adapter = ProfileTabAdapter(this)
@@ -99,28 +63,6 @@ class ProfileFragment : Fragment() {
         }.attach()
     }
 
-    private fun observeLogoutStatus() {
-        // Lắng nghe LiveData "logoutComplete"
-        viewModel.logoutComplete.observe(viewLifecycleOwner) { hasLoggedOut ->
-            // isAdded là một check an toàn, đảm bảo Fragment vẫn đang được gắn vào Activity
-            if (hasLoggedOut && isAdded) {
-                // Nếu hasLoggedOut là true, tiến hành điều hướng
-                goToLoginActivity()
-            }
-        }
-    }
-    private fun ProfileFragment.goToLoginActivity() {
-        // Sử dụng requireActivity() để lấy context của Activity chứa Fragment
-        val intent = Intent(requireActivity(), LoginActivity::class.java)
-
-        // Cờ này sẽ xóa hết các màn hình cũ (như MainActivity)
-        // và khởi động LoginActivity như một task mới.
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        startActivity(intent)
-
-        // Đóng Activity hiện tại (MainActivity) lại.
-        requireActivity().finish()
-    }
 
     override fun onDestroyView() {
         super.onDestroyView()

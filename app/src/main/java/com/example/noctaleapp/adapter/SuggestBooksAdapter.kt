@@ -13,7 +13,6 @@ class SuggestBooksAdapter(
     private var books: MutableList<Book> = mutableListOf(),
     private val onBookClick: (Book) -> Unit,
     private val onReadNowClick: (Book) -> Unit,
-    private val onAddToLibraryClick: (Book) -> Unit
 ) : RecyclerView.Adapter<SuggestBooksAdapter.BookViewHolder>() {
 
     inner class BookViewHolder(val binding: ItemBookBinding) : RecyclerView.ViewHolder(binding.root)
@@ -48,9 +47,6 @@ class SuggestBooksAdapter(
             .into(holder.binding.bookImage)
         holder.binding.readingButton.setOnClickListener{
             onReadNowClick(book)
-        }
-        holder.binding.addToLibrary.setOnClickListener{
-            onAddToLibraryClick(book)
         }
         holder.itemView.setOnClickListener {
             onBookClick(book)

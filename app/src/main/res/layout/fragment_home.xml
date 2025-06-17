@@ -84,8 +84,10 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/recentBookLayout"
                     android:layout_width="match_parent"
-                    android:layout_height="180dp">
+                    android:layout_height="180dp"
+                    android:visibility="gone">
 
                     <TextView
                         android:id="@+id/textView2"

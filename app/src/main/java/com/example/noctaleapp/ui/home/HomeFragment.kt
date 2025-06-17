@@ -1,5 +1,6 @@
 package com.example.noctaleapp.ui.home
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -23,14 +24,12 @@ class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
-    private var userId = "HYr8ZD3ycnRBKJIshiK2yuZi99w1"
-
+//    private var userId = "HYr8ZD3ycnRBKJIshiK2yuZi99w1"
     private val viewModel: HomeViewModel by activityViewModels()
 
     private lateinit var bookOnReadName: TextView
     private lateinit var bookOnReadAuthor: TextView
     private lateinit var bookOnReadImg: ImageView
-    private lateinit var suggestBookLabel: TextView
 
     private lateinit var suggestBooksAdapter: SuggestBooksAdapter
 
@@ -41,72 +40,42 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        bookOnReadName = binding.bookOnReadName
-        bookOnReadAuthor = binding.bookOnReadAuthor
-        bookOnReadImg = binding.bookOnReadImg
+
+        viewModel.uid.observe(viewLifecycleOwner) { uID ->
+            if (uID.isNotEmpty()) {
+                if (viewModel.books.value == null) {
+                    viewModel.fetchRecentBookByUser(uID)
+                }
+                if (viewModel.users.value == null) {
+                    viewModel.fetchUserById(uID)
+                }
+            }
+        }
+
+        hiUser()
+        renderRecentBook()
+        renderGenresLayout()
+
+//        viewModel.books.observe(viewLifecycleOwner) {}
+
         viewModel.fetchSuggestBooks()
+        renderSuggestBooks()
+    }
 
-        val suggestBookLabel = (binding.suggestBookLabel.layoutParams as ViewGroup.MarginLayoutParams)
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 
-        if (viewModel.books.value == null) {
-            viewModel.fetchRecentBookByUser(userId)
-        }
-
-        viewModel.books.observe(viewLifecycleOwner) { bookData ->
-            bookOnReadName.text = bookData.title
-            bookOnReadAuthor.text = "Tác giả: ${bookData.author}"
-            Glide.with(this)
-                .load(bookData.coverUrl)
-                .into(bookOnReadImg)
-        }
-
-        viewModel.genres.observe(viewLifecycleOwner) {
-            genres ->
-            binding.genreList.apply {
-                layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-                adapter = GenreAdapter(genres) {
-                    selectedGenre ->
-                    viewModel.fetchBooksByGenre(selectedGenre.name)
-                    Log.d("GenreAdapter", "Selected genre: ${selectedGenre.name}, Selected id: ${selectedGenre.id}")
-                }
-            }
-        }
-
-        viewModel.bookGenres.observe(viewLifecycleOwner) { books ->
-            if (books.isNullOrEmpty()) {
-                binding.booksByGenres.visibility = View.GONE
-                binding.emptyViewBookGenres.visibility = View.VISIBLE
-                suggestBookLabel.topMargin = requireContext().dpToPx(180f)
-            } else {
-                binding.booksByGenres.visibility = View.VISIBLE
-                binding.emptyViewBookGenres.visibility = View.GONE
-                suggestBookLabel.topMargin = requireContext().dpToPx(15f)
-                binding.booksByGenres.apply {
-                    layoutManager = LinearLayoutManager(
-                        requireContext(),
-                        LinearLayoutManager.HORIZONTAL,
-                        false
-                    )
-                    adapter = BookByGenreAdapter(books) {
-
-                    }
-                }
-            }
-        }
-
-        viewModel.books.observe(viewLifecycleOwner) {
-
-        }
-
+    private fun renderSuggestBooks() {
         suggestBooksAdapter = SuggestBooksAdapter(
             onBookClick = {},
             onReadNowClick = {},
-            onAddToLibraryClick = {},
             books = mutableListOf(),
         )
 
         viewModel.suggestBooks.observe(viewLifecycleOwner) {
-            books ->
+                books ->
             binding.suggestBook.apply {
                 layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
                 adapter = suggestBooksAdapter
@@ -130,9 +99,67 @@ class HomeFragment : Fragment() {
         })
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    private fun renderGenresLayout() {
+        val suggestBookLabel = (binding.suggestBookLabel.layoutParams as ViewGroup.MarginLayoutParams)
+
+        viewModel.genres.observe(viewLifecycleOwner) {
+                genres ->
+            binding.genreList.apply {
+                layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+                adapter = GenreAdapter(genres) {
+                        selectedGenre ->
+                    viewModel.fetchBooksByGenre(selectedGenre.name)
+                    Log.d("GenreAdapter", "Selected genre: ${selectedGenre.name}, Selected id: ${selectedGenre.id}")
+                }
+            }
+        }
+        viewModel.bookGenres.observe(viewLifecycleOwner) { books ->
+            if (books.isNullOrEmpty()) {
+                binding.booksByGenres.visibility = View.GONE
+                binding.emptyViewBookGenres.visibility = View.VISIBLE
+                suggestBookLabel.topMargin = requireContext().dpToPx(180f)
+            } else {
+                binding.booksByGenres.visibility = View.VISIBLE
+                binding.emptyViewBookGenres.visibility = View.GONE
+                suggestBookLabel.topMargin = requireContext().dpToPx(15f)
+                binding.booksByGenres.apply {
+                    layoutManager = LinearLayoutManager(
+                        requireContext(),
+                        LinearLayoutManager.HORIZONTAL,
+                        false
+                    )
+                    adapter = BookByGenreAdapter(books) {
+
+                    }
+                }
+            }
+        }
     }
 
+    @SuppressLint("SetTextI18n")
+    private fun renderRecentBook() {
+        bookOnReadName = binding.bookOnReadName
+        bookOnReadAuthor = binding.bookOnReadAuthor
+        bookOnReadImg = binding.bookOnReadImg
+
+        if (viewModel.books.value != null) {
+            binding.recentBookLayout.visibility = View.VISIBLE
+        } else {
+            binding.recentBookLayout.visibility = View.GONE
+        }
+
+        viewModel.books.observe(viewLifecycleOwner) { bookData ->
+            bookOnReadName.text = bookData.title
+            bookOnReadAuthor.text = "Tác giả: ${bookData.author}"
+            Glide.with(this)
+                .load(bookData.coverUrl)
+                .into(bookOnReadImg)
+        }
+    }
+
+    private fun hiUser() {
+        viewModel.users.observe(viewLifecycleOwner) { user ->
+            binding.welcomeUser.text = "Hi, ${user.username}"
+        }
+    }
 }
