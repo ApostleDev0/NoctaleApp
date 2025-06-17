@@ -9,17 +9,18 @@ import android.widget.ImageButton
 import android.widget.ScrollView
 import android.widget.TextView
 import android.widget.Toast
-// import android.widget.ProgressBar // Bỏ comment nếu bạn thêm ProgressBar vào XML
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
 import com.example.noctaleapp.R
-import com.example.noctaleapp.model.Chapter // Đảm bảo model này có id, title, content, chapterNumber
-import com.example.noctaleapp.repository.ChapterRepository // Import ChapterRepository
+import com.example.noctaleapp.model.Chapter
+import com.example.noctaleapp.repository.ChapterRepository
 import com.example.noctaleapp.viewmodel.ChapterViewModel
 import com.example.noctaleapp.viewmodel.ChapterViewModelFactory
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 
 class ChapterActivity : AppCompatActivity() {
 
@@ -30,6 +31,7 @@ class ChapterActivity : AppCompatActivity() {
     private lateinit var readerSettingsBtn: ImageButton
     private lateinit var readerCommentsBtn: ImageButton
     private lateinit var readerChaptersBtn: ImageButton
+    private lateinit var selectChapterLauncher: ActivityResultLauncher<Intent>
     // private lateinit var progressBarChapterLoading: ProgressBar // Bỏ comment nếu bạn thêm ProgressBar
 
     private lateinit var chapterViewModel: ChapterViewModel
@@ -66,7 +68,16 @@ class ChapterActivity : AppCompatActivity() {
 
         currentBookId = intent.getStringExtra(EXTRA_BOOK_ID)
         currentChapterId = intent.getStringExtra(EXTRA_CHAPTER_ID)
-
+        selectChapterLauncher = registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()
+        ) { result -> // 'result' ở đây là một đối tượng ActivityResult
+            if (result.resultCode == RESULT_OK) {
+                // Lấy dữ liệu từ Intent trả về
+                result.data?.getStringExtra(ReaderPanelActivity.RESULT_SELECTED_CHAPTER_ID)?.let { selectedChapterId ->
+                    navigateToChapter(selectedChapterId)
+                }
+            }
+        }
         if (currentBookId != null && currentChapterId != null) {
             chapterViewModel.loadChapter(currentBookId!!, currentChapterId!!)
         } else {
@@ -104,7 +115,7 @@ class ChapterActivity : AppCompatActivity() {
             if (chapter != null) {
                 displayChapterContent(chapter)
                 // Cập nhật currentChapterId để phản ánh chương đang hiển thị thực sự
-                currentChapterId = chapter.id
+                this.currentChapterId = chapter.id
             } else {
                 // Xử lý khi không tải được chương (ngoài thông báo lỗi từ LiveData error)
                 // textViewReaderContent.text = getString(R.string.error_loading_chapter_content)
@@ -177,24 +188,17 @@ class ChapterActivity : AppCompatActivity() {
         }
 
         readerChaptersBtn.setOnClickListener {
-            Toast.makeText(this, "Mở danh sách chương (chưa triển khai)", Toast.LENGTH_SHORT).show()
-            // TODO: Mở danh sách các chương
-            // Ví dụ: Hiển thị BottomSheetDialog với danh sách chương
-            // currentBookId?.let { bookId ->
-            //     val chapterListDialog = ChapterListBottomSheet.newInstance(bookId)
-            //     // ChapterListBottomSheet sẽ cần một listener để gọi lại navigateToChapter(newChapterId)
-            //     chapterListDialog.show(supportFragmentManager, ChapterListBottomSheet.TAG)
-            // }
-            // Hoặc, nếu BookActivity hiển thị danh sách chương, có thể quay lại BookActivity
+            // Lấy giá trị của currentChapterId ra một biến cục bộ
+            val chapterIdForIntent = this.currentChapterId // Hoặc chỉ currentChapterId nếu không có nhầm lẫn
+
             currentBookId?.let { bookId ->
-                val intent = Intent(this, BookActivity::class.java).apply {
-                    putExtra(BookActivity.EXTRA_BOOK_ID, bookId) // Thay bằng const thực tế
-                    // Có thể thêm một extra để BookActivity biết cần focus/mở phần danh sách chương
-                    putExtra(BookActivity.EXTRA_FOCUS_CHAPTERS, true) // Thay bằng const thực tế
-                    addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
+                val intent = Intent(this, ReaderPanelActivity::class.java).apply {
+                    putExtra(ReaderPanelActivity.EXTRA_BOOK_ID, bookId)
+                    // Sử dụng biến cục bộ ở đây
+                    putExtra(ReaderPanelActivity.EXTRA_CURRENT_CHAPTER_ID, chapterIdForIntent)
                 }
-                startActivity(intent)
-            }
+                selectChapterLauncher.launch(intent)
+            } ?: Toast.makeText(this, "Không có thông tin sách để mở danh sách chương.", Toast.LENGTH_SHORT).show()
         }
     }
 

@@ -46,7 +46,7 @@ class BookViewModel(private val repository: BookRepository) : ViewModel() {
         loadBookDetails(bookId)
     }
 
-    private fun loadBookDetails(id: String) {
+    fun loadBookDetails(id: String) {
         viewModelScope.launch {
             _isLoadingBook.postValue(true)
             try {
@@ -79,7 +79,7 @@ class BookViewModel(private val repository: BookRepository) : ViewModel() {
         }
     }
 
-    private fun loadChaptersForBook(bookId: String) {
+    fun loadChaptersForBook(bookId: String) {
         viewModelScope.launch {
             _isLoadingChapters.value = true
             try {
