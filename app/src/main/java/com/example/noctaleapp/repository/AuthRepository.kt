@@ -4,8 +4,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.auth.FirebaseUser
 
-// đây là tầng duy nhất tiếp xúc với nguồn dữ liệu Firebase
-// xử lý đăng nhập và đăng ký tại đây
 class AuthRepository {
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
     private val firestore: FirebaseFirestore = FirebaseFirestore.getInstance()
@@ -68,12 +66,10 @@ class AuthRepository {
             }
     }
 
-    // Hàm đăng xuất
-    fun logout() {
+    fun signOut() {
         auth.signOut()
     }
 
-    //Hàm lấy thông tin người dùng hiện tại đang đăng nhập
     fun getCurrentUser(): FirebaseUser? {
         return auth.currentUser
     }
