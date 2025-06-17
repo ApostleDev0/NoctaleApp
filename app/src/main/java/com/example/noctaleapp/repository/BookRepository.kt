@@ -70,14 +70,16 @@ class BookRepository {
 
     suspend fun getChaptersForBookSuspend(bookId: String): List<Chapter> {
         try {
-            val querySnapshot = chaptersCollection.whereEqualTo("bookId", bookId)
+            val querySnapshot = firestore.collection("books").document(bookId)
+                .collection("chapters") // TRUY VẤN SUB-COLLECTION
+                .orderBy("chapterNumber")
                 .get()
                 .await()
             return querySnapshot.documents.mapNotNull { documentSnapshot ->
                 documentSnapshot.toObject(Chapter::class.java)?.copy(id = documentSnapshot.id)
             }
         } catch (e: Exception) {
-            return emptyList()
+            throw Exception("Failed to fetch chapters for book ID '$bookId'. Cause: ${e.message}", e)
         }
     }
 

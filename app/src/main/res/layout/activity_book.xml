@@ -99,5 +99,18 @@
             android:clipToPadding="false"
             tools:listitem="@layout/item_chapters" />
 
+        <ProgressBar
+            android:id="@+id/progressBarBookLoading"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="@+id/imageViewBookCover"
+            app:layout_constraintBottom_toBottomOf="@+id/imageViewBookCover"
+            app:layout_constraintStart_toStartOf="@id/imageViewBookCover"
+            app:layout_constraintEnd_toEndOf="@id/imageViewBookCover"
+            tools:layout_editor_absoluteX="387dp"
+            />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

@@ -114,4 +114,5 @@
     <string name="books_description">Mô tả sách</string>
     <string name="reader_setting">Tùy Chỉnh</string>
     <string name="ChapterComment">Bình Luận</string>
+    <string name="no_book_genres">Bình Luận</string>
 </resources>
