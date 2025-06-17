@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.fragment.app.activityViewModels
 import com.example.noctaleapp.R
 import com.bumptech.glide.Glide
@@ -13,6 +14,7 @@ import com.example.noctaleapp.ui.LoginActivity
 import com.example.noctaleapp.viewmodel.HomeViewModel
 import com.example.noctaleapp.adapter.ProfileTabAdapter
 import com.example.noctaleapp.databinding.FragmentProfileBinding
+import com.example.noctaleapp.ui.SettingActivity
 import com.google.android.material.tabs.TabLayoutMediator
 
 class ProfileFragment : Fragment() {
@@ -31,7 +33,12 @@ class ProfileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
-        return binding.root
+        val root = binding.root
+        binding.settingButton.setOnClickListener {
+            val intentSetting = Intent(requireContext(), SettingActivity::class.java)
+            startActivity(intentSetting)
+        }
+        return root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

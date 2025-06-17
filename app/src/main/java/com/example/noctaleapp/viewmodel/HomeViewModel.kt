@@ -51,7 +51,6 @@ class HomeViewModel : ViewModel() {
 
     init {
         fetchGenres()
-
     }
 
     fun setUID (uid: String) {

@@ -45,7 +45,7 @@ class BookViewModel : ViewModel() {
             try {
                 val book = repository.getBookByIdSuspend(id)
                 _bookDetails.postValue(book)
-                loadChaptersForBook(id) // Hoặc book.id
+                loadChaptersForBook(id)
 
             } catch (e: BookRepository.BookNotFoundException) {
                 _error.postValue("Không tìm thấy sách: ${e.message}")
