@@ -113,4 +113,8 @@
     <string name="books_name">Tên sách</string>
     <string name="no_book_genres">Hiện chưa có sách cho thể loại này, hãy thử thể loại khác</string>
     <string name="button_logout">Đăng xuất</string>
+    <string name="profile_information">Thông tin tài khoản</string>
+    <string name="edit_profile">Sửa hồ sơ</string>
+    <string name="display_name">Tên hiển thị</string>
+    <string name="save">Lưu</string>
 </resources>

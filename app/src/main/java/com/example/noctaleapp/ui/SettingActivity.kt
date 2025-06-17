@@ -1,5 +1,6 @@
 package com.example.noctaleapp.ui
 
+import android.content.Intent
 import android.media.Image
 import android.os.Bundle
 import android.widget.Button
@@ -16,6 +17,7 @@ import com.example.noctaleapp.viewmodel.HomeViewModel
 
 class SettingActivity : AppCompatActivity() {
     private lateinit var SignOutButton: AppCompatButton
+    private lateinit var EditProfileButton: AppCompatButton
     private lateinit var ReturnButton: ImageButton
     private val homeViewModel: HomeViewModel by viewModels()
 
@@ -26,6 +28,7 @@ class SettingActivity : AppCompatActivity() {
 
         SignOutButton = findViewById(R.id.SignOutButton)
         ReturnButton = findViewById(R.id.imgButtonReturn)
+        EditProfileButton = findViewById(R.id.editProfileButton)
 
         SignOutButton.setOnClickListener {
             homeViewModel.logout()
@@ -33,6 +36,11 @@ class SettingActivity : AppCompatActivity() {
 
         ReturnButton.setOnClickListener {
             finish()
+        }
+
+        EditProfileButton.setOnClickListener {
+            val intent = Intent(this, EditProfileActivity::class.java)
+            startActivity(intent)
         }
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->

@@ -22,10 +22,7 @@
             android:name=".ui.BookActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.EditChapterActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.EditStoryActivity"
+            android:name=".ui.EditProfileActivity"
             android:exported="false" />
         <activity
             android:name=".ui.WriteActivity"
