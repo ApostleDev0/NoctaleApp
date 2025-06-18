@@ -12,5 +12,4 @@
         <item name="tabTextColor">@color/star_dust</item>
         <item name="tabSelectedTextColor">@color/dark_cloud</item>
     </style>
-
 </resources>

@@ -37,7 +37,7 @@
     <string name="profile">Hồ sơ</string>
     <string name="explore">Khám phá</string>
     <string name="history_search">Lịch sử tìm kiếm</string>
-    <string name="search_hint">Tìm kiếm truyện, tác giả, danh mục</string>
+    <string name="search_hint">Tìm kiếm truyện...</string>
     <string name="read_now">Đọc ngay</string>
     <string name="add_library">Thêm vào thư viện</string>
     <string name="story">Truyện</string>
