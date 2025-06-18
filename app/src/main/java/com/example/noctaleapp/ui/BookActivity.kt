@@ -15,9 +15,11 @@ import com.example.noctaleapp.adapter.ChapterAdapter
 import com.example.noctaleapp.model.Book
 import com.example.noctaleapp.viewmodel.BookViewModel
 import android.content.Intent
+import android.util.Log
 import android.widget.ProgressBar
 import com.example.noctaleapp.repository.BookRepository
 import com.example.noctaleapp.viewmodel.BookViewModelFactory
+import com.example.noctaleapp.repository.GenreRepository
 
 class BookActivity : AppCompatActivity() {
 
@@ -54,8 +56,11 @@ class BookActivity : AppCompatActivity() {
 
         setupRecyclerView()
         val bookRepository = BookRepository() // <--- TẠO REPOSITORY
-        val viewModelFactory = BookViewModelFactory(bookRepository) // <--- TẠO FACTORY
-
+        // Trong BookActivity.onCreate
+        val genreRepository = GenreRepository() // Instance của bạn
+        val factory = BookViewModelFactory(bookRepository, genreRepository)
+        bookViewModel = ViewModelProvider(this, factory)[BookViewModel::class.java]
+        val viewModelFactory = BookViewModelFactory(bookRepository, genreRepository) // <--- TẠO FACTORY
         bookViewModel = ViewModelProvider(this, viewModelFactory)[BookViewModel::class.java] // <--- KHỞI TẠO VIEWMODEL
 
         val bookId = intent.getStringExtra(EXTRA_BOOK_ID)
@@ -145,11 +150,41 @@ class BookActivity : AppCompatActivity() {
                 bookViewModel.clearErrorMessage()
             }
         }
+        bookViewModel.allGenres.observe(this) { genres ->
+            // Khi danh sách thể loại được tải, nếu sách đã có, cập nhật lại thông tin hiển thị
+            if (bookViewModel.bookDetails.value != null && genres != null) {
+                displayBookInfo(bookViewModel.bookDetails.value!!)
+            }
+        }
+
+        bookViewModel.isLoadingGenres.observe(this) { isLoading ->
+            // Nếu bạn có một ProgressBar riêng cho việc tải thể loại
+            // hoặc cập nhật textViewBookGenre để hiển thị "Đang tải..."
+            if (isLoading && bookViewModel.bookDetails.value?.genres?.isNotEmpty() == true) {
+                if (textViewBookGenre.text.toString().contains("Không có") || textViewBookGenre.text.toString().contains("Không xác định")) {
+                    textViewBookGenre.text = "Thể loại: Đang tải..."
+                }
+            }
+        }
     }
 
     private fun displayBookInfo(book: Book) {
         textViewBookTitle.text = book.title
-        textViewBookGenre.text = if (book.genres.isNotEmpty()) "Thể loại: ${book.genres.joinToString(", ")}" else "Thể loại: Đang cập nhật"
+        val genreNames = bookViewModel.getGenreNamesForCurrentBook() // ViewModel đã có bookDetails hiện tại
+
+        if (genreNames.isNotEmpty()) {
+            textViewBookGenre.text = "Thể loại: ${genreNames.joinToString(", ")}"
+        } else if (book.genres.isNotEmpty() && (bookViewModel.allGenres.value.isNullOrEmpty() && bookViewModel.isLoadingGenres.value == true)) {
+            // Có ID thể loại, nhưng danh sách allGenres chưa tải xong và ĐANG tải
+            textViewBookGenre.text = "Thể loại: Đang tải..."
+        } else if (book.genres.isNotEmpty() && bookViewModel.allGenres.value.isNullOrEmpty()) {
+            // Có ID thể loại, nhưng không lấy được tên (có thể do lỗi tải allGenres hoặc không khớp ID)
+            textViewBookGenre.text = "Thể loại: Không xác định"
+            Log.w("BookActivity", "Book has genre IDs but no names resolved. Genre IDs: ${book.genres}, AllGenres loaded: ${bookViewModel.allGenres.value?.size ?: 0}")
+        }
+        else {
+            textViewBookGenre.text = "Thể loại: Không có"
+        }
         textViewBookDescription.text = book.description
 
         Glide.with(this)
