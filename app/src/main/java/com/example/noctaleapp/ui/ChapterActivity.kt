@@ -28,7 +28,6 @@ import androidx.core.content.ContextCompat
 
 class ChapterActivity : AppCompatActivity(),ReaderSettingsDialogFragment.ReaderSettingsListener {
 
-    // Views từ activity_chapter.xml
     private lateinit var scrollViewReaderContent: ScrollView
     private lateinit var textViewReaderContent: TextView
     private lateinit var readerHomeBtn: ImageButton
@@ -37,20 +36,15 @@ class ChapterActivity : AppCompatActivity(),ReaderSettingsDialogFragment.ReaderS
     private lateinit var readerChaptersBtn: ImageButton
     private lateinit var textBookName: TextView
     private lateinit var selectChapterLauncher: ActivityResultLauncher<Intent>
-    // private lateinit var progressBarChapterLoading: ProgressBar // Bỏ comment nếu bạn thêm ProgressBar
 
     private lateinit var chapterViewModel: ChapterViewModel
 
     private var currentBookId: String? = null
     private var currentChapterId: String? = null
-    // Bạn có thể không cần lưu trữ trực tiếp next/previous ID ở đây nữa
-    // vì ViewModel đã quản lý và Activity sẽ phản ứng với thay đổi từ ViewModel
 
     companion object {
         const val EXTRA_BOOK_ID = "com.example.noctaleapp.ui.BOOK_ID"
         const val EXTRA_CHAPTER_ID = "com.example.noctaleapp.ui.CHAPTER_ID"
-        // Có thể thêm một extra để điều hướng đến chương cụ thể từ danh sách
-        // const val EXTRA_TARGET_CHAPTER_ID = "com.example.noctaleapp.ui.TARGET_CHAPTER_ID"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -66,9 +60,7 @@ class ChapterActivity : AppCompatActivity(),ReaderSettingsDialogFragment.ReaderS
 
         initViews()
         applyReadingSettings()
-
-        // Khởi tạo ViewModel
-        val chapterRepository = ChapterRepository() // Khởi tạo ChapterRepository
+        val chapterRepository = ChapterRepository()
         val viewModelFactory = ChapterViewModelFactory(chapterRepository)
         chapterViewModel = ViewModelProvider(this, viewModelFactory)[ChapterViewModel::class.java]
 
@@ -76,9 +68,8 @@ class ChapterActivity : AppCompatActivity(),ReaderSettingsDialogFragment.ReaderS
         currentChapterId = intent.getStringExtra(EXTRA_CHAPTER_ID)
         selectChapterLauncher = registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()
-        ) { result -> // 'result' ở đây là một đối tượng ActivityResult
+        ) { result ->
             if (result.resultCode == RESULT_OK) {
-                // Lấy dữ liệu từ Intent trả về
                 result.data?.getStringExtra(ReaderPanelActivity.RESULT_SELECTED_CHAPTER_ID)?.let { selectedChapterId ->
                     navigateToChapter(selectedChapterId)
                 }
@@ -88,7 +79,7 @@ class ChapterActivity : AppCompatActivity(),ReaderSettingsDialogFragment.ReaderS
             chapterViewModel.loadChapter(currentBookId!!, currentChapterId!!)
         } else {
             Toast.makeText(this, "Không có thông tin sách hoặc chương để tải.", Toast.LENGTH_LONG).show()
-            finish() // Đóng activity nếu không có ID
+            finish()
         }
 
         observeViewModel()
@@ -108,10 +99,7 @@ class ChapterActivity : AppCompatActivity(),ReaderSettingsDialogFragment.ReaderS
 
     private fun observeViewModel() {
         chapterViewModel.isLoading.observe(this) { isLoading ->
-            // progressBarChapterLoading.visibility = if (isLoading) View.VISIBLE else View.GONE // Nếu có ProgressBar
-            // Ẩn/hiện nội dung để người dùng biết đang tải
             scrollViewReaderContent.visibility = if (isLoading) View.INVISIBLE else View.VISIBLE
-            // Có thể muốn vô hiệu hóa các nút menu khi đang tải
             readerHomeBtn.isEnabled = !isLoading
             readerSettingsBtn.isEnabled = !isLoading
             readerCommentsBtn.isEnabled = !isLoading
@@ -121,25 +109,16 @@ class ChapterActivity : AppCompatActivity(),ReaderSettingsDialogFragment.ReaderS
         chapterViewModel.chapterDetails.observe(this) { chapter ->
             if (chapter != null) {
                 displayChapterContent(chapter)
-                // Cập nhật currentChapterId để phản ánh chương đang hiển thị thực sự
                 this.currentChapterId = chapter.id
-            } else {
-                // Xử lý khi không tải được chương (ngoài thông báo lỗi từ LiveData error)
-                // textViewReaderContent.text = getString(R.string.error_loading_chapter_content)
-                // Thông báo lỗi đã được xử lý qua chapterViewModel.error
             }
         }
 
         chapterViewModel.error.observe(this) { errorMessage ->
             errorMessage?.let {
                 Toast.makeText(this, it, Toast.LENGTH_LONG).show()
-                chapterViewModel.clearErrorMessage() // Xóa lỗi sau khi hiển thị
+                chapterViewModel.clearErrorMessage()
             }
         }
-
-        // Không cần observe trực tiếp previousChapterId và nextChapterId ở đây
-        // nếu bạn không cập nhật UI đặc biệt cho chúng (ví dụ: bật/tắt nút chương trước/sau)
-        // Logic điều hướng sẽ gọi loadChapter với ID mới.
     }
 
     private fun displayChapterContent(chapter: Chapter) {
@@ -150,12 +129,11 @@ class ChapterActivity : AppCompatActivity(),ReaderSettingsDialogFragment.ReaderS
         val formattedContent: Spanned = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
             Html.fromHtml(contentWithTitle, Html.FROM_HTML_MODE_LEGACY)
         } else {
-            @Suppress("DEPRECATION") // Html.fromHtml(String) is deprecated in API 24
+            @Suppress("DEPRECATION")
             Html.fromHtml(contentWithTitle)
         }
         textViewReaderContent.text = formattedContent
 
-        // Cuộn lên đầu khi tải chương mới
         scrollViewReaderContent.post {
             scrollViewReaderContent.smoothScrollTo(0, 0)
         }
@@ -164,15 +142,13 @@ class ChapterActivity : AppCompatActivity(),ReaderSettingsDialogFragment.ReaderS
 
     private fun setupBottomMenuListeners() {
         readerHomeBtn.setOnClickListener {
-            // Quay về BookActivity với bookId hiện tại
             currentBookId?.let { bookId ->
-                // Giả sử BookActivity là màn hình chi tiết sách và có thể nhận EXTRA_BOOK_ID
                 val intent = Intent(this, BookActivity::class.java).apply {
-                    putExtra(BookActivity.EXTRA_BOOK_ID, bookId) // Thay BookActivity.EXTRA_BOOK_ID bằng const thực tế
+                    putExtra(BookActivity.EXTRA_BOOK_ID, bookId)
                     addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
                 }
                 startActivity(intent)
-                finish() // Đóng ChapterActivity
+                finish()
             } ?: Toast.makeText(this, "Không tìm thấy thông tin sách.", Toast.LENGTH_SHORT).show()
         }
 
@@ -228,44 +204,29 @@ class ChapterActivity : AppCompatActivity(),ReaderSettingsDialogFragment.ReaderS
         textViewReaderContent.textSize = fontSize.toFloat()
         try {
             textViewReaderContent.setTextColor(ContextCompat.getColor(this, textColorResId))
-            // Thay đổi màu nền của ScrollView hoặc view cha bao quanh nội dung
-            // Hoặc của chính cửa sổ nếu bạn muốn toàn bộ màn hình thay đổi
             scrollViewReaderContent.setBackgroundColor(ContextCompat.getColor(this, bgColorResId))
-            // Hoặc: window.decorView.setBackgroundColor(ContextCompat.getColor(this, bgColorResId))
 
         } catch (e: Resources.NotFoundException) {
             Log.e("ChapterActivity", "Lỗi không tìm thấy resource màu: ${e.message}")
-            // Có thể đặt màu mặc định ở đây nếu cần
         }
     }
 
-
-    // Hàm để load và áp dụng cài đặt ban đầu (gọi trong onCreate)
     private fun applyReadingSettings() {
         applyCurrentSettingsToTextView()
     }
 
-    // Implement phương thức từ ReaderSettingsListener
     override fun onSettingsApplied(fontSize: Int, textColorResId: Int, bgColorResId: Int) {
         Log.d("ChapterActivity", "Settings applied via listener: Font=$fontSize, TextColorResId=$textColorResId, BgColorResId=$bgColorResId")
-        // Cài đặt đã được lưu bởi DialogFragment
-        // Bây giờ áp dụng chúng ngay lập tức vào UI của ChapterActivity
         applyCurrentSettingsToTextView()
     }
 
-    /**
-     * Hàm này được gọi khi người dùng chọn một chương mới từ danh sách chương
-     * (ví dụ: từ một ChapterListBottomSheetDialogFragment).
-     * Nó sẽ yêu cầu ViewModel tải chương mới.
-     * @param newChapterId ID của chương mới cần hiển thị.
-     */
+
     fun navigateToChapter(newChapterId: String) {
         if (newChapterId == currentChapterId) {
             Toast.makeText(this, "Bạn đang ở chương này.", Toast.LENGTH_SHORT).show()
             return
         }
         currentBookId?.let { bookId ->
-            // currentChapterId sẽ được cập nhật trong observeViewModel khi chapterDetails thay đổi
             chapterViewModel.loadChapter(bookId, newChapterId)
         } ?: Toast.makeText(this, "Lỗi: Không tìm thấy Book ID để tải chương mới.", Toast.LENGTH_SHORT).show()
     }

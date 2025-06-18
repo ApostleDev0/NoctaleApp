@@ -14,6 +14,7 @@ import com.example.noctaleapp.adapter.ChapterAdapter
 import com.example.noctaleapp.viewmodel.BookViewModel
 import com.example.noctaleapp.viewmodel.BookViewModelFactory
 import com.example.noctaleapp.repository.BookRepository
+import com.example.noctaleapp.repository.GenreRepository
 
 class ReaderPanelActivity : AppCompatActivity() {
 
@@ -72,8 +73,10 @@ class ReaderPanelActivity : AppCompatActivity() {
     private fun setupViewModel() {
         // Sử dụng BookRepository và BookViewModelFactory như trong BookActivity hoặc ChapterActivity
         // Nếu bạn muốn một ViewModel riêng, hãy tạo ViewModel và Factory tương ứng
-        val repository = BookRepository() // Hoặc nguồn repository của bạn
-        val factory = BookViewModelFactory(repository) // Hoặc factory tương ứng
+        val bookRepository = BookRepository() // Hoặc nguồn repository của bạn
+        val genreRepository = GenreRepository() // Khởi tạo GenreRepository
+        // Sử dụng BookViewModelFactory mới yêu cầu cả hai repository
+        val factory = BookViewModelFactory(bookRepository, genreRepository)
         listChaptersViewModel = ViewModelProvider(this, factory)[BookViewModel::class.java]
 
         listChaptersViewModel.chapters.observe(this) { chapters ->
