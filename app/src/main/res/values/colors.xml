@@ -14,4 +14,26 @@
     <color name="frost_white">#F4F5ED</color>
     <color name="star_dust">#A3A3A3</color>
     <color name="warning_red">#E55050</color>
+    <color name="sepia">#FFFBF0</color> <!-- Ví dụ màu Sepia -->
+    <color name="dark_gray">#FF333333</color> <!-- Ví dụ màu nền tối -->
+    <color name="light_gray_text">#FFCCCCCC</color> <!-- Ví dụ màu chữ trên nền tối -->
+
+    <!-- Màu mặc định cho cài đặt đọc truyện -->
+    <color name="default_text_color">@color/black</color>
+    <color name="default_bg_color">@color/white</color>
+
+    <!-- Các bộ màu cho người đọc lựa chọn -->
+    <color name="reader_bg_white">@color/white</color>
+    <color name="reader_text_on_white">@color/black</color>
+
+    <color name="reader_bg_sepia">@color/sepia</color>
+    <color name="reader_text_on_sepia">#5B4636</color> <!-- Màu chữ đậm hơn cho sepia -->
+
+    <color name="reader_bg_dark">@color/dark_gray</color>
+    <color name="reader_text_on_dark">@color/light_gray_text</color>
+
+    <!-- Các màu chữ riêng lẻ (nếu cần) -->
+    <color name="reader_text_black">@color/black</color>
+    <color name="reader_text_gray">#FF888888</color>
+    <color name="reader_text_white_standalone">@color/white</color>
 </resources>

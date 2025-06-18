@@ -18,7 +18,7 @@
             android:layout_width="120dp"
             android:layout_height="160dp"
             android:layout_marginTop="16dp"
-            android:contentDescription="@string/book_deatil"
+            android:contentDescription="@string/chapter_list"
             android:scaleType="centerCrop"
             app:layout_constraintDimensionRatio="3:4"
             app:layout_constraintEnd_toEndOf="parent"
@@ -84,8 +84,8 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewChapters"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_width="360dp"
+            android:layout_height="280dp"
             android:orientation="horizontal"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintTop_toBottomOf="@id/textViewChaptersLabel"
@@ -98,6 +98,19 @@
             android:layout_marginBottom="24dp"
             android:clipToPadding="false"
             tools:listitem="@layout/item_chapters" />
+
+        <ProgressBar
+            android:id="@+id/progressBarBookLoading"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="@+id/imageViewBookCover"
+            app:layout_constraintBottom_toBottomOf="@+id/imageViewBookCover"
+            app:layout_constraintStart_toStartOf="@id/imageViewBookCover"
+            app:layout_constraintEnd_toEndOf="@id/imageViewBookCover"
+            tools:layout_editor_absoluteX="387dp"
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

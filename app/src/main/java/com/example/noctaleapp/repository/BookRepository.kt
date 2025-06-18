@@ -12,6 +12,7 @@ class BookRepository {
     private val booksCollection = firestore.collection("books")
     private val chaptersCollection = firestore.collection("chapters")
 
+
     fun getBookById(bookId: String,
                     onSuccess: (Book) -> Unit,
                     onFailure: (Exception) -> Unit) {
@@ -95,14 +96,16 @@ class BookRepository {
 
     suspend fun getChaptersForBookSuspend(bookId: String): List<Chapter> {
         try {
-            val querySnapshot = chaptersCollection.whereEqualTo("bookId", bookId)
+            val querySnapshot = firestore.collection("books").document(bookId)
+                .collection("chapters") // TRUY VẤN SUB-COLLECTION
+                .orderBy("id")
                 .get()
                 .await()
             return querySnapshot.documents.mapNotNull { documentSnapshot ->
                 documentSnapshot.toObject(Chapter::class.java)?.copy(id = documentSnapshot.id)
             }
         } catch (e: Exception) {
-            return emptyList()
+            throw Exception("Failed to fetch chapters for book ID '$bookId'. Cause: ${e.message}", e)
         }
     }
 

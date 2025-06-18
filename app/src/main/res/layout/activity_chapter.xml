@@ -54,7 +54,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:contentDescription=""
+            android:contentDescription="@string/reader_setting"
             android:padding="8dp"
             app:srcCompat="@drawable/baseline_display_settings_24"
             app:tint="?attr/colorOnPrimary" />
@@ -65,7 +65,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:contentDescription=""
+            android:contentDescription="@string/comment"
             android:padding="8dp"
             app:srcCompat="@drawable/baseline_chat_24"
             app:tint="?attr/colorOnPrimary" />
