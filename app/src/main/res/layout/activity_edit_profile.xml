@@ -13,13 +13,13 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
         android:fontFamily="@font/proxima_nova_extrabold"
-        android:lineSpacingExtra="8sp"
         android:text="@string/edit_profile"
         android:textColor="@color/dark_cloud"
         android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_marginBaseline="64dp"/>
 
     <ImageButton
         android:id="@+id/imgButtonReturn"
@@ -44,7 +44,9 @@
         android:layout_marginTop="20dp"
         android:importantForAccessibility="no"
         android:padding="0dp"
-        android:scaleType="centerCrop"
+        android:paddingTop="0dp"
+        android:paddingBottom="0dp"
+        android:scaleType="fitCenter"
         android:src="@drawable/slay_profile"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView13"
@@ -73,8 +75,7 @@
         android:inputType="text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView14"
-        tools:ignore="LabelFor,TouchTargetSizeCheck,SpeakableTextPresentCheck,VisualLintTextFieldSize" />
+        app:layout_constraintTop_toBottomOf="@+id/textView14" />
 
     <TextView
         android:id="@+id/textView15"
@@ -99,8 +100,7 @@
         android:inputType="text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView15"
-        tools:ignore="LabelFor,TouchTargetSizeCheck,SpeakableTextPresentCheck,VisualLintTextFieldSize" />
+        app:layout_constraintTop_toBottomOf="@+id/textView15" />
 
     <TextView
         android:id="@+id/textView16"
@@ -117,8 +117,8 @@
 
     <EditText
         android:id="@+id/descriptionInput"
-        android:layout_width="330dp"
-        android:layout_height="150dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="32dp"
@@ -126,8 +126,7 @@
         android:maxLines="3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView16"
-        tools:ignore="LabelFor,TouchTargetSizeCheck,SpeakableTextPresentCheck,VisualLintTextFieldSize" />
+        app:layout_constraintTop_toBottomOf="@+id/textView16" />
 
     <TextView
         android:id="@+id/saveDataButton"

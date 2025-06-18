@@ -3,6 +3,7 @@ package com.example.noctaleapp.ui
 import android.content.Intent
 import android.media.Image
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.ImageButton
 import androidx.activity.enableEdgeToEdge
@@ -13,6 +14,7 @@ import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.noctaleapp.R
+import com.example.noctaleapp.repository.AuthRepository
 import com.example.noctaleapp.viewmodel.HomeViewModel
 
 class SettingActivity : AppCompatActivity() {
@@ -20,6 +22,7 @@ class SettingActivity : AppCompatActivity() {
     private lateinit var EditProfileButton: AppCompatButton
     private lateinit var ReturnButton: ImageButton
     private val homeViewModel: HomeViewModel by viewModels()
+    private val authRepository = AuthRepository()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,7 +45,9 @@ class SettingActivity : AppCompatActivity() {
         }
 
         EditProfileButton.setOnClickListener {
+
             val intent = Intent(this, EditProfileActivity::class.java)
+            intent.putExtra("uid", authRepository.getCurrentUser()?.uid ?: "")
             startActivity(intent)
         }
 

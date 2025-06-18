@@ -1,9 +1,18 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     id("com.google.gms.google-services")
     id("org.jetbrains.kotlin.kapt")
 }
+
+val localProperties = Properties().apply{
+    load(File(rootDir, "local.properties").inputStream())
+}
+
+val supabaseUrl = localProperties["SUPABASE_URL"] as String
+val supabaseKey = localProperties["SUPABASE_ANON_KEY"] as String
 
 android {
     namespace = "com.example.noctaleapp"
@@ -18,6 +27,8 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
+        buildConfigField("String", "SUPABASE_URL", "\"$supabaseUrl\"")
+        buildConfigField("String", "SUPABASE_ANON_KEY", "\"$supabaseKey\"")
     }
 
     buildTypes {
@@ -32,6 +43,7 @@ android {
 
     buildFeatures {
         viewBinding = true
+        buildConfig = true
     }
 
     compileOptions {
@@ -68,5 +80,8 @@ dependencies {
     implementation(libs.storage.kt)
     implementation(libs.coil.compose)
 
+    implementation(libs.ktor.client.okhttp)
+
+    //noinspection KaptUsageInsteadOfKsp
     kapt(libs.compiler)
 }

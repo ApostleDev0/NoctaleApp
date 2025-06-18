@@ -49,5 +49,6 @@
             android:name=".ui.MainActivity"
             android:exported="false" />
     </application>
-
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32" />
 </manifest>
