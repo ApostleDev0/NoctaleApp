@@ -15,7 +15,7 @@ import kotlinx.coroutines.launch
 
 class BookViewModel(
     private val bookRepository: BookRepository,
-    private val genreRepository: GenreRepository // Thêm GenreRepository vào constructor
+    private val genreRepository: GenreRepository
 ) : ViewModel() {
 
     private val _bookDetails = MutableLiveData<Book?>()
@@ -24,7 +24,6 @@ class BookViewModel(
     private val _chapters = MutableLiveData<List<Chapter>>()
     val chapters: LiveData<List<Chapter>> = _chapters
 
-    // LiveData cho Genres
     private val _allGenres = MutableLiveData<List<Genre>>()
     val allGenres: LiveData<List<Genre>> = _allGenres
 
@@ -34,7 +33,6 @@ class BookViewModel(
     private val _isLoadingChapters = MutableLiveData<Boolean>()
     val isLoadingChapters: LiveData<Boolean> = _isLoadingChapters
 
-    // LiveData cho trạng thái tải Genres
     private val _isLoadingGenres = MutableLiveData<Boolean>()
     val isLoadingGenres: LiveData<Boolean> = _isLoadingGenres
 
@@ -42,13 +40,12 @@ class BookViewModel(
     val error: LiveData<String?> = _error
 
     init {
-        // Tải danh sách tất cả thể loại ngay khi ViewModel được khởi tạo
         loadAllGenresInternal()
     }
 
     private fun loadAllGenresInternal() {
         _isLoadingGenres.value = true
-        genreRepository.getAllGenres( // Sử dụng hàm từ GenreRepository
+        genreRepository.getAllGenres(
             onSuccess = { genres ->
                 _allGenres.value = genres
                 _isLoadingGenres.value = false
@@ -75,23 +72,20 @@ class BookViewModel(
 
         _bookDetails.value = null
         _chapters.value = emptyList()
-        _error.value = null // Reset lỗi
+        _error.value = null
         _isLoadingBook.value = true
-        _isLoadingChapters.value = false // Chưa tải chương cho đến khi sách tải xong
-
+        _isLoadingChapters.value = false
         loadBookDetails(bookId)
     }
 
     fun loadBookDetails(id: String) {
-        viewModelScope.launch { // Đã có viewModelScope nên không cần postValue cho isLoadingBook nữa
+        viewModelScope.launch {
             _isLoadingBook.value = true
             try {
-                val book = bookRepository.getBookByIdSuspend(id) // Giả định hàm suspend
+                val book = bookRepository.getBookByIdSuspend(id)
                 _bookDetails.value = book
                 if (book != null) {
-                    // Nếu allGenres chưa tải xong, có thể đợi ở Activity hoặc xử lý hiển thị tạm
-                    // Ở đây, chúng ta chỉ cần book.id để tải chương
-                    loadChaptersForBook(book.id) // Sử dụng book.id để đảm bảo tính nhất quán
+                    loadChaptersForBook(book.id)
                 } else {
                     _error.value = "Không tìm thấy thông tin sách với ID: $id"
                     _chapters.value = emptyList()
@@ -99,7 +93,7 @@ class BookViewModel(
                 }
             } catch (e: BookRepository.BookNotFoundException) {
                 _error.value = "Không tìm thấy sách: ${e.message}"
-                _bookDetails.value = null // Đảm bảo bookDetails là null khi không tìm thấy
+                _bookDetails.value = null
                 _chapters.value = emptyList()
                 _isLoadingChapters.value = false
             } catch (e: Exception) {
@@ -109,7 +103,7 @@ class BookViewModel(
                 _isLoadingChapters.value = false
                 Log.e("BookViewModel", "Error loading book details", e)
             } finally {
-                _isLoadingBook.value = false // Luôn đặt lại isLoadingBook trong finally
+                _isLoadingBook.value = false
             }
         }
     }
@@ -130,15 +124,12 @@ class BookViewModel(
         }
     }
 
-    // Hàm helper để Activity lấy danh sách tên thể loại
     fun getGenreNamesForCurrentBook(): List<String> {
         val currentBook = _bookDetails.value ?: return emptyList()
         val loadedGenres = _allGenres.value ?: return emptyList()
 
         if (loadedGenres.isEmpty() && currentBook.genres.isNotEmpty()) {
             Log.w("BookViewModel", "Trying to get genre names, but allGenres is empty. Genres might still be loading.")
-            // Có thể trả về danh sách ID nếu muốn hiển thị tạm gì đó
-            // return currentBook.genres.map { "ID: $it" }
         }
 
         return currentBook.genres.mapNotNull { genreId ->
@@ -151,11 +142,10 @@ class BookViewModel(
     }
 }
 
-// Cập nhật BookViewModelFactory
 @Suppress("UNCHECKED_CAST")
 class BookViewModelFactory(
     private val bookRepository: BookRepository,
-    private val genreRepository: GenreRepository // Thêm GenreRepository
+    private val genreRepository: GenreRepository
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(BookViewModel::class.java)) {
