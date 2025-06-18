@@ -1,37 +1,219 @@
 package com.example.noctaleapp.viewmodel
 
+import android.R
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.noctaleapp.R
+import androidx.lifecycle.map
 import com.example.noctaleapp.model.Book
+import com.example.noctaleapp.model.Genre
+import com.example.noctaleapp.model.RecentBook
+import com.example.noctaleapp.model.User
+import com.example.noctaleapp.repository.AuthRepository
+import com.example.noctaleapp.repository.BookRepository
+import com.example.noctaleapp.repository.GenreRepository
+import com.example.noctaleapp.repository.UserRepository
+import com.google.firebase.Firebase
+import com.google.firebase.firestore.DocumentSnapshot
+import com.google.firebase.firestore.FieldValue
+import com.google.firebase.firestore.firestore
 
 class HomeViewModel : ViewModel() {
-    private val _bookList = MutableLiveData<List<Book>>()
-    val bookList: LiveData<List<Book>> = _bookList
+    private val userRepository = UserRepository()
+    private val bookRepository = BookRepository()
+    private val genreRepository = GenreRepository()
+    private val authRepository = AuthRepository()
+
+    private val _user = MutableLiveData<User>()
+    val users: LiveData<User> = _user
+
+    private val _error = MutableLiveData<String>()
+    val error: LiveData<String> get() = _error
+
+    private val _book = MutableLiveData<Book>()
+    val books: LiveData<Book> = _book
+
+    private val _bookGenre = MutableLiveData<List<Book>>()
+    val bookGenres: LiveData<List<Book>> = _bookGenre
+
+    private val _genres = MutableLiveData<List<Genre>>()
+    val genres: LiveData<List<Genre>> = _genres
+
+    private var isLoadingSuggest = false
+    private var isLastSuggestPage = false
+    private var lastSuggestSnapshot: DocumentSnapshot? = null
+    private val _suggestBook = MutableLiveData<List<Book>>(emptyList())
+    val suggestBooks: LiveData<List<Book>> = _suggestBook
+    private val pageSize = 10L
+
+    private val _logoutComplete = MutableLiveData<Boolean>(false)
+    val logoutComplete: LiveData<Boolean> = _logoutComplete
+
+    private val _uid = MutableLiveData<String>()
+    val uid: LiveData<String> get() = _uid
 
     init {
-        loadTestData()
+        fetchGenres()
     }
 
-    private fun loadTestData() {
-        _bookList.value = listOf(
-            Book(
-                title = "The Alchemist",
-                author = "Paulo Coelho",
-                rating = 4.5f,
-                numberChapter = 10,
-                description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec pretium viverra tellus ac lobortis. Morbi sed est lorem.",
-                imageUrl = "https://s3-alpha-sig.figma.com/img/11d7/b3f5/f61232cb9c2c8ce7c159c52ce973cbd8?Expires=1748217600&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=NSNvmW8Dbq~fEn9SsnxoLEBtdXRYbQO5PFK95fhBmG-m4WXOvvFHkYhsHba5YE2wmU9Bfb3fxwSKBVx3htnczJgjLlnDmjdhtH7Lxc61ew5W2oIeZULUe-FSHHt4JtXj6yvPrRGl0Ipul~lOxFiEX3Az-9WAg4lGFBgRZxSMLX6wlUBObxiI0d-df37wBmfcMST~V1xM6HquGC6z26PVUlSLfQquO7WgV4FagqC1~wJvGRNDPHkmlt~rv6-4J~GfjbQ9UEjCMsPX3SH2oGJa8~aN3br8UJcXGS0vMDuNS~aor-~RVaOK6XBA16obqNvyVvYgbBi-34YzR8LnU1Qkiw__"
-            ),
-            Book(
-                title = "The Da Vinci Code",
-                author = "Dan Brown",
-                rating = 3.2f,
-                numberChapter = 200,
-                description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec pretium viverra tellus ac lobortis. Morbi sed est lorem.",
-                localImageRes = R.drawable.bookcover_template
-            )
+    fun setUID (uid: String) {
+        _uid.value = uid
+    }
+
+    fun fetchUserById(uid: String) {
+        userRepository.getUserById(uid,
+            onSuccess = {
+                user ->
+                _user.value = user
+                Log.d("UserViewModel", "User loaded: $user")
+                Log.d("BookName", "Recent reading: ${user.recentReading}")
+            },
+            onFailure = {
+                exception ->
+                _error.value = exception.message
+            }
         )
+    }
+
+    fun fetchRecentBookByUser(uid: String) {
+        userRepository.getRecentBookIdFromUser(uid,
+            onSuccess = {
+                bookId ->
+                bookRepository.getBookById(
+                    bookId,
+                    onSuccess = {
+                        bookData ->
+                        _book.value = bookData
+                        Log.d("BookViewModel", "Book loaded: ${bookData.title}")
+                    },
+                    onFailure = {
+                        exception -> _error.value = exception.message
+                        Log.d("BookViewModel", "Error: ${exception.message}")
+                    }
+                )
+            },
+            onFailure = {
+                exception ->
+                _error.value = exception.message
+            }
+        )
+    }
+
+    val recentBookData: LiveData<RecentBook> = _book.map {
+        book ->
+        RecentBook(
+            id = book.id,
+            title = book.title,
+            author = book.author,
+            imageUrl = book.coverUrl,
+            progressRead = 0
+        )
+    }
+
+    fun fetchGenres() {
+        genreRepository.getAllGenres(
+            onSuccess = {
+                genresData ->
+                _genres.value = genresData
+            },
+            onFailure = {
+                exception ->
+                _error.value = exception.message
+            }
+        )
+    }
+
+    fun fetchBooksByGenre(genreName: String) {
+        genreRepository.getIdByGenreName(genreName,
+            onSuccess = {
+                genreData ->
+                Log.d("GenreViewModel", "Genre loaded: ${genreData.name}")
+                bookRepository.getBookByGenreId(genreData.id,
+                    onSuccess = {
+                        booksData ->
+                        _bookGenre.value = booksData
+                    },
+                    onFailure = {
+                        exception ->
+                    })
+            },
+            onFailure = {
+                exception ->
+                _error.value = exception.message
+            }
+        )
+    }
+
+    fun fetchSuggestBooks() {
+        if (isLoadingSuggest || isLastSuggestPage) return
+        isLoadingSuggest = true
+
+        bookRepository.getSuggestBook(
+            limited = pageSize,
+            lastVisible = lastSuggestSnapshot,
+            onSuccess = {newBooks, lastVisible ->
+                val current = _suggestBook.value ?: emptyList()
+                _suggestBook.value = current + newBooks
+                Log.d("SuggestViewModel", "Suggest books loaded: ${newBooks.size}")
+                isLastSuggestPage = newBooks.size < 10
+                lastSuggestSnapshot = lastVisible
+                isLoadingSuggest = false
+            },
+            onFailure = {
+                isLoadingSuggest = false
+            })
+    }
+
+    fun isLastSuggestPage(): Boolean = isLastSuggestPage
+
+    fun logout() {
+        authRepository.signOut()
+        _logoutComplete.value = true
+    }
+
+    fun toggleBookInLibrary(uid: String, book: Book,
+                            onResult: (Boolean) -> Unit) {
+        val docRef = Firebase.firestore
+            .collection("users").document(uid)
+            .collection("libraryBooks").document(book.id)
+
+        docRef.get().addOnSuccessListener {
+            document ->
+            if (document.exists()) {
+                docRef.delete().addOnSuccessListener { onResult(false) }
+            } else {
+                val bookData = mapOf(
+                    "title" to book.title,
+                    "author" to book.author,
+                    "coverUrl" to book.coverUrl,
+                    "progressRead" to 0,
+                    "timeAdded" to FieldValue.serverTimestamp()
+                )
+
+                docRef.set(bookData).addOnSuccessListener { onResult(true) }
+            }
+        }
+    }
+
+    fun checkIfBookInLibrary(uid: String,
+                             bookId: String,
+                             callback: (Boolean) -> Unit) {
+        Firebase.firestore
+            .collection("users").document(uid)
+            .collection("libraryBooks").document(bookId)
+            .get().addOnSuccessListener {
+                document ->
+                callback(document.exists())
+            }
+    }
+
+    fun updateReadingProgress(uid: String,
+                              bookId: String,
+                              progress: Int) {
+        Firebase.firestore
+            .collection("users").document(uid)
+            .collection("libraryBooks").document(bookId)
+            .update("progressRead", progress)
     }
 }

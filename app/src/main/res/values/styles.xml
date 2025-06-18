@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <style name="AppTheme" parent="Theme.AppCompat.Light">
 
+    </style>
+
+    <style name="GradientTabLayoutTheme" parent="Theme.AppCompat.Light">
+        <item name="tabIndicatorColor">@android:color/transparent</item>
+        <item name="tabIndicatorHeight">4dp</item>
+        <item name="tabIndicator">@drawable/gradient_tab_indicator</item>
+        <item name="tabTextColor">@color/star_dust</item>
+        <item name="tabSelectedTextColor">@color/dark_cloud</item>
     </style>
 </resources>

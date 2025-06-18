@@ -9,7 +9,7 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         tools:ignore="UselessParent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -53,6 +53,7 @@
                 android:padding="0dp"
                 android:scaleType="fitCenter"
                 android:src="@drawable/ic_notification"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="TouchTargetSizeCheck,ImageContrastCheck" />
@@ -84,8 +85,10 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/recentBookLayout"
                     android:layout_width="match_parent"
-                    android:layout_height="180dp">
+                    android:layout_height="180dp"
+                    android:visibility="gone">
 
                     <TextView
                         android:id="@+id/textView2"
@@ -138,7 +141,7 @@
                                 android:layout_marginBottom="2dp"
                                 android:contentDescription="@string/on_reading"
                                 android:scaleType="fitXY"
-                                android:src="@drawable/bookcover_template"
+
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintDimensionRatio="13:19"
                                 app:layout_constraintEnd_toEndOf="parent"
@@ -253,26 +256,62 @@
                 app:layout_constraintTop_toBottomOf="@+id/cardView3" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerView2"
+                android:id="@+id/genreList"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
+                android:layout_marginTop="5dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/emptyViewBookGenres"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="35dp"
+                android:layout_marginEnd="10dp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/genreList">
+
+                <ImageView
+                    android:id="@+id/imageView3"
+                    android:layout_width="104dp"
+                    android:layout_height="92dp"
+                    android:src="@drawable/ic_search"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textView10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:fontFamily="@font/proxima_nova_bold"
+                    android:text="@string/no_book_genres"
+                    android:textColor="@color/dark_cloud"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerView3"
+                android:id="@+id/booksByGenres"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/recyclerView2" />
+                app:layout_constraintTop_toBottomOf="@+id/genreList" />
 
             <TextView
-                android:id="@+id/textView4"
+                android:id="@+id/suggestBookLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
@@ -282,17 +321,30 @@
                 android:textColor="@color/dark_cloud"
                 android:textSize="15sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/recyclerView3" />
+                app:layout_constraintTop_toBottomOf="@+id/booksByGenres" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/suggetsBook"
+                android:id="@+id/suggestBook"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="5dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textView4" />
+                app:layout_constraintTop_toBottomOf="@id/suggestBookLabel" />
+
+            <TextView
+                android:id="@+id/txtEndSuggestBooks"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/proxima_nova_black"
+                android:text="."
+                android:textSize="25sp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/suggestBook"
+                tools:ignore="HardcodedText" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

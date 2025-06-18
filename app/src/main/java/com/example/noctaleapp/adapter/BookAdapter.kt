@@ -1,16 +1,21 @@
 package com.example.noctaleapp.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.view.ViewParent
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.noctaleapp.R
 import com.example.noctaleapp.databinding.ItemBookBinding
 import com.example.noctaleapp.model.Book
+import java.util.Collections.addAll
 
-class BookAdapter(private val books: List<Book>):
-    RecyclerView.Adapter<BookAdapter.BookViewHolder>() {
+class BookAdapter(
+    private var books: MutableList<Book>,
+    private val onBookClick: (Book) -> Unit,
+    private val onReadNowClick: (Book) -> Unit,
+) : RecyclerView.Adapter<BookAdapter.BookViewHolder>() {
+
     inner class BookViewHolder(val binding: ItemBookBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookViewHolder {
@@ -18,26 +23,34 @@ class BookAdapter(private val books: List<Book>):
         return BookViewHolder(binding)
     }
 
-    override fun getItemCount() = books.size
-
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: BookViewHolder, position: Int) {
         val book = books[position]
-        val context = holder.itemView.context
-
         holder.binding.bookName.text = book.title
         holder.binding.bookAuthor.text = "Tác giả: ${book.author}"
-        holder.binding.ratingBook.rating = book.rating
-        holder.binding.chaptersBook.text = "Số chương: ${book.numberChapter}"
         holder.binding.bookDescription.text = book.description
-        if (book.imageUrl != null) {
-            Glide.with(context)
-                .load(book.imageUrl)
-                .placeholder(R.drawable.bookcover_template)
-                .into(holder.binding.bookImage)
-        } else if (book.localImageRes != null) {
-            Glide.with(context)
-                .load(book.localImageRes)
-                .into(holder.binding.bookImage)
+        holder.binding.chaptersBook.text = "Số chương: ${book.chapterQuantity}"
+        holder.binding.ratingBook.rating = book.rating.toFloat()
+        Glide.with(holder.itemView.context)
+            .load(book.coverUrl)
+            .placeholder(R.drawable.bookcover_template)
+            .error(R.drawable.bookcover_template)
+            .into(holder.binding.bookImage)
+
+        holder.binding.readingButton.setOnClickListener {
+            onReadNowClick(book)
         }
+
+        holder.itemView.setOnClickListener {
+            onBookClick(book)
+        }
+    }
+
+    override fun getItemCount(): Int = books.size
+
+    fun updateData(newBooks: List<Book>) {
+        books.clear()
+        books.addAll(newBooks)
+        notifyDataSetChanged()
     }
 }
