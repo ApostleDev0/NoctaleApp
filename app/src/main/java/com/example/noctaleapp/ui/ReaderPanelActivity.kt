@@ -2,6 +2,7 @@ package com.example.noctaleapp.ui // Hoặc package của bạn
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -18,6 +19,7 @@ class ReaderPanelActivity : AppCompatActivity() {
 
     private lateinit var recyclerViewPanelChapters: RecyclerView
     private lateinit var chapterAdapter: ChapterAdapter
+    private lateinit var imgButtonReturn: ImageButton
     private lateinit var textViewPanelTitle: TextView // Nếu bạn có tiêu đề
 
     // ViewModel để lấy danh sách chương.
@@ -53,11 +55,16 @@ class ReaderPanelActivity : AppCompatActivity() {
 
         // Yêu cầu ViewModel tải danh sách chương
         listChaptersViewModel.loadChaptersForBook(currentBookIdFromIntent!!)
+
+        imgButtonReturn.setOnClickListener {
+            finish() // Đóng ReaderPanelActivity
+        }
     }
 
     private fun initViews() {
         textViewPanelTitle = findViewById(R.id.textViewPanelTitle) // Nếu có
         recyclerViewPanelChapters = findViewById(R.id.recyclerViewPanelChapters)
+        imgButtonReturn = findViewById(R.id.imgButtonReturn)
         // Bạn có thể đặt tên sách cho panel title
         // textViewPanelTitle.text = "Chương của Sách XYZ" (lấy tên sách nếu có)
     }

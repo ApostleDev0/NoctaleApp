@@ -15,6 +15,7 @@ import com.example.noctaleapp.adapter.ChapterAdapter
 import com.example.noctaleapp.model.Book
 import com.example.noctaleapp.viewmodel.BookViewModel
 import android.content.Intent
+import android.widget.ImageButton
 import android.widget.ProgressBar
 import com.example.noctaleapp.repository.BookRepository
 import com.example.noctaleapp.viewmodel.BookViewModelFactory
@@ -30,6 +31,7 @@ class BookActivity : AppCompatActivity() {
     private lateinit var recyclerViewChapters: RecyclerView
     private lateinit var chapterAdapter: ChapterAdapter
     private lateinit var progressBarBookLoading: ProgressBar
+    private lateinit var imgButtonReturn: ImageButton
 
     private var currentBookIdForNavigation: String? = null // BIẾN MỚI ĐỂ LƯU BOOK ID CHO NAVIGATION
 
@@ -73,6 +75,10 @@ class BookActivity : AppCompatActivity() {
 
         observeViewModel()
         bookViewModel.loadBookAndChapterDetails(bookId)
+
+        imgButtonReturn.setOnClickListener {
+            finish()
+        }
     }
 
     private fun initViews() {
@@ -83,6 +89,7 @@ class BookActivity : AppCompatActivity() {
         textViewBookDescription = findViewById(R.id.textViewBookDescription)
         textViewChaptersLabel = findViewById(R.id.textViewChaptersLabel)
         recyclerViewChapters = findViewById(R.id.recyclerViewChapters)
+        imgButtonReturn = findViewById(R.id.imgButtonReturn)
     }
 
     private fun observeViewModel() {

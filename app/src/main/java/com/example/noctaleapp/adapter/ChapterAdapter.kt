@@ -54,7 +54,7 @@ class ChapterAdapter(private val onChapterClick: OnChapterClickListener) :
             currentChapter = chapter
             // Giả sử bạn muốn hiển thị tiêu đề chính của chương
             // Hoặc có thể là "Chương X: Tiêu đề"
-            textViewChapterTitle.text = chapter.mainTitle
+            textViewChapterTitle.text = "   ${chapter.mainTitle}"
             // Ví dụ: textViewChapterTitle.text = "Chương ${chapter.chapterNumber}: ${chapter.title}"
         }
     }

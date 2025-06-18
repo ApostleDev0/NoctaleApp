@@ -35,6 +35,7 @@ class ChapterActivity : AppCompatActivity(),ReaderSettingsDialogFragment.ReaderS
     private lateinit var readerSettingsBtn: ImageButton
     private lateinit var readerCommentsBtn: ImageButton
     private lateinit var readerChaptersBtn: ImageButton
+    private lateinit var textBookName: TextView
     private lateinit var selectChapterLauncher: ActivityResultLauncher<Intent>
     // private lateinit var progressBarChapterLoading: ProgressBar // Bỏ comment nếu bạn thêm ProgressBar
 
@@ -101,6 +102,7 @@ class ChapterActivity : AppCompatActivity(),ReaderSettingsDialogFragment.ReaderS
         readerSettingsBtn = findViewById(R.id.ReaderSettingsBtn)
         readerCommentsBtn = findViewById(R.id.ReaderCommentsBtn)
         readerChaptersBtn = findViewById(R.id.ReaderChaptersBtn)
+        textBookName = findViewById(R.id.textBookName)
         // progressBarChapterLoading = findViewById(R.id.progressBarChapterLoading) // Bỏ comment nếu bạn thêm ProgressBar
     }
 
@@ -142,8 +144,8 @@ class ChapterActivity : AppCompatActivity(),ReaderSettingsDialogFragment.ReaderS
 
     private fun displayChapterContent(chapter: Chapter) {
         // Ví dụ: hiển thị tiêu đề chương ở đầu nội dung
-        val titleHtml = "<h1>${chapter.mainTitle}</h1><hr>"
-        val contentWithTitle = titleHtml + chapter.content // Giả sử chapter.content là HTML
+        textBookName.text = chapter.mainTitle
+        val contentWithTitle = chapter.content // Giả sử chapter.content là HTML
 
         val formattedContent: Spanned = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
             Html.fromHtml(contentWithTitle, Html.FROM_HTML_MODE_LEGACY)

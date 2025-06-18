@@ -114,7 +114,7 @@
     <string name="books_description">Mô tả sách</string>
     <string name="reader_setting">Tùy Chỉnh</string>
     <string name="ChapterComment">Bình Luận</string>
-    <string name="no_book_genres">Bình Luận</string>
+    <string name="no_book_genres">Chưa có sách cho thể loại này hãy thử tìm thể loại khác</string>
     <string name="button_logout">Đăng xuất</string>
     <string name="profile_information">Thông tin tài khoản</string>
     <string name="edit_profile">Sửa hồ sơ</string>

@@ -11,75 +11,100 @@
         android:id="@+id/scrollViewReaderContent"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginTop="10dp"
         android:background="@android:color/white"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/bottomMenuReader"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="SpeakableTextPresentCheck">
 
-        <TextView
-            android:id="@+id/textViewReaderContent"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="16dp"
-            android:text="@string/chapter"
-            android:textColor="@android:color/black"
-            android:textSize="18sp" />
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/textBookName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/proxima_nova_bold"
+                android:text="TextView"
+                android:textColor="@color/dark_cloud"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textViewReaderContent"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="20dp"
+                android:fontFamily="@font/proxima_nova_regular"
+                android:lineSpacingExtra="8sp"
+                android:text="textViewReaderContent"
+                android:textColor="@color/dark_cloud"
+                android:textSize="15sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.438"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textBookName" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
     <LinearLayout
-        android:id="@+id/bottomMenuReader"
-        android:layout_width="0dp"
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/frost_white"
         android:orientation="horizontal"
-        android:background="@color/dark_cloud"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
         <ImageButton
             android:id="@+id/ReaderHomeBtn"
-            style="?android:attr/borderlessButtonStyle"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="45dp"
             android:layout_weight="1"
             android:contentDescription="@string/book_deatil"
-            android:padding="8dp"
-            app:srcCompat="@drawable/baseline_book_24"
-            app:tint="?attr/colorOnPrimary" />
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/ic_return"
+            app:tint="@color/dark_cloud" />
 
         <ImageButton
             android:id="@+id/ReaderSettingsBtn"
-            style="?android:attr/borderlessButtonStyle"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="45dp"
             android:layout_weight="1"
             android:contentDescription="@string/reader_setting"
-            android:padding="8dp"
-            app:srcCompat="@drawable/baseline_display_settings_24"
-            app:tint="?attr/colorOnPrimary" />
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/ic_style"
+            app:tint="@color/dark_cloud" />
 
         <ImageButton
             android:id="@+id/ReaderCommentsBtn"
-            style="?android:attr/borderlessButtonStyle"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="45dp"
             android:layout_weight="1"
             android:contentDescription="@string/comment"
-            android:padding="8dp"
+            android:scaleType="fitCenter"
             app:srcCompat="@drawable/baseline_chat_24"
-            app:tint="?attr/colorOnPrimary" />
+            app:tint="@color/dark_cloud" />
 
         <ImageButton
             android:id="@+id/ReaderChaptersBtn"
-            style="?android:attr/borderlessButtonStyle"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="45dp"
             android:layout_weight="1"
             android:contentDescription="@string/chapter_list"
-            android:padding="8dp"
-            app:srcCompat="@drawable/baseline_article_24"
-            app:tint="?attr/colorOnPrimary" />
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/ic_chapter"
+            app:tint="@color/dark_cloud" />
     </LinearLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
