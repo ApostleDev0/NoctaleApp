@@ -236,6 +236,7 @@ class BookActivity : AppCompatActivity() {
         recyclerViewChapters.apply {
             layoutManager = LinearLayoutManager(this@BookActivity,
                 LinearLayoutManager.VERTICAL, false)
+            adapter = chapterAdapter
         }
     }
 
