@@ -27,7 +27,7 @@ class AuthRepository {
      * Hàm đăng ký người dùng mới và lưu thông tin vào Firestore.
      * @param callback Tương tự như hàm login, dùng để báo lại kết quả.
      */
-    fun registerUser(username: String, email: String, phone: String, pass: String, callback: (isSuccess: Boolean, message: String?) -> Unit) {
+    fun registerUser(username: String, email: String, phone: String, pass: String, avatarUrl: String = "https://osadkjpbnyvrlpptmjcw.supabase.co/storage/v1/object/public/noctale.profile.image/default/slay_profile.jpg", callback: (isSuccess: Boolean, message: String?) -> Unit) {
         // Dùng FirebaseAuth để tạo tài khoản mới
         auth.createUserWithEmailAndPassword(email,pass)
             .addOnCompleteListener { task ->
@@ -41,7 +41,8 @@ class AuthRepository {
                             "uid" to uid,
                             "username" to username,
                             "email" to email,
-                            "phone" to phone
+                            "phone" to phone,
+                            "avatarUrl" to avatarUrl
                         )
 
                         // lưu trữ bộ hồ sơ vào Firestore

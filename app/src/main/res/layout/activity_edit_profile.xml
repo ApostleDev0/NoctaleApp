@@ -13,6 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
         android:fontFamily="@font/proxima_nova_extrabold"
+        android:lineSpacingExtra="8sp"
         android:text="@string/edit_profile"
         android:textColor="@color/dark_cloud"
         android:textSize="25sp"
@@ -63,13 +64,12 @@
         app:layout_constraintTop_toBottomOf="@+id/profileImage" />
 
     <EditText
-        android:id="@+id/editTextText"
+        android:id="@+id/usernameInput"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="32dp"
-        android:ems="10"
         android:inputType="text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -87,16 +87,15 @@
         android:textColor="@color/dark_cloud"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextText" />
+        app:layout_constraintTop_toBottomOf="@+id/usernameInput" />
 
     <EditText
-        android:id="@+id/editTextText2"
+        android:id="@+id/displayNameInput"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="32dp"
-        android:ems="10"
         android:inputType="text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -114,24 +113,24 @@
         android:textColor="@color/dark_cloud"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextText2" />
+        app:layout_constraintTop_toBottomOf="@+id/displayNameInput" />
 
     <EditText
-        android:id="@+id/editTextText3"
+        android:id="@+id/descriptionInput"
         android:layout_width="330dp"
         android:layout_height="150dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="32dp"
-        android:ems="10"
         android:inputType="text"
+        android:maxLines="3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView16"
         tools:ignore="LabelFor,TouchTargetSizeCheck,SpeakableTextPresentCheck,VisualLintTextFieldSize" />
 
     <TextView
-        android:id="@+id/textView17"
+        android:id="@+id/saveDataButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"

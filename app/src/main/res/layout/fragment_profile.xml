@@ -53,7 +53,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginEnd="8dp"
                 android:fontFamily="@font/proxima_nova_extrabold"
                 android:text="@string/author"
@@ -102,37 +102,19 @@
             <!--                app:layout_constraintStart_toStartOf="parent"-->
             <!--                tools:layout_editor_absoluteY="359dp" />-->
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btnLogout"
-                android:layout_width="97dp"
-                android:layout_height="27dp"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/border_button"
-                android:fontFamily="@font/proxima_nova_bold"
-                android:padding="5dp"
-                android:text="@string/button_logout"
-                android:textColor="@color/dark_cloud"
-                app:layout_constraintBottom_toTopOf="@+id/profileTabLayout"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.108"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/profileImage"
-                app:layout_constraintVertical_bias="0.1"
-                tools:ignore="TouchTargetSizeCheck" />
-
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/profileTabLayout"
                 style="@style/GradientTabLayoutTheme"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="15dp"
                 android:layout_marginEnd="20dp"
                 android:background="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btnLogout">
+                app:layout_constraintTop_toBottomOf="@+id/profileImage">
 
                 <com.google.android.material.tabs.TabItem
                     android:layout_width="wrap_content"
@@ -164,8 +146,8 @@
                 android:id="@+id/settingButton"
                 android:layout_width="53dp"
                 android:layout_height="31dp"
-                android:layout_marginTop="40dp"
-                android:layout_marginEnd="8dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="16dp"
                 android:importantForAccessibility="no"
                 android:padding="0dp"
                 android:scaleType="fitCenter"

@@ -7,6 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.fragment.app.activityViewModels
 import com.example.noctaleapp.R
 import com.bumptech.glide.Glide
@@ -23,6 +25,11 @@ class ProfileFragment : Fragment() {
     private val binding get() = _binding!!
     private val viewModel: HomeViewModel by activityViewModels()
     private val tabTitles = listOf("Product", "Fan", "Follower")
+
+    private lateinit var profileImage: ImageView
+    private lateinit var profileName: TextView
+    private lateinit var userName: TextView
+    private lateinit var profileDescription: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,6 +51,12 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        viewModel.uid.observe(viewLifecycleOwner) { uID ->
+            if (uID.isNotEmpty()) {
+                viewModel.fetchUserById(uID)
+            }
+        }
+        renderProfile()
         val adapter = ProfileTabAdapter(this)
         binding.profileViewPage.adapter = adapter
         binding.profileViewPage.isUserInputEnabled = true
@@ -53,10 +66,6 @@ class ProfileFragment : Fragment() {
         }.attach()
 
         setupTabsAndViewPager()
-
-        binding.btnLogout.setOnClickListener {
-            viewModel.logout()
-        }
     }
 
 
@@ -74,6 +83,23 @@ class ProfileFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun renderProfile() {
+
+        profileImage = binding.profileImage
+        profileName = binding.profileName
+        userName = binding.userName
+        profileDescription = binding.profileDescription
+
+        viewModel.users.observe(viewLifecycleOwner) { user ->
+            profileName.text = user.displayName
+            userName.text = user.username
+            profileDescription.text = user.description
+            Glide.with(this)
+                .load(user.avatarUrl)
+                .into(profileImage)
+        }
     }
 }
 
