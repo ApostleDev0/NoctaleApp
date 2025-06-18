@@ -1,5 +1,6 @@
 package com.example.noctaleapp.viewmodel
 
+import android.R
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -13,7 +14,10 @@ import com.example.noctaleapp.repository.AuthRepository
 import com.example.noctaleapp.repository.BookRepository
 import com.example.noctaleapp.repository.GenreRepository
 import com.example.noctaleapp.repository.UserRepository
+import com.google.firebase.Firebase
 import com.google.firebase.firestore.DocumentSnapshot
+import com.google.firebase.firestore.FieldValue
+import com.google.firebase.firestore.firestore
 
 class HomeViewModel : ViewModel() {
     private val userRepository = UserRepository()
@@ -166,5 +170,50 @@ class HomeViewModel : ViewModel() {
     fun logout() {
         authRepository.signOut()
         _logoutComplete.value = true
+    }
+
+    fun toggleBookInLibrary(uid: String, book: Book,
+                            onResult: (Boolean) -> Unit) {
+        val docRef = Firebase.firestore
+            .collection("users").document(uid)
+            .collection("libraryBooks").document(book.id)
+
+        docRef.get().addOnSuccessListener {
+            document ->
+            if (document.exists()) {
+                docRef.delete().addOnSuccessListener { onResult(false) }
+            } else {
+                val bookData = mapOf(
+                    "title" to book.title,
+                    "author" to book.author,
+                    "coverUrl" to book.coverUrl,
+                    "progressRead" to 0,
+                    "timeAdded" to FieldValue.serverTimestamp()
+                )
+
+                docRef.set(bookData).addOnSuccessListener { onResult(true) }
+            }
+        }
+    }
+
+    fun checkIfBookInLibrary(uid: String,
+                             bookId: String,
+                             callback: (Boolean) -> Unit) {
+        Firebase.firestore
+            .collection("users").document(uid)
+            .collection("libraryBooks").document(bookId)
+            .get().addOnSuccessListener {
+                document ->
+                callback(document.exists())
+            }
+    }
+
+    fun updateReadingProgress(uid: String,
+                              bookId: String,
+                              progress: Int) {
+        Firebase.firestore
+            .collection("users").document(uid)
+            .collection("libraryBooks").document(bookId)
+            .update("progressRead", progress)
     }
 }

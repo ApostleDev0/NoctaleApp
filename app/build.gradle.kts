@@ -66,6 +66,7 @@ dependencies {
     implementation(libs.androidx.legacy.support.v4)
     implementation(libs.androidx.lifecycle.livedata.ktx)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.flexbox)
     implementation(libs.androidx.fragment.ktx)
     implementation(libs.firebase.firestore.ktx)
     implementation(libs.androidx.ui.test.android)
@@ -81,6 +82,7 @@ dependencies {
     implementation(libs.coil.compose)
 
     implementation(libs.ktor.client.okhttp)
+
 
     //noinspection KaptUsageInsteadOfKsp
     kapt(libs.compiler)

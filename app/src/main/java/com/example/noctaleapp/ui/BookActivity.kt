@@ -19,6 +19,7 @@ import android.widget.ImageButton
 import android.widget.ProgressBar
 import com.example.noctaleapp.repository.BookRepository
 import com.example.noctaleapp.viewmodel.BookViewModelFactory
+import com.example.noctaleapp.viewmodel.HomeViewModel
 
 class BookActivity : AppCompatActivity() {
 
@@ -32,10 +33,15 @@ class BookActivity : AppCompatActivity() {
     private lateinit var chapterAdapter: ChapterAdapter
     private lateinit var progressBarBookLoading: ProgressBar
     private lateinit var imgButtonReturn: ImageButton
+    private lateinit var addToLibrary: ImageButton
+
+    private val homeViewModel = HomeViewModel()
 
     private var currentBookIdForNavigation: String? = null // BIẾN MỚI ĐỂ LƯU BOOK ID CHO NAVIGATION
+    private var uId: String = ""
 
     companion object {
+        const val EXTRA_UID = "uid"
         const val EXTRA_BOOK_ID = "extra_book_id"
         const val EXTRA_FOCUS_CHAPTERS = "com.example.noctaleapp.ui.FOCUS_CHAPTER_LIST"
     }
@@ -45,13 +51,16 @@ class BookActivity : AppCompatActivity() {
         setContentView(R.layout.activity_book)
 
         initViews()
+        addToLibrary = findViewById(R.id.addToLibrary)
+
         val receivedBookId = intent.getStringExtra(EXTRA_BOOK_ID)
+        val uid = intent.getStringExtra(EXTRA_UID)
         if (receivedBookId.isNullOrBlank()) {
             Toast.makeText(this, "Book ID không hợp lệ.", Toast.LENGTH_LONG).show()
             finish()
             return
         }
-
+        uId = uid ?: ""
         currentBookIdForNavigation = receivedBookId // LƯU LẠI BOOK ID
 
         setupRecyclerView()
@@ -108,6 +117,20 @@ class BookActivity : AppCompatActivity() {
         }
         bookViewModel.bookDetails.observe(this) { book ->
             if (book != null) {
+                homeViewModel.checkIfBookInLibrary(uId, book.id) {
+                    isInLibrary ->
+                    updateLibraryIcon(isInLibrary)
+
+                    addToLibrary.setOnClickListener {
+                        homeViewModel.toggleBookInLibrary(uId, book) {
+                            updateStatus ->
+                            updateLibraryIcon(updateStatus)
+
+                            val msg = if (updateStatus) "Đã thêm vào thư viện" else "Đã xoá khỏi thư viện"
+                            Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }
                 displayBookInfo(book)
                 textViewChaptersLabel.visibility = View.VISIBLE
                 recyclerViewChapters.visibility = View.VISIBLE
@@ -193,6 +216,14 @@ class BookActivity : AppCompatActivity() {
             layoutManager = LinearLayoutManager(this@BookActivity,
                 LinearLayoutManager.VERTICAL, false) // Bạn đang dùng HORIZONTAL, nếu danh sách chương dài, có thể cân nhắc VERTICAL
             adapter = chapterAdapter
+        }
+    }
+
+    fun updateLibraryIcon(isInLibrary: Boolean) {
+        if (isInLibrary) {
+            addToLibrary.setImageResource(R.drawable.ic_library_added)
+        } else {
+            addToLibrary.setImageResource(R.drawable.ic_library_add)
         }
     }
 }

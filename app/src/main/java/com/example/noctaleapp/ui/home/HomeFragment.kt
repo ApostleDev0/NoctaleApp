@@ -33,6 +33,8 @@ class HomeFragment : Fragment() {
     private lateinit var bookOnReadAuthor: TextView
     private lateinit var bookOnReadImg: ImageView
 
+    private lateinit var uid: String
+
     private lateinit var suggestBooksAdapter: SuggestBooksAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -45,6 +47,7 @@ class HomeFragment : Fragment() {
 
         viewModel.uid.observe(viewLifecycleOwner) { uID ->
             if (uID.isNotEmpty()) {
+                uid = uID
                 if (viewModel.books.value == null) {
                     viewModel.fetchRecentBookByUser(uID)
                 }
@@ -75,6 +78,7 @@ class HomeFragment : Fragment() {
                 book ->
                 val intent = Intent(requireContext(), BookActivity::class.java)
                 intent.putExtra(BookActivity.EXTRA_BOOK_ID, book.id)
+                intent.putExtra(BookActivity.EXTRA_UID, uid)
                 startActivity(intent)
             },
             onReadNowClick = {
