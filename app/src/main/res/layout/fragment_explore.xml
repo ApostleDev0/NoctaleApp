@@ -36,7 +36,8 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textSearch"
-            android:layout_width="match_parent"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="383dp"
             android:layout_height="48dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
@@ -48,7 +49,7 @@
             app:boxCornerRadiusTopStart="20dp"
             app:boxStrokeColor="@color/dark_sea"
             app:endIconDrawable="@drawable/ic_close_v24"
-            app:endIconMinSize="@dimen/cardview_default_elevation"
+            app:endIconMinSize="15dp"
             app:endIconMode="clear_text"
             app:endIconScaleType="fitEnd"
             app:endIconTint="@color/dark_sea_spe"
@@ -59,7 +60,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/welcomeUser"
             app:startIconDrawable="@drawable/ic_search_v24"
-            app:startIconMinSize="?android:attr/buttonCornerRadius"
+            app:startIconMinSize="15dp"
             app:startIconScaleType="fitStart"
             app:startIconTint="@color/dark_sea"
             app:startIconTintMode="src_in">
@@ -76,70 +77,16 @@
                 android:textSize="14sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/historySearch"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/searchResultData"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="32dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textSearch">
-
-            <TextView
-                android:id="@+id/textView11"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/proxima_nova_extrabold"
-                android:text="@string/history_search"
-                android:textColor="@color/dark_cloud"
-                android:textColorLink="@color/dark_cloud"
-                android:textSize="15sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/textView12"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/proxima_nova_semibold"
-                android:text="@string/delete_all"
-                android:textColor="@color/dark_cloud"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <com.google.android.material.chip.ChipGroup
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView11">
-
-            </com.google.android.material.chip.ChipGroup>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/searchResult"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="32dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/historySearch">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/searchResultData"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            app:layout_constraintTop_toBottomOf="@+id/textSearch" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
