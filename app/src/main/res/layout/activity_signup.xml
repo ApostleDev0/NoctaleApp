@@ -62,10 +62,11 @@
             android:id="@+id/linearLayout_signup_form_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
             android:orientation="vertical"
             android:paddingStart="32dp"
-            android:paddingEnd="32dp"
             android:paddingTop="16dp"
+            android:paddingEnd="32dp"
             android:paddingBottom="24dp">
 
             <TextView
@@ -78,20 +79,22 @@
                 android:textColor="#333333"
                 android:textSize="14sp"
                 android:textStyle="bold" />
+
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayout_username_signup"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                app:boxCornerRadiusTopStart="8dp"
-                app:boxCornerRadiusTopEnd="8dp"
-                app:boxCornerRadiusBottomStart="8dp"
-                app:boxCornerRadiusBottomEnd="8dp"
+                android:layout_marginBottom="24dp"
                 app:boxBackgroundColor="#FFFFFF"
+                app:boxCornerRadiusBottomEnd="8dp"
+                app:boxCornerRadiusBottomStart="8dp"
+                app:boxCornerRadiusTopEnd="8dp"
+                app:boxCornerRadiusTopStart="8dp"
                 app:boxStrokeColor="#C0C0C0"
                 app:boxStrokeWidth="1dp"
                 app:hintEnabled="false">
+
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editText_username_signup"
                     android:layout_width="match_parent"
@@ -112,20 +115,22 @@
                 android:textColor="#333333"
                 android:textSize="14sp"
                 android:textStyle="bold" />
+
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayout_email_signup"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                app:boxCornerRadiusTopStart="8dp"
-                app:boxCornerRadiusTopEnd="8dp"
-                app:boxCornerRadiusBottomStart="8dp"
-                app:boxCornerRadiusBottomEnd="8dp"
+                android:layout_marginBottom="24dp"
                 app:boxBackgroundColor="#FFFFFF"
+                app:boxCornerRadiusBottomEnd="8dp"
+                app:boxCornerRadiusBottomStart="8dp"
+                app:boxCornerRadiusTopEnd="8dp"
+                app:boxCornerRadiusTopStart="8dp"
                 app:boxStrokeColor="#C0C0C0"
                 app:boxStrokeWidth="1dp"
                 app:hintEnabled="false">
+
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editText_email_signup"
                     android:layout_width="match_parent"
@@ -145,21 +150,25 @@
                 android:text="@string/phone_number"
                 android:textColor="#333333"
                 android:textSize="14sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:visibility="gone" />
+
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayout_phone_signup"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                app:boxCornerRadiusTopStart="8dp"
-                app:boxCornerRadiusTopEnd="8dp"
-                app:boxCornerRadiusBottomStart="8dp"
-                app:boxCornerRadiusBottomEnd="8dp"
+                android:visibility="gone"
                 app:boxBackgroundColor="#FFFFFF"
+                app:boxCornerRadiusBottomEnd="8dp"
+                app:boxCornerRadiusBottomStart="8dp"
+                app:boxCornerRadiusTopEnd="8dp"
+                app:boxCornerRadiusTopStart="8dp"
                 app:boxStrokeColor="#C0C0C0"
                 app:boxStrokeWidth="1dp"
                 app:hintEnabled="false">
+
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editText_phone_signup"
                     android:layout_width="match_parent"
@@ -180,21 +189,23 @@
                 android:textColor="#333333"
                 android:textSize="14sp"
                 android:textStyle="bold" />
+
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayout_password_signup"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                app:boxCornerRadiusTopStart="8dp"
-                app:boxCornerRadiusTopEnd="8dp"
-                app:boxCornerRadiusBottomStart="8dp"
-                app:boxCornerRadiusBottomEnd="8dp"
+                android:layout_marginBottom="24dp"
                 app:boxBackgroundColor="#FFFFFF"
+                app:boxCornerRadiusBottomEnd="8dp"
+                app:boxCornerRadiusBottomStart="8dp"
+                app:boxCornerRadiusTopEnd="8dp"
+                app:boxCornerRadiusTopStart="8dp"
                 app:boxStrokeColor="#C0C0C0"
                 app:boxStrokeWidth="1dp"
                 app:hintEnabled="false"
                 app:passwordToggleEnabled="true">
+
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editText_password_signup"
                     android:layout_width="match_parent"
@@ -215,21 +226,23 @@
                 android:textColor="#333333"
                 android:textSize="14sp"
                 android:textStyle="bold" />
+
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayout_confirm_password_signup"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="32dp"
-                app:boxCornerRadiusTopStart="8dp"
-                app:boxCornerRadiusTopEnd="8dp"
-                app:boxCornerRadiusBottomStart="8dp"
-                app:boxCornerRadiusBottomEnd="8dp"
                 app:boxBackgroundColor="#FFFFFF"
+                app:boxCornerRadiusBottomEnd="8dp"
+                app:boxCornerRadiusBottomStart="8dp"
+                app:boxCornerRadiusTopEnd="8dp"
+                app:boxCornerRadiusTopStart="8dp"
                 app:boxStrokeColor="#C0C0C0"
                 app:boxStrokeWidth="1dp"
                 app:hintEnabled="false"
                 app:passwordToggleEnabled="true">
+
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editText_confirm_password_signup"
                     android:layout_width="match_parent"
@@ -239,6 +252,7 @@
                     android:padding="14dp"
                     android:textSize="14sp" />
             </com.google.android.material.textfield.TextInputLayout>
+
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_signup_submit"

@@ -61,7 +61,6 @@ class LoginActivity : AppCompatActivity() {
         // Quan sát sự thay đổi trạng thái từ ViewModel
         observeLoginStatus()
 
-
     }
 
     // Hàm trợ giúp chuyển đến MainActivity và xóa các màn hình cũ
