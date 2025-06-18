@@ -57,14 +57,17 @@ class BookActivity : AppCompatActivity() {
 
         val receivedBookId = intent.getStringExtra(EXTRA_BOOK_ID)
         val uid = intent.getStringExtra(EXTRA_UID)
-        if (receivedBookId.isNullOrBlank()) {
+        Log.d("BookActivity", "Received Book ID: $uid")
+        if (receivedBookId.isNullOrBlank()  || uid.isNullOrBlank()) {
             Toast.makeText(this, "Book ID không hợp lệ.", Toast.LENGTH_LONG).show()
             finish()
             return
         }
 
         currentBookIdForNavigation = receivedBookId
-        uId = uid ?: ""
+
+
+        uId = uid
 
         setupRecyclerView()
         val bookRepository = BookRepository()

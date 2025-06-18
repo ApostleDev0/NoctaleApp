@@ -25,6 +25,7 @@ import kotlin.text.isNotBlank
 import android.content.res.Resources
 import android.util.Log
 import androidx.core.content.ContextCompat
+import com.example.noctaleapp.repository.AuthRepository
 
 class ChapterActivity : AppCompatActivity(),ReaderSettingsDialogFragment.ReaderSettingsListener {
 
@@ -36,6 +37,7 @@ class ChapterActivity : AppCompatActivity(),ReaderSettingsDialogFragment.ReaderS
     private lateinit var readerChaptersBtn: ImageButton
     private lateinit var textBookName: TextView
     private lateinit var selectChapterLauncher: ActivityResultLauncher<Intent>
+    private val authRepository = AuthRepository()
 
     private lateinit var chapterViewModel: ChapterViewModel
 
@@ -122,7 +124,6 @@ class ChapterActivity : AppCompatActivity(),ReaderSettingsDialogFragment.ReaderS
     }
 
     private fun displayChapterContent(chapter: Chapter) {
-        // Ví dụ: hiển thị tiêu đề chương ở đầu nội dung
         textBookName.text = chapter.mainTitle
         val contentWithTitle = chapter.content // Giả sử chapter.content là HTML
 
@@ -145,6 +146,8 @@ class ChapterActivity : AppCompatActivity(),ReaderSettingsDialogFragment.ReaderS
             currentBookId?.let { bookId ->
                 val intent = Intent(this, BookActivity::class.java).apply {
                     putExtra(BookActivity.EXTRA_BOOK_ID, bookId)
+                    putExtra(BookActivity.EXTRA_UID, authRepository.getCurrentUser()?.uid ?: "")
+                    Log.d("ChapterActivity", "Starting BookActivity with bookId: $bookId")
                     addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
                 }
                 startActivity(intent)
