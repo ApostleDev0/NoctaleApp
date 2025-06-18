@@ -22,8 +22,11 @@ import com.example.noctaleapp.viewmodel.ChapterViewModelFactory
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import kotlin.text.isNotBlank
+import android.content.res.Resources
+import android.util.Log
+import androidx.core.content.ContextCompat
 
-class ChapterActivity : AppCompatActivity() {
+class ChapterActivity : AppCompatActivity(),ReaderSettingsDialogFragment.ReaderSettingsListener {
 
     // Views từ activity_chapter.xml
     private lateinit var scrollViewReaderContent: ScrollView
@@ -61,6 +64,7 @@ class ChapterActivity : AppCompatActivity() {
         }
 
         initViews()
+        applyReadingSettings()
 
         // Khởi tạo ViewModel
         val chapterRepository = ChapterRepository() // Khởi tạo ChapterRepository
@@ -153,6 +157,7 @@ class ChapterActivity : AppCompatActivity() {
         scrollViewReaderContent.post {
             scrollViewReaderContent.smoothScrollTo(0, 0)
         }
+        applyCurrentSettingsToTextView()
     }
 
     private fun setupBottomMenuListeners() {
@@ -170,11 +175,10 @@ class ChapterActivity : AppCompatActivity() {
         }
 
         readerSettingsBtn.setOnClickListener {
-            Toast.makeText(this, "Mở cài đặt hiển thị (chưa triển khai)", Toast.LENGTH_SHORT).show()
-            // TODO: Mở màn hình/dialog cài đặt hiển thị (font, size, background...)
-            // Ví dụ:
-            // val settingsDialog = DisplaySettingsDialogFragment()
-            // settingsDialog.show(supportFragmentManager, "DisplaySettingsDialog")
+            // Mở dialog cài đặt
+            val settingsDialog = ReaderSettingsDialogFragment.newInstance()
+            // settingsDialog.setReaderSettingsListener(this) // Không cần nếu đã làm trong onAttach
+            settingsDialog.show(supportFragmentManager, ReaderSettingsDialogFragment.TAG)
         }
 
         readerCommentsBtn.setOnClickListener {
@@ -209,6 +213,42 @@ class ChapterActivity : AppCompatActivity() {
                 selectChapterLauncher.launch(intent)
             } ?: Toast.makeText(this, "Không có thông tin sách để mở danh sách chương.", Toast.LENGTH_SHORT).show()
         }
+    }
+    private fun applyCurrentSettingsToTextView() {
+        if (!::textViewReaderContent.isInitialized) return // Kiểm tra nếu view chưa được khởi tạo
+
+        val fontSize = ReadingSettingsManager.getFontSize(this)
+        val textColorResId = ReadingSettingsManager.getTextColorResId(this)
+        val bgColorResId = ReadingSettingsManager.getBgColorResId(this)
+
+        Log.d("ChapterActivity", "Applying settings to TextView: Font=$fontSize, TextColorResId=$textColorResId, BgColorResId=$bgColorResId")
+
+        textViewReaderContent.textSize = fontSize.toFloat()
+        try {
+            textViewReaderContent.setTextColor(ContextCompat.getColor(this, textColorResId))
+            // Thay đổi màu nền của ScrollView hoặc view cha bao quanh nội dung
+            // Hoặc của chính cửa sổ nếu bạn muốn toàn bộ màn hình thay đổi
+            scrollViewReaderContent.setBackgroundColor(ContextCompat.getColor(this, bgColorResId))
+            // Hoặc: window.decorView.setBackgroundColor(ContextCompat.getColor(this, bgColorResId))
+
+        } catch (e: Resources.NotFoundException) {
+            Log.e("ChapterActivity", "Lỗi không tìm thấy resource màu: ${e.message}")
+            // Có thể đặt màu mặc định ở đây nếu cần
+        }
+    }
+
+
+    // Hàm để load và áp dụng cài đặt ban đầu (gọi trong onCreate)
+    private fun applyReadingSettings() {
+        applyCurrentSettingsToTextView()
+    }
+
+    // Implement phương thức từ ReaderSettingsListener
+    override fun onSettingsApplied(fontSize: Int, textColorResId: Int, bgColorResId: Int) {
+        Log.d("ChapterActivity", "Settings applied via listener: Font=$fontSize, TextColorResId=$textColorResId, BgColorResId=$bgColorResId")
+        // Cài đặt đã được lưu bởi DialogFragment
+        // Bây giờ áp dụng chúng ngay lập tức vào UI của ChapterActivity
+        applyCurrentSettingsToTextView()
     }
 
     /**
