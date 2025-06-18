@@ -9,18 +9,15 @@ import com.example.noctaleapp.repository.AuthRepository
 class SignupViewModel: ViewModel() {
     private val repository = AuthRepository()
 
-    // khai báo signupStatus, chỉ có ViewModel này mới được ghi lên
+    // khai báo signupStatus
     private val _signupStatus = MutableLiveData<String>()
-
-    // signupStatus công khai để SignupActivity theo dõi trạng thái
     val signupStatus: LiveData<String> = _signupStatus
 
     //Hàm được gọi từ Activity để bắt đầu quá trình đăng ký
-    fun signUp(username: String, email: String, phone: String, pass: String, confirmPass: String) {
-        // Logic kiểm tra dữ liệu (Validate) nằm ở đây
+    fun signUp(username: String, email: String, pass: String, confirmPass: String) {
 
         // nếu trường nhập dữ liệu trông -> Thông báo lỗi
-        if (username.isEmpty() || email.isEmpty() || phone.isEmpty() || pass.isEmpty() || confirmPass.isEmpty()) {
+        if (username.isEmpty() || email.isEmpty() || pass.isEmpty() || confirmPass.isEmpty()) {
             _signupStatus.value = "${STATUS_ERROR_PREFIX}Vui lòng nhập đầy đủ thông tin."
             return
         }
@@ -44,7 +41,7 @@ class SignupViewModel: ViewModel() {
         _signupStatus.value = STATUS_LOADING
 
         // yêu cầu repository thực hiện đăng ký
-        repository.registerUser(username, email, phone, pass) { isSuccess, message ->
+        repository.registerUser(username, email, "", pass) { isSuccess, message ->
             if (isSuccess) {
                 // Nếu thành công, thông báo thành công
                 _signupStatus.value = STATUS_SUCCESS
