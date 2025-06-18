@@ -12,6 +12,7 @@ class BookRepository {
     private val booksCollection = firestore.collection("books")
     private val chaptersCollection = firestore.collection("chapters")
 
+
     fun getBookById(bookId: String,
                     onSuccess: (Book) -> Unit,
                     onFailure: (Exception) -> Unit) {
@@ -97,7 +98,7 @@ class BookRepository {
         try {
             val querySnapshot = firestore.collection("books").document(bookId)
                 .collection("chapters") // TRUY VẤN SUB-COLLECTION
-                .orderBy("chapterNumber")
+                .orderBy("id")
                 .get()
                 .await()
             return querySnapshot.documents.mapNotNull { documentSnapshot ->

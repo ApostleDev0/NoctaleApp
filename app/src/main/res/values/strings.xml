@@ -104,7 +104,7 @@
     <string name="BackgroundColorC">Vàng</string>
     <string name="ReaderSetting">Cài đặt</string>
     <string name="ApplySetting">Luu thay đổi</string>
-    <string name="x_of_book">x trong 25 truyện</string>
+    <string name="x_of_book">0 trong 25 truyện</string>
     <string name="delete_all">Xóa tất cả</string>
     <string name="follower">Người theo dõi</string>
     <string name="local_save">Tải sách</string>
@@ -115,4 +115,6 @@
     <string name="reader_setting">Tùy Chỉnh</string>
     <string name="ChapterComment">Bình Luận</string>
     <string name="no_book_genres">Bình Luận</string>
+    <string name="button_logout">Đăng xuất</string>
+
 </resources>

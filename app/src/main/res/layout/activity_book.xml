@@ -18,7 +18,7 @@
             android:layout_width="120dp"
             android:layout_height="160dp"
             android:layout_marginTop="16dp"
-            android:contentDescription="@string/book_deatil"
+            android:contentDescription="@string/chapter_list"
             android:scaleType="centerCrop"
             app:layout_constraintDimensionRatio="3:4"
             app:layout_constraintEnd_toEndOf="parent"
@@ -84,8 +84,8 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewChapters"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_width="360dp"
+            android:layout_height="280dp"
             android:orientation="horizontal"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintTop_toBottomOf="@id/textViewChaptersLabel"

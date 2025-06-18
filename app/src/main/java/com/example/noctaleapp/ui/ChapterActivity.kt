@@ -21,6 +21,7 @@ import com.example.noctaleapp.viewmodel.ChapterViewModel
 import com.example.noctaleapp.viewmodel.ChapterViewModelFactory
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import kotlin.text.isNotBlank
 
 class ChapterActivity : AppCompatActivity() {
 
@@ -177,24 +178,32 @@ class ChapterActivity : AppCompatActivity() {
         }
 
         readerCommentsBtn.setOnClickListener {
-            Toast.makeText(this, "Mở bình luận (chưa triển khai)", Toast.LENGTH_SHORT).show()
-            // TODO: Mở màn hình/dialog bình luận cho currentChapterId (hoặc currentBookId)
-            // Ví dụ:
-            // currentChapterId?.let { chapId ->
-            //     val commentsIntent = Intent(this, CommentsActivity::class.java) // Giả sử có CommentsActivity
-            //     commentsIntent.putExtra("CHAPTER_ID", chapId) // Hoặc BOOK_ID tùy theo cách bạn quản lý bình luận
-            //     startActivity(commentsIntent)
-            // }
+            val currentChapter = chapterViewModel.chapterDetails.value // Lấy chương hiện tại từ LiveData
+            if (currentChapter == null) {
+                Toast.makeText(this, "Thông tin chương hiện tại chưa tải xong.", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            // Giả sử Chapter model của bạn có trường nextChapterId
+            val nextChapId = currentChapter.nextChapterId
+
+            if (nextChapId != null && nextChapId.isNotBlank()) {
+                // Kiểm tra currentBookId (nên luôn có ở đây nếu chương đã tải)
+                currentBookId?.let { bookId ->
+                    Toast.makeText(this, "Đang chuyển đến chương tiếp theo...", Toast.LENGTH_SHORT).show()
+                    chapterViewModel.loadChapter(bookId, nextChapId)
+                } ?: Toast.makeText(this, "Lỗi: Không tìm thấy Book ID.", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(this, "Bạn đang ở chương cuối cùng.", Toast.LENGTH_SHORT).show()
+            }
         }
 
         readerChaptersBtn.setOnClickListener {
-            // Lấy giá trị của currentChapterId ra một biến cục bộ
-            val chapterIdForIntent = this.currentChapterId // Hoặc chỉ currentChapterId nếu không có nhầm lẫn
+            val chapterIdForIntent = this.currentChapterId
 
             currentBookId?.let { bookId ->
                 val intent = Intent(this, ReaderPanelActivity::class.java).apply {
                     putExtra(ReaderPanelActivity.EXTRA_BOOK_ID, bookId)
-                    // Sử dụng biến cục bộ ở đây
                     putExtra(ReaderPanelActivity.EXTRA_CURRENT_CHAPTER_ID, chapterIdForIntent)
                 }
                 selectChapterLauncher.launch(intent)

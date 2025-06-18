@@ -1,4 +1,4 @@
-package com.example.noctaleapp.adapter // Hoặc package adapter của bạn
+package com.example.noctaleapp.adapter
 
 import android.view.LayoutInflater
 import android.view.View

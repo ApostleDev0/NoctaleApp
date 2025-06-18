@@ -184,7 +184,7 @@ class BookActivity : AppCompatActivity() {
         }
         recyclerViewChapters.apply {
             layoutManager = LinearLayoutManager(this@BookActivity,
-                LinearLayoutManager.HORIZONTAL, false) // Bạn đang dùng HORIZONTAL, nếu danh sách chương dài, có thể cân nhắc VERTICAL
+                LinearLayoutManager.VERTICAL, false) // Bạn đang dùng HORIZONTAL, nếu danh sách chương dài, có thể cân nhắc VERTICAL
             adapter = chapterAdapter
         }
     }

@@ -51,6 +51,9 @@
         <activity
             android:name=".ui.MainActivity"
             android:exported="false" />
+        <activity
+            android:name=".ui.ReaderPanelActivity"
+            android:exported="false" />
     </application>
 
 </manifest>
