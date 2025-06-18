@@ -57,14 +57,17 @@ class ChapterViewModel(
 
         viewModelScope.launch {
             _isLoading.value = true
-            _error.value = null
+            _error.value = null // Xóa lỗi cũ
 
             try {
+                // 1. Tải chi tiết chương
                 val chapter = chapterRepo.getChapterDetailsSuspend(bookId, chapterId)
                 _chapterDetails.postValue(chapter)
 
                 if (chapter != null) {
-                    if (chapter.chapterNumber > 0) {
+                    // 2. Tải ID chương trước và sau dựa vào chapterNumber
+                    // Đảm bảo model Chapter có trường 'chapterNumber' và nó được điền đúng từ Firestore.
+                    if (chapter.chapterNumber > 0) { // chapterNumber phải > 0 để có thể có chương trước
                         _previousChapterId.postValue(
                             chapterRepo.getPreviousChapterIdSuspend(bookId, chapter.chapterNumber)
                         )
@@ -72,26 +75,35 @@ class ChapterViewModel(
                             chapterRepo.getNextChapterIdSuspend(bookId, chapter.chapterNumber)
                         )
                     } else {
+                        // Nếu chapterNumber không hợp lệ (ví dụ: 0 hoặc âm), không thể xác định
                         _previousChapterId.postValue(null)
                         _nextChapterId.postValue(null)
+                        // Có thể log hoặc đặt một lỗi cụ thể nếu chapterNumber không hợp lệ
+                        // _error.postValue("Thông tin số chương không hợp lệ.")
                     }
                 } else {
+                    // Nếu không tải được chương, không có chương trước/sau
                     _previousChapterId.postValue(null)
                     _nextChapterId.postValue(null)
                     _error.postValue("Không thể tải nội dung chương.")
                 }
 
             } catch (e: Exception) {
+                // Xử lý các lỗi chung khác
                 _chapterDetails.postValue(null)
                 _previousChapterId.postValue(null)
                 _nextChapterId.postValue(null)
                 _error.postValue("Lỗi khi tải chương: ${e.localizedMessage ?: "Lỗi không xác định"}")
+                // android.util.Log.e("ChapterViewModel", "Error loading chapter", e) // Ghi log lỗi
             } finally {
                 _isLoading.value = false
             }
         }
     }
 
+    /**
+     * Xóa thông báo lỗi sau khi đã hiển thị cho người dùng.
+     */
     fun clearErrorMessage() {
         _error.value = null
     }

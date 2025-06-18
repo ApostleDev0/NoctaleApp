@@ -1,4 +1,5 @@
-package com.example.noctaleapp.ui
+// ReadingSettingsManager.kt
+package com.example.noctaleapp.ui // Hoặc package của bạn
 
 import android.content.Context
 import android.content.SharedPreferences
@@ -6,12 +7,14 @@ import android.util.Log
 import com.example.noctaleapp.R // Thay bằng package R của bạn
 
 object ReadingSettingsManager {
-    private const val PREFS_NAME = "NoctaleReaderSettings"
+    private const val PREFS_NAME = "NoctaleReaderSettings" // Đổi tên nếu muốn
     private const val KEY_FONT_SIZE = "fontSize"
     private const val KEY_TEXT_COLOR_RES_ID = "textColorResId"
     private const val KEY_BG_COLOR_RES_ID = "bgColorResId"
 
+    // Giá trị mặc định
     private const val DEFAULT_FONT_SIZE = 18
+    // Bạn cần tạo các màu này trong res/values/colors.xml
     private val DEFAULT_TEXT_COLOR_RES_ID = R.color.default_text_color
     private val DEFAULT_BG_COLOR_RES_ID = R.color.default_bg_color
 

@@ -1,4 +1,4 @@
-package com.example.noctaleapp.ui
+package com.example.noctaleapp.ui // Giả sử context là .ui.BookActivity từ XML
 
 import android.os.Bundle
 import android.view.View
@@ -33,7 +33,7 @@ class BookActivity : AppCompatActivity() {
     private lateinit var chapterAdapter: ChapterAdapter
     private lateinit var progressBarBookLoading: ProgressBar
 
-    private var currentBookIdForNavigation: String? = null
+    private var currentBookIdForNavigation: String? = null // BIẾN MỚI ĐỂ LƯU BOOK ID CHO NAVIGATION
 
     companion object {
         const val EXTRA_BOOK_ID = "extra_book_id"
@@ -52,15 +52,16 @@ class BookActivity : AppCompatActivity() {
             return
         }
 
-        currentBookIdForNavigation = receivedBookId
+        currentBookIdForNavigation = receivedBookId // LƯU LẠI BOOK ID
 
         setupRecyclerView()
-        val bookRepository = BookRepository()
-        val genreRepository = GenreRepository()
+        val bookRepository = BookRepository() // <--- TẠO REPOSITORY
+        // Trong BookActivity.onCreate
+        val genreRepository = GenreRepository() // Instance của bạn
         val factory = BookViewModelFactory(bookRepository, genreRepository)
         bookViewModel = ViewModelProvider(this, factory)[BookViewModel::class.java]
-        val viewModelFactory = BookViewModelFactory(bookRepository, genreRepository)
-        bookViewModel = ViewModelProvider(this, viewModelFactory)[BookViewModel::class.java]
+        val viewModelFactory = BookViewModelFactory(bookRepository, genreRepository) // <--- TẠO FACTORY
+        bookViewModel = ViewModelProvider(this, viewModelFactory)[BookViewModel::class.java] // <--- KHỞI TẠO VIEWMODEL
 
         val bookId = intent.getStringExtra(EXTRA_BOOK_ID)
         val shouldFocusChapters = intent.getBooleanExtra(EXTRA_FOCUS_CHAPTERS, false)
@@ -93,8 +94,14 @@ class BookActivity : AppCompatActivity() {
         bookViewModel.isLoadingBook.observe(this) { isLoading ->
             if (isLoading) {
                 progressBarBookLoading.visibility = View.VISIBLE
+                // Bạn có thể ẩn các view thông tin sách ở đây nếu muốn
+                // imageViewBookCover.visibility = View.GONE
+                // textViewBookTitle.visibility = View.GONE
+                // ...
             } else {
                 progressBarBookLoading.visibility = View.GONE
+                // Hiển thị lại các view thông tin sách nếu bạn đã ẩn chúng
+                // (Mặc dù việc hiển thị chúng sẽ được xử lý khi bookDetails có dữ liệu)
             }
         }
         bookViewModel.bookDetails.observe(this) { book ->
@@ -105,7 +112,7 @@ class BookActivity : AppCompatActivity() {
                 imageViewBookCover.visibility = View.VISIBLE
                 textViewBookTitle.visibility = View.VISIBLE
             } else {
-                imageViewBookCover.visibility = View.GONE
+                imageViewBookCover.visibility = View.GONE // Hoặc đặt ảnh placeholder
                 textViewBookTitle.text = getString(R.string.not_found_result)
                 textViewChaptersLabel.visibility = View.GONE
                 recyclerViewChapters.visibility = View.GONE
@@ -124,6 +131,9 @@ class BookActivity : AppCompatActivity() {
         }
 
         bookViewModel.isLoadingChapters.observe(this) { isLoading ->
+            // Tương tự, bạn có thể có một ProgressBar riêng cho việc tải chapter
+            // if (isLoading) { /* show chapter progress */ } else { /* hide chapter progress */ }
+            // Và cập nhật visibility của recyclerViewChapters/textViewChaptersLabel
             if (isLoading || bookViewModel.chapters.value?.isNotEmpty() == true) {
                 textViewChaptersLabel.visibility = View.VISIBLE
                 recyclerViewChapters.visibility = View.VISIBLE
@@ -141,12 +151,15 @@ class BookActivity : AppCompatActivity() {
             }
         }
         bookViewModel.allGenres.observe(this) { genres ->
+            // Khi danh sách thể loại được tải, nếu sách đã có, cập nhật lại thông tin hiển thị
             if (bookViewModel.bookDetails.value != null && genres != null) {
                 displayBookInfo(bookViewModel.bookDetails.value!!)
             }
         }
 
         bookViewModel.isLoadingGenres.observe(this) { isLoading ->
+            // Nếu bạn có một ProgressBar riêng cho việc tải thể loại
+            // hoặc cập nhật textViewBookGenre để hiển thị "Đang tải..."
             if (isLoading && bookViewModel.bookDetails.value?.genres?.isNotEmpty() == true) {
                 if (textViewBookGenre.text.toString().contains("Không có") || textViewBookGenre.text.toString().contains("Không xác định")) {
                     textViewBookGenre.text = "Thể loại: Đang tải..."
@@ -157,13 +170,15 @@ class BookActivity : AppCompatActivity() {
 
     private fun displayBookInfo(book: Book) {
         textViewBookTitle.text = book.title
-        val genreNames = bookViewModel.getGenreNamesForCurrentBook()
+        val genreNames = bookViewModel.getGenreNamesForCurrentBook() // ViewModel đã có bookDetails hiện tại
 
         if (genreNames.isNotEmpty()) {
             textViewBookGenre.text = "Thể loại: ${genreNames.joinToString(", ")}"
         } else if (book.genres.isNotEmpty() && (bookViewModel.allGenres.value.isNullOrEmpty() && bookViewModel.isLoadingGenres.value == true)) {
+            // Có ID thể loại, nhưng danh sách allGenres chưa tải xong và ĐANG tải
             textViewBookGenre.text = "Thể loại: Đang tải..."
         } else if (book.genres.isNotEmpty() && bookViewModel.allGenres.value.isNullOrEmpty()) {
+            // Có ID thể loại, nhưng không lấy được tên (có thể do lỗi tải allGenres hoặc không khớp ID)
             textViewBookGenre.text = "Thể loại: Không xác định"
             Log.w("BookActivity", "Book has genre IDs but no names resolved. Genre IDs: ${book.genres}, AllGenres loaded: ${bookViewModel.allGenres.value?.size ?: 0}")
         }
@@ -181,18 +196,21 @@ class BookActivity : AppCompatActivity() {
 
     private fun openChapterActivity(bookId: String, chapterId: String) {
         val intent = Intent(this, ChapterActivity::class.java).apply {
-            putExtra(ChapterActivity.EXTRA_BOOK_ID, bookId)
-            putExtra(ChapterActivity.EXTRA_CHAPTER_ID, chapterId)
+            putExtra(ChapterActivity.EXTRA_BOOK_ID, bookId) // Sử dụng const từ ChapterActivity
+            putExtra(ChapterActivity.EXTRA_CHAPTER_ID, chapterId) // Sử dụng const từ ChapterActivity
         }
         startActivity(intent)
     }
 
 
     private fun setupRecyclerView() {
-        chapterAdapter = ChapterAdapter { selectedChapter ->
-            currentBookIdForNavigation?.let { bookId ->
+        chapterAdapter = ChapterAdapter { selectedChapter -> // selectedChapter ở đây là đối tượng Chapter
+            // Toast.makeText(this, "Clicked (RecyclerView): ${selectedChapter.mainTitle}", Toast.LENGTH_SHORT).show()
 
-                if (selectedChapter.id.isNotBlank()) {
+            // THAY ĐỔI Ở ĐÂY: Gọi openChapterActivity
+            currentBookIdForNavigation?.let { bookId ->
+                // Giả sử model Chapter của bạn có trường 'id' là ID của chương
+                if (selectedChapter.id.isNotBlank()) { // Đảm bảo chapter ID hợp lệ
                     openChapterActivity(bookId, selectedChapter.id)
                 } else {
                     Toast.makeText(this, "Chapter ID không hợp lệ.", Toast.LENGTH_SHORT).show()
@@ -201,7 +219,8 @@ class BookActivity : AppCompatActivity() {
         }
         recyclerViewChapters.apply {
             layoutManager = LinearLayoutManager(this@BookActivity,
-                LinearLayoutManager.VERTICAL, false)
+                LinearLayoutManager.VERTICAL, false) // Bạn đang dùng HORIZONTAL, nếu danh sách chương dài, có thể cân nhắc VERTICAL
+            adapter = chapterAdapter
         }
     }
 }

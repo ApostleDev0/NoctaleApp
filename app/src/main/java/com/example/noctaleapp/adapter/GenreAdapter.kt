@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.compose.ui.test.isSelected
 import androidx.recyclerview.widget.RecyclerView
 import com.example.noctaleapp.databinding.ItemGenreBinding
 import com.example.noctaleapp.model.Genre

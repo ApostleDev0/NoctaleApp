@@ -97,7 +97,7 @@ class BookRepository {
     suspend fun getChaptersForBookSuspend(bookId: String): List<Chapter> {
         try {
             val querySnapshot = firestore.collection("books").document(bookId)
-                .collection("chapters")
+                .collection("chapters") // TRUY VẤN SUB-COLLECTION
                 .orderBy("id")
                 .get()
                 .await()
