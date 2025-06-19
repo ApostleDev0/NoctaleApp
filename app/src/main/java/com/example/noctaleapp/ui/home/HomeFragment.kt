@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.activityViewModels
@@ -32,6 +33,7 @@ class HomeFragment : Fragment() {
     private lateinit var bookOnReadName: TextView
     private lateinit var bookOnReadAuthor: TextView
     private lateinit var bookOnReadImg: ImageView
+    private lateinit var continueReadingBtn: Button
 
     private lateinit var uid: String
 
@@ -57,12 +59,10 @@ class HomeFragment : Fragment() {
             }
         }
 
+
         hiUser()
         renderRecentBook()
         renderGenresLayout()
-
-//        viewModel.books.observe(viewLifecycleOwner) {}
-
         viewModel.fetchSuggestBooks()
         renderSuggestBooks()
     }
@@ -158,19 +158,27 @@ class HomeFragment : Fragment() {
         bookOnReadName = binding.bookOnReadName
         bookOnReadAuthor = binding.bookOnReadAuthor
         bookOnReadImg = binding.bookOnReadImg
-
-        if (viewModel.books.value != null) {
-            binding.recentBookLayout.visibility = View.VISIBLE
-        } else {
-            binding.recentBookLayout.visibility = View.GONE
-        }
+        continueReadingBtn = binding.continueReadingBtn
 
         viewModel.books.observe(viewLifecycleOwner) { bookData ->
+            Log.d("RecentBook", "Recent book loaded: ${bookData.title}")
             bookOnReadName.text = bookData.title
             bookOnReadAuthor.text = "Tác giả: ${bookData.author}"
             Glide.with(this)
                 .load(bookData.coverUrl)
                 .into(bookOnReadImg)
+
+            if (viewModel.books.value != null) {
+                binding.recentBookLayout.visibility = View.VISIBLE
+            } else {
+                binding.recentBookLayout.visibility = View.GONE
+            }
+            continueReadingBtn.setOnClickListener {
+                val intent = Intent(requireContext(), ChapterActivity::class.java)
+                intent.putExtra(ChapterActivity.EXTRA_BOOK_ID, bookData.id)
+                intent.putExtra(ChapterActivity.EXTRA_CHAPTER_ID, "1_${bookData.id}")
+                startActivity(intent)
+            }
         }
     }
 

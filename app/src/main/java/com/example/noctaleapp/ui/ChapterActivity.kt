@@ -26,6 +26,8 @@ import android.content.res.Resources
 import android.util.Log
 import androidx.core.content.ContextCompat
 import com.example.noctaleapp.repository.AuthRepository
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.SetOptions
 
 class ChapterActivity : AppCompatActivity(),ReaderSettingsDialogFragment.ReaderSettingsListener {
 
@@ -124,6 +126,25 @@ class ChapterActivity : AppCompatActivity(),ReaderSettingsDialogFragment.ReaderS
     }
 
     private fun displayChapterContent(chapter: Chapter) {
+        val newRecentReadingData = hashMapOf(
+            "bookId" to currentBookId,
+            "chapterId" to currentChapterId,
+            "currentPage" to 0
+        )
+
+        val docData = hashMapOf<String, Any>(
+            "recentReading" to newRecentReadingData
+        )
+
+        FirebaseFirestore.getInstance().collection("users").document(authRepository.getCurrentUser()?.uid ?: "")
+            .update(docData as Map<String, Any>)
+            .addOnSuccessListener {
+                Log.d("Firestore", "Entire 'recentReading' map created/replaced (merged) successfully!")
+            }
+            .addOnFailureListener { e ->
+                Log.e("Firestore", "Error creating/replacing 'recentReading' map (merged)", e)
+            }
+
         textBookName.text = chapter.mainTitle
         val contentWithTitle = chapter.content // Giả sử chapter.content là HTML
 

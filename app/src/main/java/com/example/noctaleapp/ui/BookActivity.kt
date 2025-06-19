@@ -22,6 +22,7 @@ import com.example.noctaleapp.repository.BookRepository
 import com.example.noctaleapp.viewmodel.BookViewModelFactory
 import com.example.noctaleapp.viewmodel.HomeViewModel
 import com.example.noctaleapp.repository.GenreRepository
+import com.google.firebase.firestore.FirebaseFirestore
 
 class BookActivity : AppCompatActivity() {
 
